@@ -119,11 +119,51 @@
     <Import Include="System.Collections.Generic" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassVBA.vb" />
+    <Compile Include="Constants.vb" />
+    <Compile Include="CreatingTable.vb" />
+    <Compile Include="forms\dlgFromFile.Designer.vb" />
+    <Compile Include="forms\dlgFromFile.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\dlgIntellInput.Designer.vb" />
+    <Compile Include="forms\dlgIntellInput.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\dlgLinkData.Designer.vb" />
+    <Compile Include="forms\dlgLinkData.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\dlgNewTable.Designer.vb" />
+    <Compile Include="forms\dlgNewTable.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\dlgPictures.Designer.vb" />
+    <Compile Include="forms\dlgPictures.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\dlgSelectFromList.Designer.vb" />
+    <Compile Include="forms\dlgSelectFromList.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\dlgSortTable.Designer.vb" />
+    <Compile Include="forms\dlgSortTable.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\dlgTableSize.Designer.vb" />
+    <Compile Include="forms\dlgTableSize.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\dlgWait.Designer.vb" />
+    <Compile Include="forms\dlgWait.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="ThisAddIn.vb">
       <SubType>Code</SubType>
     </Compile>
     <AppDesigner Include="My Project\" />
+    <Compile Include="VisioTable.vb" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -143,6 +183,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="forms\dlgFromFile.resx" />
+    <EmbeddedResource Include="forms\dlgIntellInput.resx" />
+    <EmbeddedResource Include="forms\dlgLinkData.resx" />
+    <EmbeddedResource Include="forms\dlgNewTable.resx" />
+    <EmbeddedResource Include="forms\dlgPictures.resx" />
+    <EmbeddedResource Include="forms\dlgSelectFromList.resx" />
+    <EmbeddedResource Include="forms\dlgSortTable.resx" />
+    <EmbeddedResource Include="forms\dlgTableSize.resx" />
+    <EmbeddedResource Include="forms\dlgWait.resx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>

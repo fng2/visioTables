@@ -31,11 +31,11 @@ Public Partial Class AddinUI
     End Function
 
     Public Sub OnRibbonButtonCheckClick(control As Microsoft.Office.Core.IRibbonControl, pressed As Boolean)
-        Globals.ThisAddIn.OnCommand(control.Id)
+        Globals.ThisAddIn.OnCommand(control.Id, control.Tag)
     End Sub
 
     Public Sub OnRibbonButtonClick(control As Microsoft.Office.Core.IRibbonControl)
-        Globals.ThisAddIn.OnCommand(control.Id)
+        Globals.ThisAddIn.OnCommand(control.Id, control.Tag)
     End Sub
 
     Public Function OnGetRibbonLabel(control As Microsoft.Office.Core.IRibbonControl) As String
