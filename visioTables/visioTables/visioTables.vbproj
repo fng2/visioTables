@@ -122,6 +122,7 @@
     <Compile Include="ClassVBA.vb" />
     <Compile Include="Constants.vb" />
     <Compile Include="CreatingTable.vb" />
+    <Compile Include="EditTable.vb" />
     <Compile Include="forms\dlgFromFile.Designer.vb" />
     <Compile Include="forms\dlgFromFile.vb">
       <SubType>Form</SubType>

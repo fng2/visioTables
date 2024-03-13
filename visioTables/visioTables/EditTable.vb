@@ -8,8 +8,6 @@ Imports System.Windows.Forms
 Public Class EditTable
 
 
-    'added a lot of Convert.ToInt32()
-
 #Region "List Of Fields"
 
 #End Region
@@ -21,6 +19,7 @@ Public Class EditTable
     Private pageObj As Visio.Page = vsoApp.ActivePage
     Private shpsObj As Visio.Shapes = pageObj.Shapes
     Private shpObj As Visio.Shape
+    Private vsoSelection As Visio.Selection
 
     'see the constants class
     Public Shared ReadOnly PX As String = "PinX"
@@ -29,6 +28,15 @@ Public Class EditTable
     Public Shared ReadOnly HE As String = "Height"
     Public Shared ReadOnly LD As String = "LockDelete"
     Public Shared ReadOnly GU As String = "=GUARD("
+
+    'newly added
+    Dim Shp As Visio.Shape
+    Dim vsoSel As Visio.Selection = Nothing
+    Dim UT As String = String.Empty
+    Dim NoDupes As New Collection
+    Dim selObj As Visio.Selection
+    Dim MemSel As Visio.Shape
+
 
 #End Region
 
@@ -40,7 +48,18 @@ Public Class EditTable
     End Sub
 
 
-    Sub SelCell(arg As Byte) ' Выделение(разное) ячеек таблицы
+    Public Sub NotDublicate()
+        'Dim Shp As Visio.Shape
+        'Dim vsoSel As Visio.Selection = Nothing
+        'Dim UT As String = String.Empty
+        'Dim NoDupes As New Collection
+
+        For Each Shp In vsoSel
+            NoDupes.Add(Shp.Cells(UT).Result(""), CStr(Shp.Cells(UT).Result("")))
+        Next
+    End Sub
+
+    Public Sub SelCell(arg As Byte) ' Выделение(разное) ячеек таблицы
 
         Dim vsoSel As Visio.Selection
         Dim shpObj As Visio.Shape
@@ -69,11 +88,11 @@ Public Class EditTable
         '                       On Error GoTo 0
         '                   End Sub
 
-        Dim NotDublicate = Sub()
-                               For Each Shp In vsoSel
-                                   NoDupes.Add(Shp.Cells(UT).Result(""), CStr(Shp.Cells(UT).Result("")))
-                               Next
-                           End Sub
+        'Dim NotDublicate = Sub()
+        '                       For Each Shp In vsoSel
+        '                           NoDupes.Add(Shp.Cells(UT).Result(""), CStr(Shp.Cells(UT).Result("")))
+        '                       Next
+        '                   End Sub
 
 
         'If arg = 4 Or arg = 5 Then
@@ -353,7 +372,8 @@ err:
             If nRow <> Convert.ToInt32(shpsObj.Item(NT).Cells(UTR)) Then
                 shpsObj.ItemFromID(ArrShapeID(0, vs(1).Cells(UTR).Result("") + 1)).Cells(PY).FormulaForceU = GU & vsoDups(1).Name & "!PinY-(" & vsoDups(1).Name & "!Height/2)-(Height/2))"
                 For i = nRow + 1 To UBound(ArrShapeID, 2) ' Перенумерация управляющих ячеек
-                    shpsObj.ItemFromID(ArrShapeID(0, i)).Cells(UTR).FormulaForceU = GU & shpsObj.ItemFromID(ArrShapeID(0, i)).Cells(UTR) + 1 & ")"
+                    'shpsObj.ItemFromID(ArrShapeID(0, i)).Cells(UTR).FormulaForceU = GU & shpsObj.ItemFromID(ArrShapeID(0, i)).Cells(UTR) + 1 & ")"
+                    shpsObj.ItemFromID(ArrShapeID(0, i)).Cells(UTR).FormulaForceU = GU & shpsObj.ItemFromID(ArrShapeID(0, i)).Cells(UTR).ToString + 1 & ")"
                 Next
             End If
         End If
@@ -483,9 +503,15 @@ errD:
         Next
 
         'FIX BUG
+        'With winObj.Selection(1)
+        '    .Cells(PX) = dblLeft + (.Cells(PX))
+        '    .Cells(PY) = dblBottom - (.Cells(PY))
+        '    .Name = NT
+        'End With
+
         With winObj.Selection(1)
-            .Cells(PX) = dblLeft + (.Cells(PX))
-            .Cells(PY) = dblBottom - (.Cells(PY))
+            .Cells(PX).FormulaForceU = Convert.ToString(dblLeft + (.Cells(PX).Result(Visio.VisUnitCodes.visNoCast)))
+            .Cells(PY).FormulaForceU = Convert.ToString(dblBottom - (.Cells(PY).Result(Visio.VisUnitCodes.visNoCast)))
             .Name = NT
         End With
 
@@ -588,9 +614,9 @@ err:
                         End Sub
 
         Select Case arg ' Надо поправить RecUndo
-            Case 0 : txt = InputBox("Вставить текст", title, "Текст...") : Call TextInsert
-            Case 1 : txt = InputBox("Вставить дату", title, Date) : Call TextInsert
-            Case 2 : txt = InputBox("Вставить время", title, Time) : Call TextInsert
+            Case 0 : txt = InputBox("Вставить текст", title, "Текст...") : Call TextInsert()
+            Case 1 : txt = InputBox("Вставить дату", title, Date.Today) : Call TextInsert()
+            Case 2 : txt = InputBox("Вставить время", title, Date.Today.Hour) : Call TextInsert
             Case 3
                 msgComm = "0 - Восстановить по умолчанию" & vbCrLf & "1 - Текст ячейки в комментарий" & vbCrLf & "2 - Текст комментария в ячейку" & vbCrLf
                 txt = InputBox("Комментарии:" & vbCrLf & msgComm, title, "Комментарий...")
@@ -737,7 +763,8 @@ Sub1: 'what is this???
         Call InitArrShapeID(NT)
 
         Dim CLPB As New DataObject, ShapeObj As Visio.Shape
-        Dim arrId() As String, arrTMP() As String, arrTMP1() As String, txt As String
+        'Dim arrId() As String, arrTMP() As String, arrTMP1() As String, txt As String 'error redimming arrId
+        Dim arrId(,) As String, arrTMP() As String, arrTMP1() As String, txt As String
         Dim i As Integer, j As Integer
 
         On Error GoTo err
@@ -748,6 +775,7 @@ Sub1: 'what is this???
         arrTMP1 = Split(arrTMP(0), vbTab)
 
         ReDim arrId(UBound(arrTMP, 1) - 1, UBound(arrTMP1, 1))
+
         For i = LBound(arrId, 1) To UBound(arrId, 1)
             arrTMP1 = Split(arrTMP(i), vbTab)
             For j = LBound(arrTMP1, 1) To UBound(arrTMP1, 1)
@@ -755,7 +783,7 @@ Sub1: 'what is this???
             Next
         Next
 
-        ShapeObj = winObj.Selection(1) : shpsObj = ActivePage.Shapes
+        ShapeObj = winObj.Selection(1) : shpsObj = Globals.ThisAddIn.Application.ActivePage.Shapes
 
         On Error Resume Next
 
@@ -763,7 +791,9 @@ Sub1: 'what is this???
 
         For i = LBound(arrId, 1) To UBound(arrId, 1)
             For j = LBound(arrId, 2) To UBound(arrId, 2)
-                With shpsObj.ItemFromID(ArrShapeID(j + ShapeObj.Cells(UTC), i + ShapeObj.Cells(UTR)))
+                'FIX BUG
+                'With shpsObj.ItemFromID(ArrShapeID(j + ShapeObj.Cells(UTC), i + ShapeObj.Cells(UTR)))
+                With shpsObj.ItemFromID(ArrShapeID(j + ShapeObj.Cells(UTC).ResultInt(Visio.VisUnitCodes.visNoCast, 0), i + ShapeObj.Cells(UTR).ResultInt(Visio.VisUnitCodes.visNoCast, 0)))
                     .Characters.Text = arrId(i, j)
                 End With
             Next
@@ -843,8 +873,10 @@ intRowStartSourse, booInvisibleZero, intCountRowSourse, intCountColSourse, booFo
 
                 Call IntegrateCells(vsoSel)
                 shpObj = shpsObj.ItemFromID(GetShapeId(1, 1))
+                'FIX BUG
+                'frmlinkdata not declared
+                'shpObj.Characters.Text = frmLinkData.txtNameTable.Text
 
-                shpObj.Characters.Text = frmLinkData.txtNameTable.Text
                 'If booFontBold Then shpObj.CellsSRC(3, 0, visCharacterStyle).FormulaU = visBold
                 'If booFontBold Then shpObj.CellsSRC(3, 0, Visio.VisCellIndices.visCharacterStyle).FormulaU = visBold
                 If booFontBold Then shpObj.CellsSRC(3, 0, Visio.VisCellIndices.visCharacterStyle).FormulaU = 17.0#
@@ -898,15 +930,18 @@ intRowStartSourse, booInvisibleZero, intCountRowSourse, intCountColSourse, booFo
 
             shpObj = vsoSel(i)
             With shpObj
-                .DeleteSection(visSectionProp)
-                intCountCur = .Cells(UTR) - intRowStart + intRowStartSourse - 1
+                '.DeleteSection(visSectionProp)
+                .DeleteSection(Visio.VisSectionIndices.visSectionProp)
+                intCountCur = .Cells(UTR).Result(Visio.VisUnitCodes.visNoCast) - intRowStart + intRowStartSourse - 1
                 .LinkToData(vsoDataRecordset.ID, intCountCur, False)
 
-                For j = 0 To .RowCount(Visio.visSectionProp)
-                    If .Cells(UTC) = j + 1 And .Cells(UTC) <= intCountColSourse Then
-                        .Characters.AddCustomFieldU("=" & .CellsSRC(Visio.visSectionProp, j, visCustPropsValue).Name, visFmtNumGenNoUnits)
+                For j = 0 To .RowCount(Visio.VisSectionIndices.visSectionProp)
+                    If .Cells(UTC).Result(Visio.VisUnitCodes.visNoCast) = j + 1 And .Cells(UTC).Result(Visio.VisUnitCodes.visNoCast) <= intCountColSourse Then
+                        '.Characters.AddCustomFieldU("=" & .CellsSRC(Visio.visSectionProp, j, visCustPropsValue).Name, visFmtNumGenNoUnits)
+                        .Characters.AddCustomFieldU("=" & .CellsSRC(Visio.VisSectionIndices.visSectionProp, j, Visio.VisCellIndices.visCustPropsValue).Name, Visio.VisFieldFormats.visFmtNumGenNoUnits)
                         If booInvisibleZero Then
-                            .Cells("Fields.Format").FormulaU = "=IF(" & .CellsSRC(Visio.visSectionProp, j, visCustPropsValue).Name & ".Type=2,IF(" & .CellsSRC(Visio.visSectionProp, j, visCustPropsValue).Name & "=0," & """#""" & ",FIELDPICTURE(0)),FIELDPICTURE(0))"
+                            '.Cells("Fields.Format").FormulaU = "=IF(" & .CellsSRC(Visio.visSectionProp, j, visCustPropsValue).Name & ".Type=2,IF(" & .CellsSRC(Visio.visSectionProp, j, visCustPropsValue).Name & "=0," & """#""" & ",FIELDPICTURE(0)),FIELDPICTURE(0))"
+                            .Cells("Fields.Format").FormulaU = "=IF(" & .CellsSRC(Visio.VisSectionIndices.visSectionProp, j, Visio.VisCellIndices.visCustPropsValue).Name & ".Type=2,IF(" & .CellsSRC(Visio.VisSectionIndices.visSectionProp, j, Visio.VisCellIndices.visCustPropsValue).Name & "=0," & """#""" & ",FIELDPICTURE(0)),FIELDPICTURE(0))"
                         Else
                             .Cells("Fields.Format").FormulaU = "=" & "FIELDPICTURE(0)"
                         End If
@@ -1038,10 +1073,10 @@ NotDublicate:  ' Заполнение коллекции значениями б
         Dim Shp As Visio.Shape, ShNum As Integer, iCount As Integer, bytColumnOrRow As Byte
         Dim UT As String
 
-        winObj = ActiveWindow : shpsObj = winObj.Page.Shapes : vsoSel = winObj.Selection
+        winObj = Globals.ThisAddIn.Application.ActiveWindow : shpsObj = winObj.Page.Shapes : vsoSel = winObj.Selection
         Call InitArrShapeID(NT)
 
-        Application.ShowChanges = False
+        Globals.ThisAddIn.Application.ShowChanges = False
 
         With shpsObj
             '---------------------------------------------------------------------------------------
@@ -1049,7 +1084,7 @@ NotDublicate:  ' Заполнение коллекции значениями б
                 bytColumnOrRow = 4
                 Call RecUndo("Выровнять все по ширине текста")
                 For iCount = 1 To UBound(ArrShapeID, 1)
-                    ShNum = .ItemFromID(ArrShapeID(iCount, 0)).Cells(UTC) : Call AlignOnText(ShNum, bytColumnOrRow, bytNothingOrAutoOrLockColumns)
+                    ShNum = .ItemFromID(ArrShapeID(iCount, 0)).Cells(UTC).Result(Visio.VisUnitCodes.visNoCast) : Call AlignOnText(ShNum, bytColumnOrRow, bytNothingOrAutoOrLockColumns)
                 Next
                 Call RecUndo("0")
             End If '--------------------------------------------------------------------------------
@@ -1058,7 +1093,7 @@ NotDublicate:  ' Заполнение коллекции значениями б
                 bytColumnOrRow = 5
                 Call RecUndo("Выровнять все по высоте текста")
                 For iCount = 1 To UBound(ArrShapeID, 2)
-                    ShNum = .ItemFromID(ArrShapeID(0, iCount)).Cells(UTR) : Call AlignOnText(ShNum, bytColumnOrRow, bytNothingOrAutoOrLockRows)
+                    ShNum = .ItemFromID(ArrShapeID(0, iCount)).Cells(UTR).Result(Visio.VisUnitCodes.visNoCast) : Call AlignOnText(ShNum, bytColumnOrRow, bytNothingOrAutoOrLockRows)
                 Next
                 Call RecUndo("0")
             End If '--------------------------------------------------------------------------------
@@ -1085,7 +1120,7 @@ NotDublicate:  ' Заполнение коллекции значениями б
             '---------------------------------------------------------------------------------------
         End With
 
-        Application.ShowChanges = True
+        Globals.ThisAddIn.Application.ShowChanges = True
         winObj.Selection = vsoSel
 
         Exit Sub
@@ -1093,19 +1128,20 @@ NotDublicate:  ' Заполнение коллекции значениями б
 NotDublicate:  ' Заполнение коллекции значениями без дубликатов
         On Error Resume Next
         For Each Shp In vsoSel
-            NoDupes.Add(Shp.Cells(UT).Result(""), CStr(Shp.Cells(UT)))
+            NoDupes.Add(Shp.Cells(UT).Result(""), CStr(Shp.Cells(UT).Result(Visio.VisUnitCodes.visNoCast)))
         Next
         On Error GoTo 0
         Return
     End Sub
 
-    Private Sub AlignOnText() '(ShNum As Integer, bytColumnOrRow, Optional bytNothingOrAutoOrLock)
+    'Private Sub AlignOnText(ShNum As Integer, bytColumnOrRow, Optional bytNothingOrAutoOrLock)
+    Private Sub AlignOnText(ShNum, bytColumnOrRow, Optional bytNothingOrAutoOrLock = Nothing)
         ' Выравнивание/автовыравнивание ячеек таблицы по ширине/высоте текста. Основная процедура
 
         Dim cellName As String, txt As String, txt1 As String, txt2 As String, lentxt As Integer
         Dim intCount As Integer, iC As Integer, iR As Integer
 
-        If IsMissing(bytNothingOrAutoOrLock) Then bytNothingOrAutoOrLock = 0
+        'If IsMissing(bytNothingOrAutoOrLock) Then bytNothingOrAutoOrLock = 0 'IsMissing does not exist anywhere!
 
         Select Case bytColumnOrRow
             Case 4
@@ -1140,11 +1176,12 @@ NotDublicate:  ' Заполнение коллекции значениями б
     Sub LockPicture(hAL, Val, shN, lF) ' Закрепление изображений в ячейках таблицы
         ' hAL - выравнивание по горизонтали(1-3), vAL - выравнивание по вертикали(1-3)
         ' shN - помещать названия(0,1),lF - блокировать формулы(True,False)
-        Dim vsoSel As Visio.Selection, shpObj As Visio.Shape, resvar As VisSpatialRelationCodes
+        'Dim vsoSel As Visio.Selection, shpObj As Visio.Shape, resvar As VisSpatialRelationCodes
+        Dim vsoSel As Visio.Selection, shpObj As Visio.Shape, resvar As Visio.VisSpatialRelationCodes
         Dim shpObj1 As Visio.Shape, strH As String, strV As String
         Dim cnt As Integer, strL As String, strL1 As String, intDot As Integer
 
-        shpsObj = ActivePage.Shapes : vsoSel = ActiveWindow.Selection
+        shpsObj = Globals.ThisAddIn.Application.ActivePage.Shapes : vsoSel = Globals.ThisAddIn.Application.ActiveWindow.Selection
 
         Select Case hAL
             Case 1
@@ -1177,7 +1214,8 @@ NotDublicate:  ' Заполнение коллекции значениями б
             If shpObj.CellExistsU(UTN, 0) Then
                 For Each shpObj1 In shpsObj
                     If Not shpObj1.CellExistsU(UTN, 0) Then
-                        resvar = shpObj1.SpatialRelation(shpObj, 0, visSpatialIncludeHidden)
+                        'resvar = shpObj1.SpatialRelation(shpObj, 0, visSpatialIncludeHidden)
+                        resvar = shpObj1.SpatialRelation(shpObj, 0, Visio.VisSpatialRelationFlags.visSpatialIncludeHidden)
                         If resvar = 4 Then
                             shpObj1.Cells("LocPinX").FormulaForceU = strH
                             shpObj1.Cells("LocPinY").FormulaForceU = strV
@@ -1230,7 +1268,7 @@ NotDublicate:  ' Заполнение коллекции значениями б
     Sub AllRotateText(iAng) 'Поворот текста
         Call CheckSelCells()
         Dim i As Integer
-        vsoSelection = ActiveWindow.Selection
+        vsoSelection = Globals.ThisAddIn.Application.ActiveWindow.Selection
         Call RecUndo("Поворот текста")
         For i = 1 To vsoSelection.Count
             With vsoSelection(i)
@@ -1259,7 +1297,7 @@ NotDublicate:  ' Заполнение коллекции значениями б
     Sub AlternatLines(iAlt As Byte)  'Чередование цвета строк/столбцов
         Call CheckSelCells()
         Dim i As Integer, j As Integer, strCellWH As String
-        winObj = ActiveWindow : shpsObj = ActivePage.Shapes : MemSel = winObj.Selection(1)
+        winObj = Globals.ThisAddIn.Application.ActiveWindow : shpsObj = Globals.ThisAddIn.Application.ActivePage.Shapes : MemSel = winObj.Selection(1)
 
         Call InitArrShapeID(NT)
 
@@ -1271,7 +1309,7 @@ NotDublicate:  ' Заполнение коллекции значениями б
             For i = 1 To UBound(ArrShapeID, 1)
                 For j = 1 To UBound(ArrShapeID, 2)
                     If ArrShapeID(i, j) <> 0 Then
-                        If .ItemFromID(ArrShapeID(i, j)).Cells(strCellWH) Mod 2 = 0 Then .ItemFromID(ArrShapeID(i, j)).Cells("FillForegnd").FormulaU = "THEMEGUARD(MSOTINT(RGB(255,255,255),-10))"
+                        If .ItemFromID(ArrShapeID(i, j)).Cells(strCellWH).Result(Visio.VisUnitCodes.visNoCast) Mod 2 = 0 Then .ItemFromID(ArrShapeID(i, j)).Cells("FillForegnd").FormulaU = "THEMEGUARD(MSOTINT(RGB(255,255,255),-10))"
                     End If
                 Next
             Next
@@ -1279,7 +1317,7 @@ NotDublicate:  ' Заполнение коллекции значениями б
 
         Call RecUndo("0")
 
-        winObj.DeselectAll() : winObj.Select(MemSel, visSelect)
+        winObj.DeselectAll() : winObj.Select(MemSel, Visio.VisSelectArgs.visSelect)
 
     End Sub
 
@@ -1294,7 +1332,7 @@ NotDublicate:  ' Заполнение коллекции значениями б
 
         If vsoSel.Count < 2 Then
             MsgBox("Должно быть выделено не меньше двух ячеек:" & vbCrLf & "Первая и последняя в предполагаемом диапазоне объединения. Или все объединяемые", 48, "Ошибка!")
-            End
+            'End
         End If
         '------------------------------- START --------------------------------------------------------
         Dim cMin As Integer, rMin As Integer, cMax As Integer, rMax As Integer, NText As String
@@ -1377,7 +1415,7 @@ err:
         msg = msg & "Выделена уже объединенная ячейка." & vbCrLf
         msg = msg & "Что-то пошло не так." & vbCrLf
         MsgBox(msg, 48, "Ошибка!")
-        End
+        'End
     End Sub
 
     Private Sub DeIntegrateCells(shObj As Visio.Shape) ' Разъединение выделенной ячейки с сохранением содержимого. Основная процедура
@@ -1387,14 +1425,15 @@ err:
 
         If winObj.Selection.Count <> 1 Then
             MsgBox("Должна быть выделена одна ячейка:", 48, "Ошибка!")
-            End
+            'End
         End If
 
         If InStr(1, shObj.Cells(WI).FormulaU, "SUM", 1) = 0 And InStr(1, shObj.Cells(HE).FormulaU, "SUM", 1) = 0 Then flagCheck = False
         If Not flagCheck Then Call Err()
 
         '------------------------------- START --------------------------------------------------------
-        Dim vsoDup As Visio.Shape, fx As String, fy As String, arrX, arrY, NText As String, j As Integer, i As Integer
+        'Dim vsoDup As Visio.Shape, fx As String, fy As String, arrX, arrY, NText As String, j As Integer, i As Integer
+        Dim vsoDup As Visio.Shape, fx As String, fy As String, arrX(), arrY(), NText As String, j As Integer, i As Integer
 
         With shObj
             fx = .Cells(PX).FormulaU : fy = .Cells(PY).FormulaU
@@ -1467,7 +1506,7 @@ err:
         msg = msg & "1. Выделено больше одной ячейки" & vbCrLf
         msg = msg & "2. Выделена не объединенная ячейка" & vbCrLf
         MsgBox(msg, 48, "Ошибка!")
-        End
+        'End
     End Sub
 
     Private Sub DeleteColumn(shObj) ' Удаление столбца. Основная процедура
@@ -1476,16 +1515,19 @@ err:
 
         Dim iAll As Integer, iDel As Integer, i As Integer, nm As String, j As Integer
         Dim NTDel As String, strF As String, tmpName As String
+        Dim PropC() As String
 
-        iDel = shObj.Cells(UTC) : iAll = shpsObj.Item(NT).Cells(UTC) : NTDel = shpsObj.ItemFromID(ArrShapeID(iDel, 0)).Name
+        iDel = shObj.Cells(UTC) : iAll = shpsObj.Item(NT).Cells(UTC).Result(Visio.VisUnitCodes.visNoCast) : NTDel = shpsObj.ItemFromID(ArrShapeID(iDel, 0)).Name
 
         If iAll = 1 Then
             MsgBox("Единственный столбец нельзя удалить", 64, "Внимание!")
-            End
+            'End
         End If
 
         If iDel < iAll Then ' Сохранение свойств удаляемой упр. ячейки
-    Dim PropC() As String: ReDim PropC(1 To 2)
+            'Dim PropC() As String : ReDim PropC(1 To 2) 'lower bounds can only be zero
+            'Dim PropC() As String : ReDim PropC(0 To 2)
+            ReDim PropC(0 To 2)
             PropC(1) = shpsObj.ItemFromID(ArrShapeID(iDel, 0)).Cells(PX).FormulaU
             PropC(2) = shpsObj.ItemFromID(ArrShapeID(iDel, 0)).Cells(PY).FormulaU
         End If
@@ -1571,16 +1613,19 @@ err:
 
         Dim iAll As Integer, iDel As Integer, i As Integer, nm As String, j As Integer
         Dim NTDel As String, strF As String, tmpName As String
+        Dim PropC() As String
 
-        iDel = shObj.Cells(UTR) : iAll = shpsObj.Item(NT).Cells(UTR) : NTDel = shpsObj.ItemFromID(ArrShapeID(0, iDel)).Name
+        iDel = shObj.Cells(UTR) : iAll = shpsObj.Item(NT).Cells(UTR).Result(Visio.VisUnitCodes.visNoCast) : NTDel = shpsObj.ItemFromID(ArrShapeID(0, iDel)).Name
 
         If iAll = 1 Then
             MsgBox("Единственную строку нельзя удалить", 64, "Внимание!")
-            End
+            'End
         End If
 
         If iDel < iAll Then ' Сохранение свойств удаляемой упр. ячейки
-    Dim PropC() As String: ReDim PropC(1 To 2)
+            'Dim PropC() As String : ReDim PropC(1 To 2) 'array lower bounds can only be zero
+            'Dim PropC() As String : ReDim PropC(0 To 2)
+            ReDim PropC(0 To 2)
             PropC(1) = shpsObj.ItemFromID(ArrShapeID(0, iDel)).Cells(PX).FormulaU
             PropC(2) = shpsObj.ItemFromID(ArrShapeID(0, iDel)).Cells(PY).FormulaU
         End If
@@ -1673,12 +1718,12 @@ err:
             GetShapeId = ArrShapeID(intColNum, intRowNum)
         Else
             Dim i As Integer, j As Integer, cN As String, rN As String
-            With ActivePage.Shapes
+            With Globals.ThisAddIn.Application.ActivePage.Shapes
                 cN = .ItemFromID(ArrShapeID(intColNum, 0)).Name : rN = .ItemFromID(ArrShapeID(0, intRowNum)).Name
                 For i = 1 To intColNum
                     For j = 1 To intRowNum
                         If ArrShapeID(i, j) <> 0 Then
-                            If InStr(1, .ItemFromID(ArrShapeID(i, j)).Cells(PX).FormulaU, cN) <> 0 And _
+                            If InStr(1, .ItemFromID(ArrShapeID(i, j)).Cells(PX).FormulaU, cN) <> 0 And
                                InStr(1, .ItemFromID(ArrShapeID(i, j)).Cells(PY).FormulaU, rN) <> 0 Then
                                 GetShapeId = ArrShapeID(i, j)
                                 Exit Function
@@ -1695,19 +1740,21 @@ err:
     End Function
 
     Private Function fArrT(txt) ' Заполнение массива данными из ячеек таблицы
-        Dim i As Integer, j As Integer, arrId(), Response As Boolean
+        'Dim i As Integer, j As Integer, arrId(), Response As Boolean 'error can't redim arrId
+        Dim i As Integer, j As Integer, arrId(,), Response As Boolean
         Dim cMin As Integer, rMin As Integer, cMax As Integer, rMax As Integer
 
         Call ClearControlCells(UTC) : Call ClearControlCells(UTR)
 
-        vsoSelection = ActiveWindow.Selection
+        vsoSelection = Globals.ThisAddIn.Application.ActiveWindow.Selection
 
         Response = GetMinMaxRange(vsoSelection, cMin, cMax, rMin, rMax)
 
-        ReDim arrId(rMin To rMax, cMin To cMax)
+        'ReDim arrId(rMin To rMax, cMin To cMax) 'array lower bounds can only be zero
+        ReDim arrId(0 To rMax, 0 To cMax)
         For i = 1 To vsoSelection.Count
             With vsoSelection(i)
-                arrId(.Cells(UTR), .Cells(UTC)) = .Characters.Text
+                arrId(.Cells(UTR).Result(Visio.VisUnitCodes.visNoCast), .Cells(UTC).Result(Visio.VisUnitCodes.visNoCast)) = .Characters.Text
             End With
         Next
 
@@ -1726,7 +1773,7 @@ err:
 
         If booInit Then Call InitArrShapeID(sh.Cells(UTN).ResultStr(""))
 
-        With ActivePage.Shapes
+        With Globals.ThisAddIn.Application.ActivePage.Shapes
             Select Case strWidthOrHeight
                 Case 1
                     For i = 1 To UBound(ArrShapeID, strWidthOrHeight)
@@ -1750,10 +1797,10 @@ err:
 
         For i = 1 To vsoSel.Count
             With vsoSel(i)
-                If rMin > .Cells(UTR) Then rMin = .Cells(UTR)
-                If cMin > .Cells(UTC) Then cMin = .Cells(UTC)
-                If rMax < .Cells(UTR) Then rMax = .Cells(UTR)
-                If cMax < .Cells(UTC) Then cMax = .Cells(UTC)
+                If rMin > .Cells(UTR).Result(Visio.VisUnitCodes.visNoCast) Then rMin = .Cells(UTR).Result(Visio.VisUnitCodes.visNoCast)
+                If cMin > .Cells(UTC).Result(Visio.VisUnitCodes.visNoCast) Then cMin = .Cells(UTC).Result(Visio.VisUnitCodes.visNoCast)
+                If rMax < .Cells(UTR).Result(Visio.VisUnitCodes.visNoCast) Then rMax = .Cells(UTR).Result(Visio.VisUnitCodes.visNoCast)
+                If cMax < .Cells(UTC).Result(Visio.VisUnitCodes.visNoCast) Then cMax = .Cells(UTC).Result(Visio.VisUnitCodes.visNoCast)
             End With
         Next
 

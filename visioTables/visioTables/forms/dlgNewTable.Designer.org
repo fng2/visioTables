@@ -90,7 +90,7 @@ Partial Class dlgNewTable
         Me.Cancel_Button.Name = "Cancel_Button"
         Me.Cancel_Button.Size = New System.Drawing.Size(67, 23)
         Me.Cancel_Button.TabIndex = 13
-        Me.Cancel_Button.Text = "Cancel"
+        Me.Cancel_Button.Text = "Отмена"
         '
         'optDefault
         '
@@ -103,7 +103,7 @@ Partial Class dlgNewTable
         Me.optDefault.TabIndex = 1
         Me.optDefault.TabStop = True
         Me.optDefault.Tag = ""
-        Me.optDefault.Text = "Default"
+        Me.optDefault.Text = "По умолчанию"
         Me.optDefault.UseVisualStyleBackColor = True
         '
         'optPage
@@ -115,7 +115,7 @@ Partial Class dlgNewTable
         Me.optPage.Size = New System.Drawing.Size(126, 18)
         Me.optPage.TabIndex = 2
         Me.optPage.Tag = ""
-        Me.optPage.Text = "By sheet size"
+        Me.optPage.Text = "По размеру листа"
         Me.optPage.UseVisualStyleBackColor = True
         '
         'optCustom
@@ -127,7 +127,7 @@ Partial Class dlgNewTable
         Me.optCustom.Size = New System.Drawing.Size(104, 18)
         Me.optCustom.TabIndex = 3
         Me.optCustom.Tag = ""
-        Me.optCustom.Text = "Your sizes"
+        Me.optCustom.Text = "Свои размеры"
         Me.optCustom.UseVisualStyleBackColor = True
         '
         'optInside
@@ -139,7 +139,7 @@ Partial Class dlgNewTable
         Me.optInside.Size = New System.Drawing.Size(112, 18)
         Me.optInside.TabIndex = 4
         Me.optInside.Tag = ""
-        Me.optInside.Text = "Inside the figure"
+        Me.optInside.Text = "Внутри фигуры"
         Me.optInside.UseVisualStyleBackColor = True
         '
         'ckbDelShape
@@ -152,7 +152,7 @@ Partial Class dlgNewTable
         Me.ckbDelShape.Name = "ckbDelShape"
         Me.ckbDelShape.Size = New System.Drawing.Size(117, 18)
         Me.ckbDelShape.TabIndex = 5
-        Me.ckbDelShape.Text = "Delete a figure"
+        Me.ckbDelShape.Text = "Удалить фигуру"
         Me.ckbDelShape.UseVisualStyleBackColor = True
         '
         'txtCellDefHeight
@@ -207,7 +207,7 @@ Partial Class dlgNewTable
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(61, 14)
         Me.Label1.TabIndex = 12
-        Me.Label1.Text = "Columns"
+        Me.Label1.Text = "Столбцов"
         '
         'Label2
         '
@@ -217,7 +217,7 @@ Partial Class dlgNewTable
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(40, 14)
         Me.Label2.TabIndex = 13
-        Me.Label2.Text = "Rows"
+        Me.Label2.Text = "Строк"
         '
         'Label3
         '
@@ -228,7 +228,7 @@ Partial Class dlgNewTable
         Me.Label3.Size = New System.Drawing.Size(85, 14)
         Me.Label3.TabIndex = 15
         Me.Label3.Tag = "0"
-        Me.Label3.Text = "Cell height"
+        Me.Label3.Text = "Высота ячеек"
         '
         'Label4
         '
@@ -239,7 +239,7 @@ Partial Class dlgNewTable
         Me.Label4.Size = New System.Drawing.Size(89, 14)
         Me.Label4.TabIndex = 14
         Me.Label4.Tag = "0"
-        Me.Label4.Text = "Cell width"
+        Me.Label4.Text = "Ширина ячеек"
         '
         'Label5
         '
@@ -250,7 +250,7 @@ Partial Class dlgNewTable
         Me.Label5.Size = New System.Drawing.Size(99, 14)
         Me.Label5.TabIndex = 17
         Me.Label5.Tag = "1"
-        Me.Label5.Text = "Table height"
+        Me.Label5.Text = "Высота таблицы"
         '
         'Label6
         '
@@ -261,7 +261,7 @@ Partial Class dlgNewTable
         Me.Label6.Size = New System.Drawing.Size(103, 14)
         Me.Label6.TabIndex = 16
         Me.Label6.Tag = "1"
-        Me.Label6.Text = "Table width"
+        Me.Label6.Text = "Ширина таблицы"
         '
         'lblTableLDim
         '
@@ -340,7 +340,7 @@ Partial Class dlgNewTable
         Me.Label7.Size = New System.Drawing.Size(182, 14)
         Me.Label7.TabIndex = 22
         Me.Label7.Tag = ""
-        Me.Label7.Text = "Table name (not necessary)"
+        Me.Label7.Text = "Имя таблицы (необязательно)"
         '
         'txtNameTable
         '
@@ -389,7 +389,7 @@ Partial Class dlgNewTable
         Me.Name = "dlgNewTable"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "New table"
+        Me.Text = "dick"
         Me.TopMost = True
         Me.TableLayoutPanel1.ResumeLayout(False)
         CType(Me.nudColumns, System.ComponentModel.ISupportInitialize).EndInit()
