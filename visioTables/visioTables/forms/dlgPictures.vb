@@ -23,8 +23,8 @@
 
     Private Sub dlgPictures_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         With Me.ToolTip1
-            .SetToolTip(ckbInsertName, "Вставка имени фигуры в ту же ячейку таблицы ")
-            .SetToolTip(ckbLockFormulas, "Блокировка фигур(формул PinX и PinY) в ячейках таблицы")
+            .SetToolTip(ckbInsertName, "Inserting a shape name into the same table cell ")
+            .SetToolTip(ckbLockFormulas, "Locking shapes (PinX and PinY formulas) in table cells")
         End With
     End Sub
 End Class

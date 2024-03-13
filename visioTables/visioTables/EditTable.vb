@@ -8,10 +8,6 @@ Imports System.Windows.Forms
 Public Class EditTable
 
 
-#Region "List Of Fields"
-
-#End Region
-
 #Region "List Of Variables"
 
     Private vsoApp As Visio.Application = Globals.ThisAddIn.Application
@@ -20,14 +16,6 @@ Public Class EditTable
     Private shpsObj As Visio.Shapes = pageObj.Shapes
     Private shpObj As Visio.Shape
     Private vsoSelection As Visio.Selection
-
-    'see the constants class
-    Public Shared ReadOnly PX As String = "PinX"
-    Public Shared ReadOnly PY As String = "PinY"
-    Public Shared ReadOnly WI As String = "Width"
-    Public Shared ReadOnly HE As String = "Height"
-    Public Shared ReadOnly LD As String = "LockDelete"
-    Public Shared ReadOnly GU As String = "=GUARD("
 
     'newly added
     Dim Shp As Visio.Shape
@@ -39,6 +27,10 @@ Public Class EditTable
 
 
 #End Region
+
+    Private Sub New()
+        MsgBox("edit table loaded")
+    End Sub
 
 #Region "List Of Methods"
 

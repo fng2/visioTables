@@ -1,15 +1,198 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui" onLoad="OnRibbonLoad">
-  <ribbon>
+  <ribbon startFromScratch="false">
     <tabs>
-      <tab idMso="TabHome">
-        <group id="Group1" label="visioTables">
+      <!--<tab idMso="TabInsert">
+        <group id="group_table" label="Tables">
 
-          <button id="Command1" size="large" getLabel="OnGetRibbonLabel" onAction="OnRibbonButtonClick" getEnabled="IsRibbonCommandEnabled" getImage="GetRibbonImage" />
-          <button id="Command2" size="large" getLabel="OnGetRibbonLabel" onAction="OnRibbonButtonClick" getEnabled="IsRibbonCommandEnabled" getImage="GetRibbonImage" />
-          
+        </group>
+      </tab>-->
+      <tab id="table1" label="Tables" getVisible="IsRibbonCommandEnabled">
+        <group id="group_add" label="Insert" imageMso="TableInsert">
+          <gallery id="gal1" label="Table 1 click"  size="large" imageMso="TableInsert" showItemLabel="false" itemWidth="16" itemHeight="16" onAction="OnRibbonGalleryClick" screentip="Quick table" supertip ="Select the table dimension and circle the desired area">
+                <item id="i1x1" imageMso="AppointmentColor0" label="1x1"/>
+                <item id="i2x1" imageMso="AppointmentColor0" label="2x1"/>
+                <item id="i3x1" imageMso="AppointmentColor0" label="3x1"/>
+                <item id="i4x1" imageMso="AppointmentColor0" label="4x1"/>
+                <item id="i5x1" imageMso="AppointmentColor0" label="5x1"/>
+                <item id="i6x1" imageMso="AppointmentColor0" label="6x1"/>
+                <item id="i7x1" imageMso="AppointmentColor0" label="7x1"/>
+                <item id="i8x1" imageMso="AppointmentColor0" label="8x1"/>
+                <item id="i9x1" imageMso="AppointmentColor0" label="9x1"/>
+                <item id="i10x1" imageMso="AppointmentColor0" label="10x1"/>
+                <item id="i1x2" imageMso="AppointmentColor0" label="1x2"/>
+                <item id="i2x2" imageMso="AppointmentColor0" label="2x2"/>
+                <item id="i3x2" imageMso="AppointmentColor0" label="3x2"/>
+                <item id="i4x2" imageMso="AppointmentColor0" label="4x2"/>
+                <item id="i5x2" imageMso="AppointmentColor0" label="5x2"/>
+                <item id="i6x2" imageMso="AppointmentColor0" label="6x2"/>
+                <item id="i7x2" imageMso="AppointmentColor0" label="7x2"/>
+                <item id="i8x2" imageMso="AppointmentColor0" label="8x2"/>
+                <item id="i9x2" imageMso="AppointmentColor0" label="9x2"/>
+                <item id="i10x2" imageMso="AppointmentColor0" label="10x2"/>
+                <item id="i1x3" imageMso="AppointmentColor0" label="1x3"/>
+                <item id="i2x3" imageMso="AppointmentColor0" label="2x3"/>
+                <item id="i3x3" imageMso="AppointmentColor0" label="3x3"/>
+                <item id="i4x3" imageMso="AppointmentColor0" label="4x3"/>
+                <item id="i5x3" imageMso="AppointmentColor0" label="5x3"/>
+                <item id="i6x3" imageMso="AppointmentColor0" label="6x3"/>
+                <item id="i7x3" imageMso="AppointmentColor0" label="7x3"/>
+                <item id="i8x3" imageMso="AppointmentColor0" label="8x3"/>
+                <item id="i9x3" imageMso="AppointmentColor0" label="9x3"/>
+                <item id="i10x3" imageMso="AppointmentColor0" label="10x3"/>
+                <item id="i1x4" imageMso="AppointmentColor0" label="1x4"/>
+                <item id="i2x4" imageMso="AppointmentColor0" label="2x4"/>
+                <item id="i3x4" imageMso="AppointmentColor0" label="3x4"/>
+                <item id="i4x4" imageMso="AppointmentColor0" label="4x4"/>
+                <item id="i5x4" imageMso="AppointmentColor0" label="5x4"/>
+                <item id="i6x4" imageMso="AppointmentColor0" label="6x4"/>
+                <item id="i7x4" imageMso="AppointmentColor0" label="7x4"/>
+                <item id="i8x4" imageMso="AppointmentColor0" label="8x4"/>
+                <item id="i9x4" imageMso="AppointmentColor0" label="9x4"/>
+                <item id="i10x4" imageMso="AppointmentColor0" label="10x4"/>
+                <item id="i1x5" imageMso="AppointmentColor0" label="1x5"/>
+                <item id="i2x5" imageMso="AppointmentColor0" label="2x5"/>
+                <item id="i3x5" imageMso="AppointmentColor0" label="3x5"/>
+                <item id="i4x5" imageMso="AppointmentColor0" label="4x5"/>
+                <item id="i5x5" imageMso="AppointmentColor0" label="5x5"/>
+                <item id="i6x5" imageMso="AppointmentColor0" label="6x5"/>
+                <item id="i7x5" imageMso="AppointmentColor0" label="7x5"/>
+                <item id="i8x5" imageMso="AppointmentColor0" label="8x5"/>
+                <item id="i9x5" imageMso="AppointmentColor0" label="9x5"/>
+                <item id="i10x5" imageMso="AppointmentColor0" label="10x5"/>
+                <item id="i1x6" imageMso="AppointmentColor0" label="1x6"/>
+                <item id="i2x6" imageMso="AppointmentColor0" label="2x6"/>
+                <item id="i3x6" imageMso="AppointmentColor0" label="3x6"/>
+                <item id="i4x6" imageMso="AppointmentColor0" label="4x6"/>
+                <item id="i5x6" imageMso="AppointmentColor0" label="5x6"/>
+                <item id="i6x6" imageMso="AppointmentColor0" label="6x6"/>
+                <item id="i7x6" imageMso="AppointmentColor0" label="7x6"/>
+                <item id="i8x6" imageMso="AppointmentColor0" label="8x6"/>
+                <item id="i9x6" imageMso="AppointmentColor0" label="9x6"/>
+                <item id="i10x6" imageMso="AppointmentColor0" label="10x6"/>
+                <item id="i1x7" imageMso="AppointmentColor0" label="1x7"/>
+                <item id="i2x7" imageMso="AppointmentColor0" label="2x7"/>
+                <item id="i3x7" imageMso="AppointmentColor0" label="3x7"/>
+                <item id="i4x7" imageMso="AppointmentColor0" label="4x7"/>
+                <item id="i5x7" imageMso="AppointmentColor0" label="5x7"/>
+                <item id="i6x7" imageMso="AppointmentColor0" label="6x7"/>
+                <item id="i7x7" imageMso="AppointmentColor0" label="7x7"/>
+                <item id="i8x7" imageMso="AppointmentColor0" label="8x7"/>
+                <item id="i9x7" imageMso="AppointmentColor0" label="9x7"/>
+                <item id="i10x7" imageMso="AppointmentColor0" label="10x7"/>
+                <item id="i1x8" imageMso="AppointmentColor0" label="1x8"/>
+                <item id="i2x8" imageMso="AppointmentColor0" label="2x8"/>
+                <item id="i3x8" imageMso="AppointmentColor0" label="3x8"/>
+                <item id="i4x8" imageMso="AppointmentColor0" label="4x8"/>
+                <item id="i5x8" imageMso="AppointmentColor0" label="5x8"/>
+                <item id="i6x8" imageMso="AppointmentColor0" label="6x8"/>
+                <item id="i7x8" imageMso="AppointmentColor0" label="7x8"/>
+                <item id="i8x8" imageMso="AppointmentColor0" label="8x8"/>
+                <item id="i9x8" imageMso="AppointmentColor0" label="9x8"/>
+                <item id="i10x8" imageMso="AppointmentColor0" label="10x8"/>
+                <item id="i1x9" imageMso="AppointmentColor0" label="1x9"/>
+                <item id="i2x9" imageMso="AppointmentColor0" label="2x9"/>
+                <item id="i3x9" imageMso="AppointmentColor0" label="3x9"/>
+                <item id="i4x9" imageMso="AppointmentColor0" label="4x9"/>
+                <item id="i5x9" imageMso="AppointmentColor0" label="5x9"/>
+                <item id="i6x9" imageMso="AppointmentColor0" label="6x9"/>
+                <item id="i7x9" imageMso="AppointmentColor0" label="7x9"/>
+                <item id="i8x9" imageMso="AppointmentColor0" label="8x9"/>
+                <item id="i9x9" imageMso="AppointmentColor0" label="9x9"/>
+                <item id="i10x9" imageMso="AppointmentColor0" label="10x9"/>
+                <item id="i1x10" imageMso="AppointmentColor0" label="1x10"/>
+                <item id="i2x10" imageMso="AppointmentColor0" label="2x10"/>
+                <item id="i3x10" imageMso="AppointmentColor0" label="3x10"/>
+                <item id="i4x10" imageMso="AppointmentColor0" label="4x10"/>
+                <item id="i5x10" imageMso="AppointmentColor0" label="5x10"/>
+                <item id="i6x10" imageMso="AppointmentColor0" label="6x10"/>
+                <item id="i7x10" imageMso="AppointmentColor0" label="7x10"/>
+                <item id="i8x10" imageMso="AppointmentColor0" label="8x10"/>
+                <item id="i9x10" imageMso="AppointmentColor0" label="9x10"/>
+                <item id="i10x10" imageMso="AppointmentColor0" label="10x10"/>
+              </gallery>
+          <button id="btn_newtable" label="New table" size="normal" imageMso="TableInsert" onAction="OnRibbonButtonClick" screentip="Creating a table" supertip ="Calling the dialog box to create a new table"/>
+          <splitButton id="split_newcol" size="normal">
+            <button id="btn_newcolumnbefore" label="Column left" imageMso="TableColumnsInsertLeft" onAction="OnRibbonButtonClick" tag="0" screentip="Adding a Column" supertip ="Adding a new column to the active table"/>
+            <menu id="menu_newcol">
+              <button id="btn_newcolumnafter" label="Column on the right" imageMso="TableColumnsInsertRight" onAction="OnRibbonButtonClick" tag="1" screentip="Adding a Column" supertip ="Adding a new column to the active table"/>
+            </menu>
+          </splitButton>
+          <splitButton id="split_newrow" size="normal">
+            <button id="btn_newrowbefore" label="Line above" imageMso="TableRowsInsertAboveWord" onAction="OnRibbonButtonClick" tag="0" screentip="Adding a line" supertip ="Adding a new row to the active table"/>
+            <menu id="menu_newrow">
+              <button id="btn_newrowafter" label="Line below" imageMso="TableRowsInsertBelowWord" onAction="OnRibbonButtonClick" tag="1" screentip="Adding a line" supertip ="Adding a new row to the active table"/>
+            </menu>
+          </splitButton>
+        </group>
+        <group id="group_format" label="Format" imageMso="FormatPainter">
+          <button id="btn_onwidthheight" size="large" label="Automatic selection by text" imageMso="TableAutoFitMenu" onAction="OnRibbonButtonClick" screentip="Align to text width and height" supertip ="Aligning columns and rows of the entire table to the width and height of the cell text"/>
+          <button id="btn_onwidth" size="normal" label="By text width" imageMso="ColumnWidth" onAction="OnRibbonButtonClick" screentip="Align to text width" supertip ="Align selected table columns to the width of the text of cells in the selected columns"/>
+          <button id="btn_onheight" size="normal" label="By text height" imageMso="RowHeight" onAction="OnRibbonButtonClick" screentip="Align to text height" supertip ="Aligning selected table rows to the height of the text of cells in the selected rows"/>
+          <menu id="menu2" label="Additionally" imageMso="SlideMasterMasterLayout">
+            <button id="btn_sizeonwidth" label="Align column widths" imageMso="TableColumnsDistribute" onAction="OnRibbonButtonClick" tag="4" screentip="Align column widths" supertip ="Distribute column widths evenly between selected columns"/>
+            <button id="btn_sizeonheight" label="Align row heights" imageMso="TableRowsDistribute" onAction="OnRibbonButtonClick" tag="5" screentip="Align row heights" supertip ="Distribute row heights evenly between selected rows"/>
+            <button id="btn_size" label="Dimensions" imageMso="DesignMode" onAction="OnRibbonButtonClick" screentip="Sizing settings" supertip ="Adjusting table sizes, columns and rows"/>
+            <button id="btn_autosize" label="Autodimensions" imageMso="CreateTableInDesignView" onAction="OnRibbonButtonClick" screentip="Automatic adjustment of cell sizes" supertip ="Adjust cell sizes to fit cell contents"/>
+			<button id="btn_sorttabledata" label="Sort data" imageMso="SortDialogClassic" onAction="OnRibbonButtonClick" screentip="Sorting data in a table" supertip ="Sorting data in a table, in a selected range of cells, by a given column"/>
+            <button id="btn_lockpicture" label="Lock shapes" imageMso="ChartEditDataSource" onAction="OnRibbonButtonClick" screentip="Pin shapes to cells" supertip ="Pin shapes or images to table cells"/>
+            <button id="btn_altlinesrow" label="Alternate lines" imageMso="TableStyleBandedRows" onAction="OnRibbonButtonClick" tag="5" screentip="Alternating line colors" supertip ="Alternating table row fill colors to improve visual perception"/>
+            <button id="btn_altlinescol" label="Alternate columns" imageMso="TableStyleBandedColumns" onAction="OnRibbonButtonClick" tag="4" screentip="Alternating Column Colors" supertip ="Alternating table column fill colors to improve visual perception"/>
+            <button id="btn_rotatetext" label="Rotate text" imageMso="TextRotate90Degrees" onAction="OnRibbonButtonClick" screentip="Rotate text" supertip ="Rotate text in selected cells to the desired angle"/>
+            <button id="btn_convert1Shape" label="Convert to 1 shape" imageMso="ObjectsGroupMenu" onAction="OnRibbonButtonClick" tag="4" screentip="Convert to 1 shape" supertip ="Converting a table into one grouped shape"/>
+            <!--<menuSeparator  id="menuseparator2"/>
+            <button id="btn_moredialog" label="Вызов диалога" imageMso="SlideMasterMasterLayout" onAction="OnRibbonButtonClick" screentip="Дополнительно" supertip ="Дополнительные параметра работы с таблицей"/>-->
+          </menu>
+          <separator  id="separator1"/>
+          <button id="btn_intdeint" size="large" label="Merge/Disconnect" imageMso="MergeCells" onAction="OnRibbonButtonClick" screentip="Merging/unlinking cells" supertip ="Merge or unmerge selected cells in a table"/>
+        </group>
+        <group id="group_select" label="Select" imageMso="TableSelect">
+          <button id="btn_seltable" size="large" label="Table" imageMso="TableSelect" onAction="OnRibbonButtonClick" tag="2" screentip="Selecting a table" supertip ="Selecting the entire table with the active cell"/>
+          <button id="btn_selrange" size="large" label="Range" imageMso="TableSelectCell" onAction="OnRibbonButtonClick" tag="3" screentip="Range selection" supertip ="Highlighting a marked range in a table"/>
+          <button id="btn_selcolumn" size="normal" label="Column" imageMso="TableColumnSelect" onAction="OnRibbonButtonClick" tag="4" screentip="Selecting Columns" supertip ="Select the active column or columns in the active table"/>
+          <button id="btn_selrow" size="normal" label="Line" imageMso="TableRowSelect" onAction="OnRibbonButtonClick" tag="5" screentip="Selecting rows" supertip ="Selecting the active row or rows in the active table"/>
+          <menu id="menu1" label="Select" imageMso="DataValidationCircleInvalid">
+            <button id="btn_seltxt" label="Select text" imageMso="DataValidationCircleInvalid" onAction="OnRibbonButtonClick" tag="1"/>
+            <button id="btn_selnum" label="Select values" imageMso="DataValidationCircleInvalid" onAction="OnRibbonButtonClick" tag="2"/>
+            <button id="btn_selnotnum" label="Select Not values" imageMso="DataValidationCircleInvalid" onAction="OnRibbonButtonClick" tag="5"/>
+            <button id="btn_seldate" label="Select dates" imageMso="DataValidationCircleInvalid" onAction="OnRibbonButtonClick" tag="3"/>
+            <button id="btn_selempty" label="Select empty" imageMso="DataValidationCircleInvalid" onAction="OnRibbonButtonClick" tag="6"/>
+            <button id="btn_selnotempty" label="Select Not empty" imageMso="DataValidationCircleInvalid" onAction="OnRibbonButtonClick" tag="7"/>
+            <button id="btn_selinvert" label="Invert" imageMso="DataValidationCircleInvalid" onAction="OnRibbonButtonClick" tag="8"/>
+            <!--<menuSeparator  id="menuSeparator1"/>
+            <button id="btn_seldialog" label="Вызов диалога" imageMso="SlideMasterMasterLayout" onAction="OnRibbonButtonClick" screentip="Дополнительные опции" supertip ="Дополнительные опции в диалоговом окне"/>-->
+          </menu>
+        </group>
+        <group id="group_data" label="Data" imageMso="FilePrepareMenu">
+          <splitButton id="split_3" size="large">
+            <button id="btn_text" label="Insert" imageMso="Paste" onAction="OnRibbonButtonClick" tag="0" screentip="Insert text"/>
+            <menu id="menu3">
+              <button id="btn_date" label="Date" imageMso="ContentControlDate" onAction="OnRibbonButtonClick" tag="1"/>
+              <button id="btn_time" label="Time" imageMso="StartAfterPrevious" onAction="OnRibbonButtonClick" tag="2"/>
+              <button id="btn_comment" label="A comment" imageMso="ReviewEditComment" onAction="OnRibbonButtonClick" tag="3"/>
+              <button id="btn_numcol" label="Column number" imageMso="PivotTableFormulasMenu" onAction="OnRibbonButtonClick" tag="4"/>
+              <button id="btn_numrow" label="Line number" imageMso="PivotTableFormulasMenu" onAction="OnRibbonButtonClick" tag="5"/>
+            </menu>
+          </splitButton>
+          <button id="btn_intellinput" size="large" label="Intelligence set" imageMso="FilePrepareMenu" onAction="OnRibbonButtonClick" screentip="Typing text" supertip ="Typing text with automatic transfer of the selection to the next cell and memorization of what is typed"/>
+          <button id="btn_extdata" size="normal" label="External data" imageMso="DatabaseSqlServer" onAction="OnRibbonButtonClick" screentip="External data" supertip ="Linking table cells with external data"/>
+          <button id="btn_fromfile" label="Insert from file" imageMso="DatabaseSwitchboardManager" onAction="OnRibbonButtonClick" screentip="Insert values from file" supertip ="Inserting values ​​into a table from text files"/>
+          <button id="btn_dropdownlist" label="Insert from the list" imageMso="ActiveXComboBox" onAction="OnRibbonButtonClick" screentip="Select from list" supertip ="Selecting values ​​to insert from those already existing in the table"/>
+        </group>
+        <group id="group_copypaste" label="Clipboard" imageMso="Paste">
+          <button id="btn_gut" size="normal" label="Cut" imageMso="Cut" onAction="OnRibbonButtonClick" screentip="Cut text" supertip ="Cutting text from selected table cells"/>
+          <button id="btn_copy" size="normal" label="КCopy" imageMso="Copy" onAction="OnRibbonButtonClick" screentip="Copy text" supertip ="Copying text from selected table cells"/>
+          <button id="btn_paste" size="normal" label="Insert" imageMso="Paste" onAction="OnRibbonButtonClick" screentip="Insert text" supertip ="Inserting text into the cells of the selected table, starting with the active cell"/>
+        </group>
+        <group id="group_delete" label="Delete" imageMso="TableDeleteRowsAndColumnsMenuWord">
+          <button id="btn_deltable" size="large" label="Delete table" imageMso="TableDeleteRowsAndColumnsMenuWord" onAction="OnRibbonButtonClick" screentip="Deleting a table" supertip ="Removing a selected table from a worksheet"/>
+          <button id="btn_delcolumn" size="normal" label="Column" imageMso="TableColumnsDeleteExcel" onAction="OnRibbonButtonClick" screentip="Delete a column" supertip ="Remove the selected column or columns from the active table"/>
+          <button id="btn_delrow" size="normal" label="Line" imageMso="TableRowsDeleteExcel" onAction="OnRibbonButtonClick" screentip="Delete a line" supertip ="Deleting the selected row or rows from the active table"/>
+          <separator  id="separator2"/>
+          <button id="btn_help" size="large" label="Reference" imageMso="Help" onAction="OnRibbonButtonClick" screentip="Reference" supertip ="Open help file"/>
         </group>
       </tab>
     </tabs>
   </ribbon>
 </customUI>
+

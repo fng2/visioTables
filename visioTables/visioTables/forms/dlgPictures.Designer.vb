@@ -54,7 +54,7 @@ Partial Class dlgPictures
         Me.GroupBox1.Size = New System.Drawing.Size(256, 60)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Выравнивание по горизонтали"
+        Me.GroupBox1.Text = "Alignment by horizontal"
         '
         'optAlignRightH
         '
@@ -63,7 +63,7 @@ Partial Class dlgPictures
         Me.optAlignRightH.Name = "optAlignRightH"
         Me.optAlignRightH.Size = New System.Drawing.Size(62, 17)
         Me.optAlignRightH.TabIndex = 2
-        Me.optAlignRightH.Text = "Справа"
+        Me.optAlignRightH.Text = "On right"
         Me.optAlignRightH.UseVisualStyleBackColor = True
         '
         'optAlignCenterH
@@ -73,7 +73,7 @@ Partial Class dlgPictures
         Me.optAlignCenterH.Name = "optAlignCenterH"
         Me.optAlignCenterH.Size = New System.Drawing.Size(76, 17)
         Me.optAlignCenterH.TabIndex = 1
-        Me.optAlignCenterH.Text = "По центру"
+        Me.optAlignCenterH.Text = "Centered"
         Me.optAlignCenterH.UseVisualStyleBackColor = True
         '
         'optAlignLeftH
@@ -85,7 +85,7 @@ Partial Class dlgPictures
         Me.optAlignLeftH.Size = New System.Drawing.Size(56, 17)
         Me.optAlignLeftH.TabIndex = 0
         Me.optAlignLeftH.TabStop = True
-        Me.optAlignLeftH.Text = "Слева"
+        Me.optAlignLeftH.Text = "Left"
         Me.optAlignLeftH.UseVisualStyleBackColor = True
         '
         'GroupBox2
@@ -100,7 +100,7 @@ Partial Class dlgPictures
         Me.GroupBox2.Size = New System.Drawing.Size(256, 60)
         Me.GroupBox2.TabIndex = 1
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Выравнивание по вертикали"
+        Me.GroupBox2.Text = "Vertical alignment"
         '
         'optAlignBottomV
         '
@@ -109,7 +109,7 @@ Partial Class dlgPictures
         Me.optAlignBottomV.Name = "optAlignBottomV"
         Me.optAlignBottomV.Size = New System.Drawing.Size(55, 17)
         Me.optAlignBottomV.TabIndex = 5
-        Me.optAlignBottomV.Text = "Снизу"
+        Me.optAlignBottomV.Text = "From below"
         Me.optAlignBottomV.UseVisualStyleBackColor = True
         '
         'optAlignCenterV
@@ -121,7 +121,7 @@ Partial Class dlgPictures
         Me.optAlignCenterV.Size = New System.Drawing.Size(76, 17)
         Me.optAlignCenterV.TabIndex = 4
         Me.optAlignCenterV.TabStop = True
-        Me.optAlignCenterV.Text = "По центру"
+        Me.optAlignCenterV.Text = "Centered"
         Me.optAlignCenterV.UseVisualStyleBackColor = True
         '
         'optAlignTopV
@@ -131,7 +131,7 @@ Partial Class dlgPictures
         Me.optAlignTopV.Name = "optAlignTopV"
         Me.optAlignTopV.Size = New System.Drawing.Size(60, 17)
         Me.optAlignTopV.TabIndex = 3
-        Me.optAlignTopV.Text = "Сверху"
+        Me.optAlignTopV.Text = "Above"
         Me.optAlignTopV.UseVisualStyleBackColor = True
         '
         'TableLayoutPanel1
@@ -170,7 +170,7 @@ Partial Class dlgPictures
         Me.Cancel_Button.Name = "Cancel_Button"
         Me.Cancel_Button.Size = New System.Drawing.Size(67, 23)
         Me.Cancel_Button.TabIndex = 9
-        Me.Cancel_Button.Text = "Отмена"
+        Me.Cancel_Button.Text = "Cancel"
         '
         'ckbInsertName
         '
@@ -181,7 +181,7 @@ Partial Class dlgPictures
         Me.ckbInsertName.Name = "ckbInsertName"
         Me.ckbInsertName.Size = New System.Drawing.Size(194, 17)
         Me.ckbInsertName.TabIndex = 6
-        Me.ckbInsertName.Text = "Вставлять имена фигур в ячейки"
+        Me.ckbInsertName.Text = "Insert shape names into cells"
         Me.ckbInsertName.UseVisualStyleBackColor = True
         '
         'ckbLockFormulas
@@ -193,7 +193,7 @@ Partial Class dlgPictures
         Me.ckbLockFormulas.Name = "ckbLockFormulas"
         Me.ckbLockFormulas.Size = New System.Drawing.Size(168, 17)
         Me.ckbLockFormulas.TabIndex = 7
-        Me.ckbLockFormulas.Text = "Заблокировать координаты"
+        Me.ckbLockFormulas.Text = "Block coordinates"
         Me.ckbLockFormulas.UseVisualStyleBackColor = True
         '
         'dlgPictures
@@ -214,7 +214,7 @@ Partial Class dlgPictures
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Настройки"
+        Me.Text = "Settings"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)

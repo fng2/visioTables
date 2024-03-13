@@ -900,7 +900,7 @@ ExitLine:
                 strL = "" : strL1 = ""
         End Select
 
-        Call RecUndo("Закрепить изображения")
+        Call RecUndo("Pin images")
 
         For Each shpObj In vsoSel
             If shpObj.CellExistsU(UTN, 0) Then
@@ -952,7 +952,7 @@ ExitLine:
         ' 1 - фигуры перекрываются
         ' 8 - фигуры соприкасаются
         ' 0 - фигуры не имеют равных точек
-        If msg Then MsgBox("Готово." & vbCrLf & "Закреплено " & cnt & " фигур в ячейках.")
+        If msg Then MsgBox("Ready." & vbCrLf & "Pinned " & cnt & " figures in cells.")
 
     End Sub
 
