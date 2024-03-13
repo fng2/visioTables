@@ -36,8 +36,6 @@ Module CreatingTable
 
 #Region "Load Sub"
     Sub CreatTable(a, b, c, d, e, f, g, h, i, j)
-        'Dim NewTable As VisioTable = New VisioTable(a, b, c, d, e, f, g, h, i, j)
-        'NewTable.CreatTable()
         Dim NewTable As New VisioTable
         NewTable.CreatTable(a, b, c, d, e, f, g, h, i, j)
         NewTable = Nothing

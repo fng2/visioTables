@@ -38,7 +38,8 @@ Friend Class VisioTable
     Private arrNewID() As Integer
     Private CountID As Integer = 0
 
-    Dim Vr As String = Strings.Left(Strings.Replace(vsoApp.Version, ".", ",", 1), InStr(vsoApp.Version, ",") - 1)
+    'Dim Vr As String = Strings.Left(Strings.Replace(vsoApp.Version, ".", ",", 1), InStr(vsoApp.Version, ",") - 1) 'error length must be zero or greater
+    Dim Vr As String = Left(vsoApp.Version, InStr(vsoApp.Version, ".") - 1)
     Dim arrL = {"0.1 pt", "0", "1", "0 mm", "0", "0", "0", "0", "0", "0%"}
     Dim arrF = {"1", "0", "1", "0", "1", "0", "0%", "0%", "0%", "0%", "0", "0 mm", "0 mm", "0 deg", "100%"}
     Dim VarCell As Byte = 0
@@ -103,7 +104,8 @@ Friend Class VisioTable
 
         If bytInsertType = 4 Then
             If winObj.Selection.Count = 0 Then
-                MsgBox("Вы должны выбрать одну фигуру")
+                ' MsgBox("Вы должны выбрать одну фигуру")
+                MsgBox("You must choose one figure")
                 Exit Sub
             Else
                 With winObj.Selection(1)
@@ -121,11 +123,13 @@ Friend Class VisioTable
         CountID = -1
 
         If booVisibleProgressBar Then
-            frm.Label1.Text = " " & vbCrLf & "Создание  новой таблицы"
+            'frm.Label1.Text = " " & vbCrLf & "Создание  новой таблицы"
+            frm.Label1.Text = " " & vbCrLf & "Creating a new table"
             frm.Show() : frm.Refresh()
         End If
 
-        Call RecUndo("Создание таблицы...")
+        'Call RecUndo("Создание таблицы...")
+        Call RecUndo("Creating a table...")
 
         ' Добавление и изменение свойств слоев
         vsoLayerTitles = pagObj.Layers.Add("Titles_Tables")
@@ -246,7 +250,8 @@ errD:
                         .Characters.AddCustomFieldU(UTC, 0)
                         .Cells("Fields.Value").FormulaU = "GUARD(" & UTC & ")"
                         .Cells("HideText").FormulaForceU = "=GUARD(NOT(" & sh & arrNewID(0) & "!Actions.Titles.Checked))"
-                        .Cells("Comment").FormulaForceU = GI & sh & arrNewID(0) & strACC & """Управляющая ячейка столбца""" & "," & """""" & "))"
+                        '.Cells("Comment").FormulaForceU = GI & sh & arrNewID(0) & strACC & """Управляющая ячейка столбца""" & "," & """""" & "))"
+                        .Cells("Comment").FormulaForceU = GI & sh & arrNewID(0) & strACC & """Column control cell""" & "," & """""" & "))"
 
                     Case 1 ' упр столбец
                         .Cells(PX).FormulaU = GS & arrNewID(0) & "!PinX)"
@@ -269,7 +274,8 @@ errD:
                         .Characters.AddCustomFieldU(UTR, 0)
                         .Cells("Fields.Value").FormulaU = "GUARD(" & UTR & ")"
                         .Cells("HideText").FormulaForceU = "=GUARD(NOT(" & sh & arrNewID(0) & "!Actions.Titles.Checked))"
-                        .Cells("Comment").FormulaForceU = GI & sh & arrNewID(0) & strACC & """Управляющая ячейка строки""" & "," & """""" & "))"
+                        '.Cells("Comment").FormulaForceU = GI & sh & arrNewID(0) & strACC & """Управляющая ячейка строки""" & "," & """""" & "))"
+                        .Cells("Comment").FormulaForceU = GI & sh & arrNewID(0) & strACC & """Row control cell""" & "," & """""" & "))"
 
                     Case 3 ' 1 ГлавУпр
                         Const frm = "###0.0###"
@@ -309,9 +315,12 @@ errD:
             ' Добавить User секцию для всех ячеек
             AddSectionNum = 242
             intArrNum = {0, 1}
-            arrRowData = {{"TableName", "Name(0)", """Таблица"""}, _
-                          {"TableCol", """""", """Столбец"""}, _
-                          {"TableRow", """""", """Строка"""}}
+            'arrRowData = {{"TableName", "Name(0)", """Таблица"""},
+            '              {"TableCol", """""", """Столбец"""},
+            '              {"TableRow", """""", """Строка"""}}
+            arrRowData = {{"TableName", "Name(0)", """Table"""},
+                          {"TableCol", """""", """Column"""},
+                          {"TableRow", """""", """Line"""}}
             AddSections(vsoShape, AddSectionNum, arrRowData, intArrNum, True)
 
             .Cells("LocPinX").FormulaU = "Guard(Width*0.5)"
@@ -341,7 +350,8 @@ errD:
                 Case "TvR" ' УЯ строки
                     AddSectionNum = 9 ' Добавить Control секцию
                     intArrNum = {0, 1, 2, 3, 6, 8} ' Сделать не меньше нуля
-                    arrRowData = {{"ControlHeight", "GUARD(Width*0)", "Height*0", "GUARD(Controls.ControlHeight)", "GUARD(Controls.ControlHeight.Y)", "False", """Изменение высоты ячейки"""}}
+                    'arrRowData = {{"ControlHeight", "GUARD(Width*0)", "Height*0", "GUARD(Controls.ControlHeight)", "GUARD(Controls.ControlHeight.Y)", "False", """Изменение высоты ячейки"""}}
+                    arrRowData = {{"ControlHeight", "GUARD(Width*0)", "Height*0", "GUARD(Controls.ControlHeight)", "GUARD(Controls.ControlHeight.Y)", "False", """Changing cell height"""}}
                     AddSections(vsoShape, AddSectionNum, arrRowData, intArrNum)
 
                     .CellsSRC(10, 1, 1).FormulaU = "GUARD(Controls.ControlHeight.Y)"
@@ -352,7 +362,8 @@ errD:
                 Case "ThC" ' УЯ столбца
                     AddSectionNum = 9 ' Добавить Control секцию
                     intArrNum = {0, 1, 2, 3, 6, 8} ' Сделать не меньше нуля
-                    arrRowData = {{"ControlWidth", "Width*1", "GUARD(Height)", "GUARD(Controls.ControlWidth)", "GUARD(Controls.ControlWidth.Y)", "False", """Изменение ширины ячейки"""}}
+                    'arrRowData = {{"ControlWidth", "Width*1", "GUARD(Height)", "GUARD(Controls.ControlWidth)", "GUARD(Controls.ControlWidth.Y)", "False", """Изменение ширины ячейки"""}}
+                    arrRowData = {{"ControlWidth", "Width*1", "GUARD(Height)", "GUARD(Controls.ControlWidth)", "GUARD(Controls.ControlWidth.Y)", "False", """Changing cell width"""}}
                     AddSections(vsoShape, AddSectionNum, arrRowData, intArrNum)
 
                     .CellsSRC(10, 2, 0).FormulaU = "GUARD(Controls.ControlWidth)"
@@ -362,9 +373,13 @@ errD:
                 Case strNameTable ' Главная УЯ
                     AddSectionNum = 240 ' Добавить Action секцию
                     intArrNum = {3, 0, 15, 16, 4, 7, 8}
-                    arrRowData = {{"Titles", "SETF(GetRef(Actions.Titles.Checked),NOT(Actions.Titles.Checked))", """П&оказывать заголовки""", """""", 5, 1, "FALSE", "TRUE"}, _
-                        {"Comments", "SETF(GetRef(Actions.Comments.Checked),NOT(Actions.Comments.Checked))", """Показывать коммента&рии""", """""", 6, 1, "FALSE", "FALSE"}, _
-                        {"FixingTable", "SETF(GetRef(Actions.FixingTable.Checked),NOT(Actions.FixingTable.Checked))", """Заф&иксировать таблицу""", """""", 7, 0, "FALSE", "FALSE"}}
+                    'arrRowData = {{"Titles", "SETF(GetRef(Actions.Titles.Checked),NOT(Actions.Titles.Checked))", """П&оказывать заголовки""", """""", 5, 1, "FALSE", "TRUE"},
+                    '    {"Comments", "SETF(GetRef(Actions.Comments.Checked),NOT(Actions.Comments.Checked))", """Показывать коммента&рии""", """""", 6, 1, "FALSE", "FALSE"},
+                    '    {"FixingTable", "SETF(GetRef(Actions.FixingTable.Checked),NOT(Actions.FixingTable.Checked))", """Заф&иксировать таблицу""", """""", 7, 0, "FALSE", "FALSE"}}
+
+                    arrRowData = {{"Titles", "SETF(GetRef(Actions.Titles.Checked),NOT(Actions.Titles.Checked))", """&Render headers""", """""", 5, 1, "FALSE", "TRUE"},
+                        {"Comments", "SETF(GetRef(Actions.Comments.Checked),NOT(Actions.Comments.Checked))", """Show comments""", """""", 6, 1, "FALSE", "FALSE"},
+                        {"FixingTable", "SETF(GetRef(Actions.FixingTable.Checked),NOT(Actions.FixingTable.Checked))", """Freeze the table""", """""", 7, 0, "FALSE", "FALSE"}}
                     AddSections(vsoShape, AddSectionNum, arrRowData, intArrNum)
 
                     .Cells("LineColor").FormulaForceU = "GUARD(IF(Actions.Titles.Checked=1,RGB(191,191,191),RGB(255,255,255)))"
@@ -375,12 +390,9 @@ errD:
                     .Cells("LockMoveY").FormulaU = "GUARD(Actions.FixingTable.Checked)"
                     .Cells("Width").FormulaU = GU5
                     .Cells("Height").FormulaU = GU5
-                    .Cells("Comment").FormulaU = "GUARD(IF(Actions.Comments.Checked=1," & "User.TableName&CHAR(10)&" & """Основная управляющая ячейка"", """"))"
+                    '.Cells("Comment").FormulaU = "GUARD(IF(Actions.Comments.Checked=1," & "User.TableName&CHAR(10)&" & """Основная управляющая ячейка"", """"))"
+                    .Cells("Comment").FormulaU = "GUARD(IF(Actions.Comments.Checked=1," & "User.TableName&CHAR(10)&" & """Main control cell"", """"))"
                     Dim Ui = .UniqueID(1)
-                    '.AddNamedRow(242, "BirthDay", 0)
-                    '.Cells("User.BirthDay.Value").FormulaU = """" & Now & """"
-                    '.Cells("EventDrop").FormulaForceU = "GUARD(SETF(GetRef(User.BirthDay), CHAR(34)&Now()&CHAR(34)))"
-                    '.Cells("EventMultiDrop").FormulaForceU = "GUARD(SETF(GetRef(User.BirthDay), CHAR(34)&Now()&CHAR(34)))"
                     shape_TbL = vsoShape
             End Select
         End With
