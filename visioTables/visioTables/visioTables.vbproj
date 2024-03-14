@@ -122,7 +122,6 @@
     <Compile Include="ClassVBA.vb" />
     <Compile Include="Constants.vb" />
     <Compile Include="CreatingTable.vb" />
-    <Compile Include="EditTable.vb" />
     <Compile Include="forms\dlgFromFile.Designer.vb" />
     <Compile Include="forms\dlgFromFile.vb">
       <SubType>Form</SubType>
@@ -167,7 +166,6 @@
     <Compile Include="VisioTable.vb" />
     <None Include="ClassDiagram1.cd" />
     <None Include="ClassDiagram2.cd" />
-    <None Include="ClassDiagram3.cd" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -207,12 +205,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Resources\Command1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Resources\Command2.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddinRibbon.vb" />

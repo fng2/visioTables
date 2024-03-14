@@ -39,7 +39,7 @@ Public Interface IClassVBA
     ReadOnly Property SelectedIsPossibleMerge()
 
 
-    'Методы надстройки =========================================================================================
+    'Add-in Methods =========================================================================================
 
     Sub AddTable(a As String, b As Byte, c As Integer, d As Integer, e As Single, f As Single, g As Single, h As Single, i As Boolean, j As Boolean)
     Sub AddColumn(arg As Byte)

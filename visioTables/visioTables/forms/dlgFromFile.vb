@@ -5,6 +5,11 @@ Public Class dlgFromFile
     Private fso As Object, folder As String, fileObj As Object
     Private intlistStart As Integer
 
+    'vsoObj.Count is the number of cells in the table that are selected
+    'user MUST select one or more cells before clicking OK
+    'user can select cells in a row, in a column, diagonally or ANY order
+    'if user selects enough cells then all of the text in the file will be inserted, otherwise it will be truncated to the number of cells selected
+
     Private Sub OK_Button_Click(sender As Object, e As EventArgs) Handles OK_Button.Click
         Dim vsoObj As Visio.Selection = winObj.Selection
         If ListBox2.Items.Count = 0 Then Exit Sub
@@ -12,7 +17,7 @@ Public Class dlgFromFile
         Dim iC As Integer = vsoObj(1).Cells(UTC).Result("")
         Dim iR As Integer = intlistStart
 
-        Call RecUndo("Вставить из файла")
+        Call RecUndo("Paste from file")
 
         On Error Resume Next
 
@@ -30,7 +35,7 @@ Public Class dlgFromFile
 
     Private Sub ReadFolder()
         fso = CreateObject("Scripting.FileSystemObject")
-        folder = vsoApp.MyShapesPath & "\" & "Файлы заполнения"
+        folder = vsoApp.MyShapesPath & "\" & "Backfill files"
 
         If fso.FolderExists(folder) Then
             lblTxt.Text = Strings.Right(folder, 75)
@@ -39,12 +44,12 @@ Public Class dlgFromFile
             Next
             ToolTip1.SetToolTip(lblTxt, folder)
         Else
-            MsgBox("Папка не существует: " & vbCrLf & folder, vbExclamation)
+            MsgBox("Folder does not exist: " & vbCrLf & folder, vbExclamation)
             Me.Close()
         End If
 
         If ListBox1.Items.Count = 0 Then
-            MsgBox("В папке нет файлов: " & vbCrLf & folder, vbInformation)
+            MsgBox("There are no files in the folder: " & vbCrLf & folder, vbInformation)
             Me.Close()
         End If
 

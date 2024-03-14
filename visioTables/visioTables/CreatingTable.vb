@@ -56,7 +56,7 @@ Module CreatingTable
             Case 2 : dlgNew = New dlgFromFile
             Case 3
                 If vsoApp.ActiveDocument.DataRecordsets.Count = 0 Then
-                    MsgBox("В активном документе нет доступных подключений к внешним данным.", vbCritical, "Ошибка")
+                    MsgBox("There are no external data connections available in the active document.", vbCritical, "Error")
                     GoTo err
                 End If
                 dlgNew = New dlgLinkData
@@ -601,7 +601,7 @@ err:
 
         'If Response = 0 Then
         If arg Then
-            Response = MsgBox("Уверены что хотите удалить эту таблицу?", 67, "Удаление!")
+            Response = MsgBox("Are you sure you want to delete this table?", 67, "Removal!")
         Else
             Response = 6
         End If
@@ -611,10 +611,10 @@ err:
             winObj = vsoApp.ActiveWindow
             shpsObj = winObj.Page.Shapes
             NT = winObj.Selection(1).Cells(UTN).ResultStr("")
-            Call RecUndo("Удалить таблицу")
+            Call RecUndo("Delete table")
 
             Dim frm As New dlgWait
-            frm.Label1.Text = " " & vbCrLf & "Удаление таблицы..."
+            frm.Label1.Text = " " & vbCrLf & "Deleting a table..."
             frm.Show() : frm.Refresh()
 
             'winObj.Select(winObj.Page.Shapes.item(1), 256)
@@ -1972,10 +1972,11 @@ err:
 
     ' Сообщение об отсутствующем/некорректном выделении на листе
     Function CheckSelCells() As Boolean
+
         With winObj
             If .Selection.Count = 0 Then GoTo ErrMsg
 
-            Dim shObj As Visio.Shape
+            Dim shObj As visio.Shape
 
             For Each shObj In .Selection
                 If Not shObj.CellExistsU(UTN, 0) Then .Select(shObj, 1)
@@ -1992,9 +1993,9 @@ err:
 
         Return True
 ErrMsg:
-        MsgBox("На активном листе отсутствуют выделенные ячейки в таблице!" &
-           vbCrLf & "Дальнейшая работа невозможна." & vbCrLf &
-           "Нужно выбрать ячейку в таблице и выполнить операцию еще раз." & vbCrLf, 48, "Внимание")
+        MsgBox("There are no selected cells in the table on the active sheet!" &
+           vbCrLf & "No further work is possible." & vbCrLf &
+           "You need to select a cell in the table and perform the operation again." & vbCrLf, 48, "Attention")
         Return False
     End Function
 

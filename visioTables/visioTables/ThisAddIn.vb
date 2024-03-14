@@ -23,23 +23,23 @@ Partial Public Class ThisAddIn
     ''' 
     ''' A simple command
     ''' 
-    Public Sub Command1()
-        MessageBox.Show(
-            "Hello from command 1!",
-            "visioTables")
-    End Sub
+    'Public Sub Command1()
+    '    MessageBox.Show(
+    '        "Hello from command 1!",
+    '        "visioTables")
+    'End Sub
 
     ''' 
     ''' A command to demonstrate conditionally enabling/disabling.
     ''' The command gets enabled only when a shape is selected
     ''' 
-    Public Sub Command2()
-        If Application Is Nothing OrElse Application.ActiveWindow Is Nothing OrElse Application.ActiveWindow.Selection Is Nothing Then Exit Sub
+    'Public Sub Command2()
+    '    If Application Is Nothing OrElse Application.ActiveWindow Is Nothing OrElse Application.ActiveWindow.Selection Is Nothing Then Exit Sub
 
-        MessageBox.Show(
-            String.Format("Hello from (conditional) command 2! You have {0} shapes selected.", Application.ActiveWindow.Selection.Count),
-            "visioTables")
-    End Sub
+    '    MessageBox.Show(
+    '        String.Format("Hello from (conditional) command 2! You have {0} shapes selected.", Application.ActiveWindow.Selection.Count),
+    '        "visioTables")
+    'End Sub
 
     ''' 
     ''' Callback called by the UI manager when user clicks a button
@@ -56,22 +56,23 @@ Partial Public Class ThisAddIn
         shpsObj = pagObj.Shapes
         ' Очищать?
 
-        Select Case commandId
-            Case "Command1"
-                'Command1()
-                CreatingTable.Load_dlgNewTable()
-                Return
-            Case "Command2"
-                'Command2()
-                LoadDlg(5)
-                Return
-        End Select
+        'Select Case commandId
+        '    Case "Command1"
+        '        'Command1()
+        '        CreatingTable.Load_dlgNewTable()
+        '        Return
+        '    Case "Command2"
+        '        'Command2()
+        '        LoadDlg(5)
+        '        Return
+        'End Select
 
         'new
         Select Case commandId
             Case "btn_newtable" : CreatingTable.Load_dlgNewTable() : Return
             Case "btn_lockpicture" : LoadDlg(5) : Return
             Case "btn_help" : CallHelp() : Return
+            Case "btn_dick" : MsgBox("dick") : Return
         End Select
 
         If Not CheckSelCells() Then Exit Sub

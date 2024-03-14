@@ -98,7 +98,7 @@ Partial Class dlgFromFile
         Me.Cancel_Button.Name = "Cancel_Button"
         Me.Cancel_Button.Size = New System.Drawing.Size(67, 23)
         Me.Cancel_Button.TabIndex = 13
-        Me.Cancel_Button.Text = "Отмена"
+        Me.Cancel_Button.Text = "Cancel"
         '
         'dlgFromFile
         '
@@ -117,7 +117,7 @@ Partial Class dlgFromFile
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Данные из файла"
+        Me.Text = "Data from file"
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.ResumeLayout(False)
 

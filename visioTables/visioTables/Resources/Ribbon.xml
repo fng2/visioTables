@@ -110,6 +110,7 @@
                 <item id="i8x10" imageMso="AppointmentColor0" label="8x10"/>
                 <item id="i9x10" imageMso="AppointmentColor0" label="9x10"/>
                 <item id="i10x10" imageMso="AppointmentColor0" label="10x10"/>
+            <button id="btn_dick" label="New table" onAction="OnRibbonButtonClick"/>
               </gallery>
           <button id="btn_newtable" label="New table" size="normal" imageMso="TableInsert" onAction="OnRibbonButtonClick" screentip="Creating a table" supertip ="Calling the dialog box to create a new table"/>
           <splitButton id="split_newcol" size="normal">
@@ -119,9 +120,9 @@
             </menu>
           </splitButton>
           <splitButton id="split_newrow" size="normal">
-            <button id="btn_newrowbefore" label="Line above" imageMso="TableRowsInsertAboveWord" onAction="OnRibbonButtonClick" tag="0" screentip="Adding a line" supertip ="Adding a new row to the active table"/>
+            <button id="btn_newrowbefore" label="Row above" imageMso="TableRowsInsertAboveWord" onAction="OnRibbonButtonClick" tag="0" screentip="Adding a row" supertip ="Adding a new row to the active table"/>
             <menu id="menu_newrow">
-              <button id="btn_newrowafter" label="Line below" imageMso="TableRowsInsertBelowWord" onAction="OnRibbonButtonClick" tag="1" screentip="Adding a line" supertip ="Adding a new row to the active table"/>
+              <button id="btn_newrowafter" label="Row below" imageMso="TableRowsInsertBelowWord" onAction="OnRibbonButtonClick" tag="1" screentip="Adding a row" supertip ="Adding a new row to the active table"/>
             </menu>
           </splitButton>
         </group>
