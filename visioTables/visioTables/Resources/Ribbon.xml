@@ -135,7 +135,7 @@
             <button id="btn_sizeonheight" label="Align row heights" imageMso="TableRowsDistribute" onAction="OnRibbonButtonClick" tag="5" screentip="Align row heights" supertip ="Distribute row heights evenly between selected rows"/>
             <button id="btn_size" label="Dimensions" imageMso="DesignMode" onAction="OnRibbonButtonClick" screentip="Sizing settings" supertip ="Adjusting table sizes, columns and rows"/>
             <button id="btn_autosize" label="Autodimensions" imageMso="CreateTableInDesignView" onAction="OnRibbonButtonClick" screentip="Automatic adjustment of cell sizes" supertip ="Adjust cell sizes to fit cell contents"/>
-			<button id="btn_sorttabledata" label="Sort data" imageMso="SortDialogClassic" onAction="OnRibbonButtonClick" screentip="Sorting data in a table" supertip ="Sorting data in a table, in a selected range of cells, by a given column"/>
+			      <button id="btn_sorttabledata" label="Sort data" imageMso="SortDialogClassic" onAction="OnRibbonButtonClick" screentip="Sorting data in a table" supertip ="Sorting data in a table, in a selected range of cells, by a given column"/>
             <button id="btn_lockpicture" label="Lock shapes" imageMso="ChartEditDataSource" onAction="OnRibbonButtonClick" screentip="Pin shapes to cells" supertip ="Pin shapes or images to table cells"/>
             <button id="btn_altlinesrow" label="Alternate lines" imageMso="TableStyleBandedRows" onAction="OnRibbonButtonClick" tag="5" screentip="Alternating line colors" supertip ="Alternating table row fill colors to improve visual perception"/>
             <button id="btn_altlinescol" label="Alternate columns" imageMso="TableStyleBandedColumns" onAction="OnRibbonButtonClick" tag="4" screentip="Alternating Column Colors" supertip ="Alternating table column fill colors to improve visual perception"/>
@@ -191,6 +191,8 @@
           <button id="btn_delrow" size="normal" label="Line" imageMso="TableRowsDeleteExcel" onAction="OnRibbonButtonClick" screentip="Delete a line" supertip ="Deleting the selected row or rows from the active table"/>
           <separator  id="separator2"/>
           <button id="btn_help" size="large" label="Reference" imageMso="Help" onAction="OnRibbonButtonClick" screentip="Reference" supertip ="Open help file"/>
+          <separator  id="separator3"/>
+          <button id="btn_debug" size="large" label="Debug" imageMso="Help" onAction="OnRibbonButtonClick" screentip="Debug" supertip ="Debug"/>
         </group>
       </tab>
     </tabs>

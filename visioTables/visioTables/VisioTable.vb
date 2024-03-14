@@ -6,6 +6,8 @@ Imports visio = Microsoft.Office.Interop.Visio
 
 Friend Class VisioTable
 
+    'on a 2x2 table newshape is called 4 times and drawcells is called 9 times
+
 #Region "List Of Fields"
     Private strNameTable As String
     Private bytInsertType As Byte
@@ -20,15 +22,15 @@ Friend Class VisioTable
 #End Region
 
 #Region "List Of Variables"
-    Private vsoApp As Visio.Application = Globals.ThisAddIn.Application
-    Private winObj As Visio.Window = vsoApp.ActiveWindow
-    Private pagObj As Visio.Page = vsoApp.ActivePage
-    Private shpObj As Visio.Shape
+    Private vsoApp As visio.Application = Globals.ThisAddIn.Application
+    Private winObj As visio.Window = vsoApp.ActiveWindow
+    Private pagObj As visio.Page = vsoApp.ActivePage
+    Private shpObj As visio.Shape
 
-    Private shape_TbL As Visio.Shape
-    Private shape_ThC As Visio.Shape
-    Private shape_TvR As Visio.Shape
-    Private shape_ClW As Visio.Shape
+    Private shape_TbL As visio.Shape
+    Private shape_ThC As visio.Shape
+    Private shape_TvR As visio.Shape
+    Private shape_ClW As visio.Shape
 
     Private sngTW As Double = 0
     Private sngTH As Double = 0
@@ -65,11 +67,11 @@ Friend Class VisioTable
     Private Const G1 = "Guard(1)"
 #End Region
 
-    Public Sub CreatTable(ByVal a As String, ByVal b As Byte, ByVal c As Integer, ByVal d As Integer, ByVal e As Single, _
+    Public Sub CreatTable(ByVal a As String, ByVal b As Byte, ByVal c As Integer, ByVal d As Integer, ByVal e As Single,
                    ByVal f As Single, ByVal g As Single, ByVal h As Single, ByVal i As Boolean, ByVal j As Boolean) 'Implements IVisioTable.CreatTable
         On Error GoTo errD
         Dim frm As New dlgWait
-        Dim vsoLayerTitles As Visio.Layer, vsoLayerCells As Visio.Layer, MemSHID As Integer
+        Dim vsoLayerTitles As visio.Layer, vsoLayerCells As visio.Layer, MemSHID As Integer
         Dim TypeCell As String
         Dim jGT As Integer = 0
         Dim iGT As Integer = 0
@@ -217,6 +219,9 @@ errD:
 
     Private Sub DrawOfCells(ByVal iGT, ByVal jGT)
         On Error GoTo errD
+
+        MsgBox("draw cells")
+
         With pagObj
             CountID = CountID + 1
             arrNewID(CountID) = shpObj.ID
@@ -305,9 +310,11 @@ errD:
     Private Sub NewShape(TypeCell)
         On Error GoTo errD
         ' Подпроцедура создания шейпов таблицы и настройка их
-        Dim vsoShape As Visio.Shape
+        Dim vsoShape As visio.Shape
         Dim AddSectionNum As Integer, intArrNum() As Integer, arrRowData
         vsoShape = winObj.Page.DrawRectangle(0, 0, 1, 1)
+
+        MsgBox("new shape")
 
         With vsoShape
             .Name = TypeCell

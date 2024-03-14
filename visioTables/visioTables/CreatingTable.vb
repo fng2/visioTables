@@ -34,7 +34,67 @@ Module CreatingTable
 
 #End Region
 
+    Sub debug()
+        'Call CreatTable(strNameTable, bytInsertType, nudColumns.Value, nudRows.Value, w, h, wT, hT, ckbDelShape.Checked, True)
+        'Public Sub CreatTable(ByVal a As String, ByVal b As Byte, ByVal c As Integer, ByVal d As Integer, ByVal e As Single,
+        'ByVal f As Single, ByVal g As Single, ByVal h As Single, ByVal i As Boolean, ByVal j As Boolean) 'Implements IVisioTable.CreatTable
+
+        Dim NewTable As New VisioTable
+        NewTable.CreatTable("BOM", 1, 5, 5, 1, 0.5, 0.5, 0.25, True, True)
+        'Dim vsoObj As visio.Selection = NewTable
+        Dim vsoObj As visio.Selection = winObj.Selection
+        Dim iC As Integer = vsoObj(1).Cells(UTC).Result("")
+        Dim shObj As visio.Shape
+
+
+
+        Dim vsoSel As visio.Selection = winObj.Selection
+        Dim aa As String = String.Empty
+        Dim bb As String = String.Empty
+
+
+
+        For Each shObj In vsoSel
+            aa = shObj.Name
+            bb = shObj.NameID
+            'shObj.Text = "dick"
+        Next
+
+        'shpsObj = winObj.Page.Shapes
+
+        'For iC = 1 To vsoObj.Count
+        '    IntDeIntCells()
+        'Next
+
+
+
+        'Dim vsoSel As visio.Selection = winObj.Selection, shObj As visio.Shape
+
+        'For Each shObj In vsoSel
+
+        'Dim vsoObj As visio.Selection = winObj.Selection
+        'If ListBox2.Items.Count = 0 Then Exit Sub
+
+        'Dim iC As Integer = vsoObj(1).Cells(UTC).Result("")
+        'Dim iR As Integer = intlistStart
+
+        'Call RecUndo("Paste from file")
+
+        'On Error Resume Next
+
+        'For iC = 1 To vsoObj.Count
+        '    vsoObj(iC).Characters.Text = ListBox2.Items(iR)
+        '    If iR = ListBox2.Items.Count - 1 Then
+        '        iR = 0
+        '    Else : iR = iR + 1
+        '    End If
+        'Next
+
+        NewTable = Nothing
+    End Sub
+
 #Region "Load Sub"
+
     Sub CreatTable(a, b, c, d, e, f, g, h, i, j)
         Dim NewTable As New VisioTable
         NewTable.CreatTable(a, b, c, d, e, f, g, h, i, j)
@@ -459,7 +519,7 @@ err:
     ' Вызов справочного файла - Таблицы в Visio.chm
     Sub CallHelp()
         Dim RetVal, strPath As String
-        strPath = "C:\Windows\hh.exe " & vsoApp.MyShapesPath & "\" & "Таблицы в Visio.chm"
+        strPath = "C:\Windows\hh.exe " & vsoApp.MyShapesPath & "\" & "Tables in Visio.chm"
         RetVal = Shell(strPath, 1)
     End Sub
 
@@ -656,10 +716,10 @@ errD:
         Call InitArrShapeID(NT)
 
         If InStr(1, shObj.Cells("Width").FormulaU, "SUM", 1) <> 0 Or InStr(1, shObj.Cells("Height").FormulaU, "Sum", 1) <> 0 Then
-            Call RecUndo("Разъединить ячейки")
+            Call RecUndo("Disconnect cells")
             Call DeIntegrateCells(shObj)
         Else
-            Call RecUndo("Объединить ячейки")
+            Call RecUndo("Merge cells")
             Call IntegrateCells()
         End If
 
