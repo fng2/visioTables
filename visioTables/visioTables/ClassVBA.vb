@@ -80,11 +80,16 @@ End Interface
 Public Class ClassVBA
     Implements IClassVBA
 
+    'Sub New()
+    '    MsgBox("classVBA loaded")
+    'End Sub
+
+
 #Region "Properties"
 
     'Свойства  надстройки =========================================================================================
 
-	' Имя таблицы (в главной упр. ячейке)
+    ' Имя таблицы (в главной упр. ячейке)
     Public ReadOnly Property TableName Implements IClassVBA.TableName
         Get
             If Not CheckCells() Then

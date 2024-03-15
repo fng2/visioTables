@@ -94,7 +94,7 @@ Partial Public Class ThisAddIn
             Case "btn_delrow" : DelColRows(1)
             Case "btn_deltable" : DelTab(True)
             Case "btn_intellinput" : LoadDlg(4)
-            Case "btn_sizeonwidth", "btn_sizeonheight" : AlignOnSize(commandTag)
+            Case "btn_sizeonwidth", "btn_sizeonheight" : AlignOnSize(commandTag) 'which one? edit table or creating table?
             Case "btn_size" : LoadDlg(0)
             Case "btn_autosize" : LoadDlg(1)
             Case "btn_sorttabledata" : LoadDlg(7)
@@ -179,12 +179,12 @@ Partial Public Class ThisAddIn
     End Sub
 
     Private Sub ThisAddIn_Startup() Handles Me.Startup
-        AddHandler Application.SelectionChanged, AddressOf Application_SelectionChanged
+        'AddHandler Application.SelectionChanged, AddressOf Application_SelectionChanged
 
     End Sub
 
     Private Sub ThisAddIn_Shutdown() Handles Me.Shutdown
-        RemoveHandler Application.SelectionChanged, AddressOf Application_SelectionChanged
+        'RemoveHandler Application.SelectionChanged, AddressOf Application_SelectionChanged
 
     End Sub
 

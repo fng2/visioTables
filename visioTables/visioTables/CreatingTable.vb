@@ -39,6 +39,10 @@ Module CreatingTable
         'Public Sub CreatTable(ByVal a As String, ByVal b As Byte, ByVal c As Integer, ByVal d As Integer, ByVal e As Single,
         'ByVal f As Single, ByVal g As Single, ByVal h As Single, ByVal i As Boolean, ByVal j As Boolean) 'Implements IVisioTable.CreatTable
 
+
+        'User.TableCol and User.TableRow are in each "working" cell and give the cell's location in the table
+
+
         Dim NewTable As New VisioTable
         NewTable.CreatTable("BOM", 1, 5, 5, 1, 0.5, 0.5, 0.25, True, True)
         'Dim vsoObj As visio.Selection = NewTable
@@ -48,11 +52,11 @@ Module CreatingTable
 
 
 
-        Dim vsoSel As visio.Selection = winObj.Selection
+        Dim vsoSel As visio.Selection = winObj.Selection 'only the BOM shape is selected, the other "cells" start with CIW
         Dim aa As String = String.Empty
         Dim bb As String = String.Empty
 
-
+        Dim Ui = winObj.Page.Shapes(NT).UniqueID(0)
 
         For Each shObj In vsoSel
             aa = shObj.Name
@@ -401,6 +405,9 @@ err:
 
 
     Sub AlignOnSize(arg As Byte)
+
+        MsgBox("alignOnSize in create table")
+
         Call InitArrShapeID(NT)
 
         Select Case arg
@@ -411,7 +418,7 @@ err:
         If winObj.Selection.Count = 0 Then GoTo err
 
         Dim strCellWH As String = "", dblResult As Double
-        Dim vsoSel As Visio.Selection = winObj.Selection
+        Dim vsoSel As visio.Selection = winObj.Selection
 
         If vsoSel.Count = 1 Then
             Select Case arg
@@ -1094,6 +1101,8 @@ ExitLine:
     Sub SelCell(arg As Byte, Optional booInit As Boolean = True)
         Dim vsoSel As Visio.Selection, intMaxC As Integer, intMaxR As Integer
         Dim iCount As Integer, Shp As Visio.Shape
+
+        MsgBox("SelCell in creating table")
 
         vsoSel = winObj.Selection
         If booInit Then Call InitArrShapeID(NT)

@@ -6,7 +6,7 @@ Imports visio = Microsoft.Office.Interop.Visio
 
 Friend Class VisioTable
 
-    'on a 2x2 table newshape is called 4 times and drawcells is called 9 times
+    'on a 2x2 table newshape is called 4 times (once for each "cell") and drawcells is called 9 times (once for each "cell" and once for each "header" item)
 
 #Region "List Of Fields"
     Private strNameTable As String
@@ -46,13 +46,15 @@ Friend Class VisioTable
     Dim arrF = {"1", "0", "1", "0", "1", "0", "0%", "0%", "0%", "0%", "0", "0 mm", "0 mm", "0 deg", "100%"}
     Dim VarCell As Byte = 0
 
+    'these next 6 are in constants, get rid of them?
     Private Const PX = "PinX"
     Private Const PY = "PinY"
     Private Const WI = "Width"
     Private Const HE = "Height"
-    Private Const CA = "Angle"
     Private Const LD = "LockDelete"
     Private Const GU = "=GUARD("
+
+    Private Const CA = "Angle"
     Private Const strATC = "!Actions.Titles.Checked=1,"
     Private Const strACC = "!Actions.Comments.Checked=1,"
     Private Const strThGu000 = "GUARD(MSOTINT(RGB(0,0,0),50))"
@@ -220,7 +222,8 @@ errD:
     Private Sub DrawOfCells(ByVal iGT, ByVal jGT)
         On Error GoTo errD
 
-        MsgBox("draw cells")
+        'MsgBox("draw cells")
+        'User.TableCol and User.TableRow are in each "working" cell and give the cell's location in the table
 
         With pagObj
             CountID = CountID + 1
@@ -228,7 +231,7 @@ errD:
             With shpObj
                 Select Case VarCell
 
-                    Case 0 'Вставка рабочих ячеек
+                    Case 0 'Inserting work cells
                         .Cells(PX).FormulaForceU = GS & arrNewID(iGT) & "!PinX)"
                         .Cells(PY).FormulaForceU = GS & arrNewID(intColumnsCount + jGT) & "!PinY)"
                         .Cells(WI).FormulaForceU = GS & arrNewID(iGT) & "!Width)"
@@ -236,9 +239,10 @@ errD:
                         .Cells(UTN).FormulaForceU = GS & arrNewID(0) & "!Name(0))"
                         .Cells(UTC).FormulaForceU = GS & arrNewID(iGT) & "!User.TableCol)"
                         .Cells(UTR).FormulaForceU = GS & arrNewID(intColumnsCount + jGT) & "!User.TableRow)"
+                        'char(10) is linefeed
                         .Cells("Comment").FormulaForceU = GI & sh & arrNewID(0) & strACC & "User.TableCol.Prompt&"" ""&User.TableCol&CHAR(10)&User.TableRow.Prompt&"" ""&User.TableRow" & "," & """""" & "))"
 
-                    Case 2 ' упр строка
+                    Case 2 ' control line
                         .Cells(PX).FormulaForceU = GS & arrNewID(CountID - 1) & "!PinX+(Sheet." & arrNewID(CountID - 1) & "!Width/2)+(Width/2))"
                         .Cells(PY).FormulaForceU = GS & arrNewID(0) & "!PinY)"
                         .Cells(HE).FormulaForceU = GS & arrNewID(0) & "!Height)"
@@ -258,7 +262,7 @@ errD:
                         '.Cells("Comment").FormulaForceU = GI & sh & arrNewID(0) & strACC & """Управляющая ячейка столбца""" & "," & """""" & "))"
                         .Cells("Comment").FormulaForceU = GI & sh & arrNewID(0) & strACC & """Column control cell""" & "," & """""" & "))"
 
-                    Case 1 ' упр столбец
+                    Case 1 ' control column
                         .Cells(PX).FormulaU = GS & arrNewID(0) & "!PinX)"
                         If jGT = 1 Then
                             .Cells(PY).FormulaU = GS & arrNewID(CountID - intColumnsCount - 1) & "!PinY-(Sheet." & arrNewID(CountID - intColumnsCount - 1) & "!Height/2)-(Height/2))"
@@ -282,7 +286,7 @@ errD:
                         '.Cells("Comment").FormulaForceU = GI & sh & arrNewID(0) & strACC & """Управляющая ячейка строки""" & "," & """""" & "))"
                         .Cells("Comment").FormulaForceU = GI & sh & arrNewID(0) & strACC & """Row control cell""" & "," & """""" & "))"
 
-                    Case 3 ' 1 ГлавУпр
+                    Case 3 ' 1 GlavUpr ?
                         Const frm = "###0.0###"
                         '.Cells(WI).FormulaForceU = GU & PtoD(28.34645669) & ")"
                         '.Cells(HE).FormulaForceU = GU & PtoD(28.34645669) & ")"
@@ -314,13 +318,14 @@ errD:
         Dim AddSectionNum As Integer, intArrNum() As Integer, arrRowData
         vsoShape = winObj.Page.DrawRectangle(0, 0, 1, 1)
 
-        MsgBox("new shape")
+        'MsgBox("new shape")
 
         With vsoShape
             .Name = TypeCell
 
             ' Добавить User секцию для всех ячеек
             AddSectionNum = 242
+            'visSectionUser	242	Stores cells created and used by an external solution.
             intArrNum = {0, 1}
             'arrRowData = {{"TableName", "Name(0)", """Таблица"""},
             '              {"TableCol", """""", """Столбец"""},
@@ -356,6 +361,7 @@ errD:
 
                 Case "TvR" ' УЯ строки
                     AddSectionNum = 9 ' Добавить Control секцию
+                    'visSectionControls	9	Stores an object's control handles.
                     intArrNum = {0, 1, 2, 3, 6, 8} ' Сделать не меньше нуля
                     'arrRowData = {{"ControlHeight", "GUARD(Width*0)", "Height*0", "GUARD(Controls.ControlHeight)", "GUARD(Controls.ControlHeight.Y)", "False", """Изменение высоты ячейки"""}}
                     arrRowData = {{"ControlHeight", "GUARD(Width*0)", "Height*0", "GUARD(Controls.ControlHeight)", "GUARD(Controls.ControlHeight.Y)", "False", """Changing cell height"""}}
@@ -368,6 +374,7 @@ errD:
 
                 Case "ThC" ' УЯ столбца
                     AddSectionNum = 9 ' Добавить Control секцию
+                    'visSectionControls	9	Stores an object's control handles.
                     intArrNum = {0, 1, 2, 3, 6, 8} ' Сделать не меньше нуля
                     'arrRowData = {{"ControlWidth", "Width*1", "GUARD(Height)", "GUARD(Controls.ControlWidth)", "GUARD(Controls.ControlWidth.Y)", "False", """Изменение ширины ячейки"""}}
                     arrRowData = {{"ControlWidth", "Width*1", "GUARD(Height)", "GUARD(Controls.ControlWidth)", "GUARD(Controls.ControlWidth.Y)", "False", """Changing cell width"""}}
@@ -379,6 +386,7 @@ errD:
 
                 Case strNameTable ' Главная УЯ
                     AddSectionNum = 240 ' Добавить Action секцию
+                    'visSectionAction	240	Stores the actions that appear on the shortcut menu.
                     intArrNum = {3, 0, 15, 16, 4, 7, 8}
                     'arrRowData = {{"Titles", "SETF(GetRef(Actions.Titles.Checked),NOT(Actions.Titles.Checked))", """П&оказывать заголовки""", """""", 5, 1, "FALSE", "TRUE"},
                     '    {"Comments", "SETF(GetRef(Actions.Comments.Checked),NOT(Actions.Comments.Checked))", """Показывать коммента&рии""", """""", 6, 1, "FALSE", "FALSE"},

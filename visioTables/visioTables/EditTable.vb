@@ -34,7 +34,7 @@ Public Class EditTable
 
 #Region "List Of Methods"
 
-    'made this to satisfy later calls to non-existant sub
+    'made this To satisfy later calls To non-existant Sub
     Sub sub1()
         winObj.Select(shpObj, Visio.VisSelectArgs.visDeselectAll)
     End Sub
@@ -62,6 +62,7 @@ Public Class EditTable
         Dim UT As String = String.Empty
         Dim Shp As Visio.Shape
 
+        MsgBox("SelCell in edittable")
         'Call CheckSelCells()
 
         'winObj = Application.ActiveWindow : shpsObj = winObj.Page.Shapes
@@ -512,6 +513,8 @@ err:
     End Sub
 
     Sub AlignOnSize(arg As Byte)
+
+        MsgBox("alignOnSize in edit table")
         Call CheckSelCells()
 
         Dim i As Integer, strCellWH As String, UT As String, dblResult As Double

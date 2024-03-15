@@ -116,7 +116,7 @@
           <splitButton id="split_newcol" size="normal">
             <button id="btn_newcolumnbefore" label="Column left" imageMso="TableColumnsInsertLeft" onAction="OnRibbonButtonClick" tag="0" screentip="Adding a Column" supertip ="Adding a new column to the active table"/>
             <menu id="menu_newcol">
-              <button id="btn_newcolumnafter" label="Column on the right" imageMso="TableColumnsInsertRight" onAction="OnRibbonButtonClick" tag="1" screentip="Adding a Column" supertip ="Adding a new column to the active table"/>
+              <button id="btn_newcolumnafter" label="Column right" imageMso="TableColumnsInsertRight" onAction="OnRibbonButtonClick" tag="1" screentip="Adding a Column" supertip ="Adding a new column to the active table"/>
             </menu>
           </splitButton>
           <splitButton id="split_newrow" size="normal">
@@ -182,7 +182,7 @@
         </group>
         <group id="group_copypaste" label="Clipboard" imageMso="Paste">
           <button id="btn_gut" size="normal" label="Cut" imageMso="Cut" onAction="OnRibbonButtonClick" screentip="Cut text" supertip ="Cutting text from selected table cells"/>
-          <button id="btn_copy" size="normal" label="КCopy" imageMso="Copy" onAction="OnRibbonButtonClick" screentip="Copy text" supertip ="Copying text from selected table cells"/>
+          <button id="btn_copy" size="normal" label="Copy" imageMso="Copy" onAction="OnRibbonButtonClick" screentip="Copy text" supertip ="Copying text from selected table cells"/>
           <button id="btn_paste" size="normal" label="Insert" imageMso="Paste" onAction="OnRibbonButtonClick" screentip="Insert text" supertip ="Inserting text into the cells of the selected table, starting with the active cell"/>
         </group>
         <group id="group_delete" label="Delete" imageMso="TableDeleteRowsAndColumnsMenuWord">
