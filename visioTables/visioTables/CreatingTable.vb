@@ -1,8 +1,8 @@
 Option Explicit On
 
-Imports System.Drawing
 Imports System.Windows.Forms
 Imports visio = Microsoft.Office.Interop.Visio
+Imports System.Data
 
 Module CreatingTable
 
@@ -31,70 +31,94 @@ Module CreatingTable
     Dim UndoScopeID As Long = 0
     Dim LayerVisible As String = ""
     Dim LayerLock As String = ""
+    Private _PartsDataTable As New DataTable()
 
 #End Region
 
+    Sub makeBomTable()
+        _PartsDataTable.Columns.Add("ContactId", Type.GetType("System.String"))
+        _PartsDataTable.Columns.Add("ContactNumber", Type.GetType("System.String"))
+        _PartsDataTable.Columns.Add("ContactMark", Type.GetType("System.String"))
+        _PartsDataTable.Columns.Add("ContactType", Type.GetType("System.String"))
+        _PartsDataTable.Columns.Add("ContactMnemo", Type.GetType("System.String"))
+        _PartsDataTable.Columns.Add("Used", Type.GetType("System.String"))
+    End Sub
+
     Sub debug()
-        'Call CreatTable(strNameTable, bytInsertType, nudColumns.Value, nudRows.Value, w, h, wT, hT, ckbDelShape.Checked, True)
-        'Public Sub CreatTable(ByVal a As String, ByVal b As Byte, ByVal c As Integer, ByVal d As Integer, ByVal e As Single,
-        'ByVal f As Single, ByVal g As Single, ByVal h As Single, ByVal i As Boolean, ByVal j As Boolean) 'Implements IVisioTable.CreatTable
-
-
+        'CreatTable(strNameTable, bytInsertType, nudColumns.Value, nudRows.Value, w, h, wT, hT, ckbDelShape.Checked, True)
         'User.TableCol and User.TableRow are in each "working" cell and give the cell's location in the table
+        'TableName is "BOM", insert type is 1 (default), 6 columns, 5 rows, width of cell, height of cell, width of table, height of table, delete shape checkbox and progress bar
 
-
+        Dim numberOfColumns As Integer = 6
+        Dim numberOfRows As Integer = 5
+        Dim vsoSel As visio.Selection
+        Dim ID As String = String.Empty
+        'Dim vsoShape As visio.Shape
         Dim NewTable As New VisioTable
-        NewTable.CreatTable("BOM", 1, 5, 5, 1, 0.5, 0.5, 0.25, True, True)
-        'Dim vsoObj As visio.Selection = NewTable
-        Dim vsoObj As visio.Selection = winObj.Selection
-        Dim iC As Integer = vsoObj(1).Cells(UTC).Result("")
-        Dim shObj As visio.Shape
+
+        NewTable.CreatTable("BOM", 1, numberOfColumns, numberOfRows, 1, 0.5, 1, 1, True, True)
 
 
+        Globals.ThisAddIn.Application.ActiveWindow.DeselectAll()
+        vsoSel = Globals.ThisAddIn.Application.ActiveWindow.Selection
 
-        Dim vsoSel As visio.Selection = winObj.Selection 'only the BOM shape is selected, the other "cells" start with CIW
-        Dim aa As String = String.Empty
-        Dim bb As String = String.Empty
+        For Each shape As visio.Shape In Globals.ThisAddIn.Application.ActivePage.Shapes
 
-        Dim Ui = winObj.Page.Shapes(NT).UniqueID(0)
+            'if it's the control cell, then turn off headers?
+            'If shape.Name = "BOM" Then
+            '    shape.CellsSRC(visio.VisSectionIndices.visSectionAction, visio.VisRowIndices.visRowAction, visio.VisCellIndices.visActionChecked).FormulaForceU = 0
+            'End If
 
-        For Each shObj In vsoSel
-            aa = shObj.Name
-            bb = shObj.NameID
-            'shObj.Text = "dick"
+            ID = shape.CellsSRC(visio.VisSectionIndices.visSectionObject, visio.VisRowIndices.visRowMisc, visio.VisCellIndices.visComment).ResultStr("")
+            'if the cell belongs to line 1 add it to a collection to be merged later
+            If ID.Contains("Line 1") Then
+                vsoSel.Select(shape, visio.VisSelectArgs.visSelect)
+            End If
+
+            'if it's the first cell, then add our title
+            If shape.Name = "ClW" Then
+                'ClW should be the row1/column1 cell
+                'add the title
+                shape.Text = "Bill Of Materials"
+            End If
+
+            'if we are on line 2, add the column descriptions
+            If ID.Contains("Line 2") Then
+                Select Case True
+                    Case ID.Contains("Column 1")
+                        shape.Text = "Item" & vbLf & "number"
+                    Case ID.Contains("Column 2")
+                        shape.Text = "Qty"
+                    Case ID.Contains("Column 3")
+                        shape.Text = "Part" & vbLf & "number"
+                    Case ID.Contains("Column 4")
+                        shape.Text = "Alt part" & vbLf & "number"
+                    Case ID.Contains("Column 5")
+                        shape.Text = "Kit" & vbLf & "Number"
+                    Case ID.Contains("Column 6")
+                        shape.Text = "Description"
+                End Select
+            End If
+
+            'if we are not on line 1 or line 2 then for every cell insert the appropriate value from our Bill of Materials temp table
+            'the number of rows left in the BOM table (minus 2 for headers) should equal the number of rows in our temp table
+
         Next
 
-        'shpsObj = winObj.Page.Shapes
-
-        'For iC = 1 To vsoObj.Count
-        '    IntDeIntCells()
-        'Next
-
-
-
-        'Dim vsoSel As visio.Selection = winObj.Selection, shObj As visio.Shape
-
-        'For Each shObj In vsoSel
-
-        'Dim vsoObj As visio.Selection = winObj.Selection
-        'If ListBox2.Items.Count = 0 Then Exit Sub
-
-        'Dim iC As Integer = vsoObj(1).Cells(UTC).Result("")
-        'Dim iR As Integer = intlistStart
-
-        'Call RecUndo("Paste from file")
-
-        'On Error Resume Next
-
-        'For iC = 1 To vsoObj.Count
-        '    vsoObj(iC).Characters.Text = ListBox2.Items(iR)
-        '    If iR = ListBox2.Items.Count - 1 Then
-        '        iR = 0
-        '    Else : iR = iR + 1
-        '    End If
-        'Next
+        'merge the cells of line 1
+        If Not vsoSel Is Nothing Then
+            If vsoSel.Count > 2 Then
+                'Dim junk1 As Integer = Globals.ThisAddIn.Application.ActiveWindow.Selection.Count
+                Globals.ThisAddIn.Application.ActiveWindow.Selection = vsoSel
+                'junk1 = Globals.ThisAddIn.Application.ActiveWindow.Selection.Count
+                IntDeIntCells()
+                'Next
+            End If
+            Globals.ThisAddIn.Application.ActiveWindow.DeselectAll()
+        End If
 
         NewTable = Nothing
+
     End Sub
 
 #Region "Load Sub"
