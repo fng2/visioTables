@@ -72,7 +72,7 @@ Partial Public Class ThisAddIn
             Case "btn_newtable" : CreatingTable.Load_dlgNewTable() : Return
             Case "btn_lockpicture" : LoadDlg(5) : Return
             Case "btn_help" : CallHelp() : Return
-            Case "btn_debug" : Call debug() : Return
+            Case "btn_debug" : Commands.debug() : Return
         End Select
 
         If Not CheckSelCells() Then Exit Sub

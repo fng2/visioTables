@@ -121,6 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassVBA.vb" />
+    <Compile Include="Commands.vb" />
     <Compile Include="Constants.vb" />
     <Compile Include="CreatingTable.vb" />
     <Compile Include="forms\dlgFromFile.Designer.vb" />
@@ -165,8 +166,6 @@
     </Compile>
     <AppDesigner Include="My Project\" />
     <Compile Include="VisioTable.vb" />
-    <None Include="ClassDiagram1.cd" />
-    <None Include="ClassDiagram2.cd" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>

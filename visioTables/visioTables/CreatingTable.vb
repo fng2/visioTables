@@ -2,7 +2,7 @@ Option Explicit On
 
 Imports System.Windows.Forms
 Imports visio = Microsoft.Office.Interop.Visio
-Imports System.Data
+
 
 Module CreatingTable
 
@@ -31,157 +31,11 @@ Module CreatingTable
     Dim UndoScopeID As Long = 0
     Dim LayerVisible As String = ""
     Dim LayerLock As String = ""
-    Private _PartsDataTable As New DataTable()
+
 
 #End Region
 
-    Sub makeBomTable()
-        Dim dlg_DataRow As DataRow
-        dlg_DataRow = _PartsDataTable.NewRow()
 
-        _PartsDataTable.Columns.Add("Item", Type.GetType("System.String"))
-        _PartsDataTable.Columns.Add("Qty", Type.GetType("System.String"))
-        _PartsDataTable.Columns.Add("Part", Type.GetType("System.String"))
-        _PartsDataTable.Columns.Add("AltPart", Type.GetType("System.String"))
-        _PartsDataTable.Columns.Add("Kit", Type.GetType("System.String"))
-        _PartsDataTable.Columns.Add("Description", Type.GetType("System.String"))
-
-        dlg_DataRow("Item") = "1"
-        dlg_DataRow("Qty") = "2"
-        dlg_DataRow("Part") = "widget"
-        dlg_DataRow("AltPart") = "hisWidget"
-        dlg_DataRow("Kit") = "widgetKit"
-        dlg_DataRow("Description") = "this is a widget"
-        _PartsDataTable.Rows.Add(dlg_DataRow)
-
-    End Sub
-
-    Function GetLineByComment(ID) As Integer
-
-        'need some error checking!!!
-
-        Dim line As String = String.Empty
-        Dim Parts() As String
-
-        If Not ID.contains("Line") Then
-            Return 0
-        End If
-
-        'Parts = Split(ID, "&") 'dont work
-        'Parts = Split(ID, "\&")  'dont work
-        'Parts = Split(ID, "%26") 'dont work
-        Parts = Split(ID, " ") 'should give us 3 parts, i.e. "Column", "1" & vblf & "line" and "1"
-
-        If Parts.Length = 3 Then
-            line = Convert.ToInt16(Parts(2))
-        End If
-
-
-        Return line
-    End Function
-
-    Sub debug()
-        'CreatTable(strNameTable, bytInsertType, nudColumns.Value, nudRows.Value, w, h, wT, hT, ckbDelShape.Checked, True)
-        'User.TableCol and User.TableRow are in each "working" cell and give the cell's location in the table
-        'TableName is "BOM", insert type is 1 (default), 6 columns, 5 rows, width of cell, height of cell, width of table, height of table, delete shape checkbox and progress bar
-
-        makeBomTable()
-
-        Dim numberOfColumns As Integer = 6
-        Dim numberOfRows As Integer = 5
-        Dim vsoSel As visio.Selection
-        Dim ID As String = String.Empty
-        Dim rowNum As Integer = 0
-        Dim NewTable As New VisioTable
-
-        NewTable.CreatTable("BOM", 1, numberOfColumns, numberOfRows, 1, 0.5, 1, 1, True, True)
-
-
-        Globals.ThisAddIn.Application.ActiveWindow.DeselectAll()
-        vsoSel = Globals.ThisAddIn.Application.ActiveWindow.Selection
-
-        For Each shape As visio.Shape In Globals.ThisAddIn.Application.ActivePage.Shapes
-
-            'if it's the control cell, then turn off headers?
-            'If shape.Name = "BOM" Then
-            '    shape.CellsSRC(visio.VisSectionIndices.visSectionAction, visio.VisRowIndices.visRowAction, visio.VisCellIndices.visActionChecked).FormulaForceU = 0
-            'End If
-
-            ID = shape.CellsSRC(visio.VisSectionIndices.visSectionObject, visio.VisRowIndices.visRowMisc, visio.VisCellIndices.visComment).ResultStr("")
-            'if the cell belongs to line 1 add it to a collection to be merged later
-            If ID.Contains("Line 1") Then
-                vsoSel.Select(shape, visio.VisSelectArgs.visSelect)
-            End If
-
-            'if it's the first cell, then add our title
-            'make it BOLD
-            If shape.Name = "ClW" Then
-                'ClW should be the row1/column1 cell
-                'add the title
-                shape.Text = "Bill Of Materials"
-            End If
-
-            'if we are on line 2, add the column descriptions
-            'make these BOLD
-            If ID.Contains("Line 2") Then
-                Select Case True
-                    Case ID.Contains("Column 1")
-                        shape.Text = "Item" & vbLf & "number"
-                    Case ID.Contains("Column 2")
-                        shape.Text = "Qty"
-                    Case ID.Contains("Column 3")
-                        shape.Text = "Part" & vbLf & "number"
-                    Case ID.Contains("Column 4")
-                        shape.Text = "Alt part" & vbLf & "number"
-                    Case ID.Contains("Column 5")
-                        shape.Text = "Kit" & vbLf & "Number"
-                    Case ID.Contains("Column 6")
-                        shape.Text = "Description"
-                End Select
-            End If
-
-            'if we are not on line 1 or line 2 then for every cell insert the appropriate value from our Bill of Materials temp table
-            'the number of rows left in the BOM table (minus 2 for headers) should equal the number of rows in our temp table
-            'For i = 1 To numberOfRows
-            'Next
-
-
-            rowNum = GetLineByComment(ID)
-
-            If Not ID.Contains("Line 1") And Not ID.Contains("Line 2") Then
-                Select Case True
-                    Case ID.Contains("Column 1")
-                        shape.Text = _PartsDataTable.Rows(rowNum - 3).Item("Item")
-                    Case ID.Contains("Column 2")
-                        shape.Text = _PartsDataTable.Rows.Item(rowNum - 3).Item("Qty")
-                    Case ID.Contains("Column 3")
-                        shape.Text = _PartsDataTable.Rows.Item(rowNum - 3).Item("Part")
-                    Case ID.Contains("Column 4")
-                        shape.Text = _PartsDataTable.Rows.Item(rowNum - 3).Item("AltPart")
-                    Case ID.Contains("Column 5")
-                        shape.Text = _PartsDataTable.Rows.Item(rowNum - 3).Item("Kit")
-                    Case ID.Contains("Column 6")
-                        shape.Text = _PartsDataTable.Rows.Item(rowNum - 3).Item("Description")
-                End Select
-            End If
-        Next
-
-        'merge the cells of line 1
-        If Not vsoSel Is Nothing Then
-            If vsoSel.Count > 2 Then
-                'Dim junk1 As Integer = Globals.ThisAddIn.Application.ActiveWindow.Selection.Count
-                Globals.ThisAddIn.Application.ActiveWindow.Selection = vsoSel
-                'junk1 = Globals.ThisAddIn.Application.ActiveWindow.Selection.Count
-                IntDeIntCells()
-                'Next
-            End If
-            Globals.ThisAddIn.Application.ActiveWindow.DeselectAll()
-        End If
-
-        NewTable = Nothing
-        _PartsDataTable = Nothing
-
-    End Sub
 
 #Region "Load Sub"
 
