@@ -39,7 +39,7 @@ Public Class Commands
         Catch ex As Exception
             MsgBox("error making data table")
         End Try
-
+        MsgBox("done with makeBomTable")
     End Sub
 
     Shared Function GetLineByComment(ID) As Integer
@@ -72,7 +72,7 @@ Public Class Commands
         'CreatTable(strNameTable, bytInsertType, nudColumns.Value, nudRows.Value, w, h, wT, hT, ckbDelShape.Checked, True)
         'User.TableCol and User.TableRow are in each "working" cell and give the cell's location in the table
         'TableName is "BOM", insert type is 1 (default), 6 columns, 4 rows, width of cell, height of cell, width of table, height of table, delete shape checkbox and progress bar
-        MsgBox("debug in tables")
+
 
         makeBomTable()
 
@@ -84,6 +84,7 @@ Public Class Commands
         Dim chars As visio.Characters
 
         Try
+            MsgBox("debug in tables")
             'if there is already a BOM table bail!
 
             NewTable.CreatTable("BOM", 1, numberOfColumns, numberOfRows, 1, 0.5, 1, 1, True, True)
@@ -94,79 +95,81 @@ Public Class Commands
 
 
             For Each shape As visio.Shape In Globals.ThisAddIn.Application.ActivePage.Shapes
-                'there could be other tables on the page, make sure we only get cells from the BOM table!
-                If Not shape.CellsSRC(visio.VisSectionIndices.visSectionUser, visio.VisRowIndices.visRowUser, visio.VisCellIndices.visUserValue).ResultStr("") = "BOM" Then
-                    Exit For
-                End If
+                'does User section exist? if not, bail
+                If shape.SectionExists(242, 1) Then
+                    'there could be other tables on the page, make sure we only get cells from the BOM table!
+                    If shape.CellsSRC(visio.VisSectionIndices.visSectionUser, visio.VisRowIndices.visRowUser, visio.VisCellIndices.visUserValue).ResultStr("") = "BOM" Then
 
-                'if it's the control cell, then turn off headers?
-                'If shape.Name = "BOM" Then
-                '    shape.CellsSRC(visio.VisSectionIndices.visSectionAction, visio.VisRowIndices.visRowAction, visio.VisCellIndices.visActionChecked).FormulaForceU = 0
-                'End If
+                        'if it's the control cell, then turn off headers?
+                        'If shape.Name = "BOM" Then
+                        '    shape.CellsSRC(visio.VisSectionIndices.visSectionAction, visio.VisRowIndices.visRowAction, visio.VisCellIndices.visActionChecked).FormulaForceU = 0
+                        'End If
 
-                ID = shape.CellsSRC(visio.VisSectionIndices.visSectionObject, visio.VisRowIndices.visRowMisc, visio.VisCellIndices.visComment).ResultStr("")
-                'if the cell belongs to line 1 add it to a collection to be merged later
-                If ID.Contains("Line 1") Then
-                    vsoSel.Select(shape, visio.VisSelectArgs.visSelect)
-                End If
+                        ID = shape.CellsSRC(visio.VisSectionIndices.visSectionObject, visio.VisRowIndices.visRowMisc, visio.VisCellIndices.visComment).ResultStr("")
+                        'if the cell belongs to line 1 add it to a collection to be merged later
+                        If ID.Contains("Line 1") Then
+                            vsoSel.Select(shape, visio.VisSelectArgs.visSelect)
+                        End If
 
-                'if it's the first cell, then add our title
-                'make it BOLD
-                If shape.Name = "ClW" Then
-                    'ClW should be the row1/column1 cell
-                    'add the title
-                    shape.Text = "Bill Of Materials"
-                    chars = shape.Characters
-                    chars.Begin = 0
-                    chars.End = 17
-                    chars.CharProps(visio.VisCellIndices.visCharacterSize) = 16
-                    'chars.CharProps(visio.VisCellIndices.visCharacterStyle) = visbold
+                        'if it's the first cell, then add our title
+                        'make it BOLD
+                        If shape.Name = "ClW" Then
+                            'ClW should be the row1/column1 cell
+                            'add the title
+                            shape.Text = "Bill Of Materials"
+                            chars = shape.Characters
+                            chars.Begin = 0
+                            chars.End = 17
+                            chars.CharProps(visio.VisCellIndices.visCharacterSize) = 16
+                            'chars.CharProps(visio.VisCellIndices.visCharacterStyle) = visbold
 
 
-                End If
+                        End If
 
-                'if we are on line 2, add the column descriptions
-                'make these BOLD
-                If ID.Contains("Line 2") Then
-                    Select Case True
-                        Case ID.Contains("Column 1")
-                            shape.Text = "Item" & vbLf & "Number"
-                        Case ID.Contains("Column 2")
-                            shape.Text = "Qty"
-                        Case ID.Contains("Column 3")
-                            shape.Text = "Part" & vbLf & "Number"
-                        Case ID.Contains("Column 4")
-                            shape.Text = "Alt part" & vbLf & "Number"
-                        Case ID.Contains("Column 5")
-                            shape.Text = "Kit" & vbLf & "Number"
-                        Case ID.Contains("Column 6")
-                            shape.Text = "Description"
-                    End Select
-                End If
+                        'if we are on line 2, add the column descriptions
+                        'make these BOLD
+                        If ID.Contains("Line 2") Then
+                            Select Case True
+                                Case ID.Contains("Column 1")
+                                    shape.Text = "Item" & vbLf & "Number"
+                                Case ID.Contains("Column 2")
+                                    shape.Text = "Qty"
+                                Case ID.Contains("Column 3")
+                                    shape.Text = "Part" & vbLf & "Number"
+                                Case ID.Contains("Column 4")
+                                    shape.Text = "Alt part" & vbLf & "Number"
+                                Case ID.Contains("Column 5")
+                                    shape.Text = "Kit" & vbLf & "Number"
+                                Case ID.Contains("Column 6")
+                                    shape.Text = "Description"
+                            End Select
+                        End If
 
-                rowNum = GetLineByComment(ID)
+                        rowNum = GetLineByComment(ID)
 
-                'if we have exhausted the rows in the datatable but still have rows in the BOM, then DON'T do this next code fragment
-                'that will not happen if we call createtable with the number of rows in the datatable (+2)
-                If Not ID.Contains("Line 1") And Not ID.Contains("Line 2") Then
-                    Select Case True
-                        Case ID.Contains("Column 1")
-                            shape.Text = _PartsDataTable.Rows(rowNum - 3).Item("Item") 'subtracting 3 from rownum to account for the first two header rows
-                        Case ID.Contains("Column 2")
-                            shape.Text = _PartsDataTable.Rows.Item(rowNum - 3).Item("Qty")
-                        Case ID.Contains("Column 3")
-                            shape.Text = _PartsDataTable.Rows.Item(rowNum - 3).Item("Part")
-                        Case ID.Contains("Column 4")
-                            shape.Text = _PartsDataTable.Rows.Item(rowNum - 3).Item("AltPart")
-                        Case ID.Contains("Column 5")
-                            shape.Text = _PartsDataTable.Rows.Item(rowNum - 3).Item("Kit")
-                        Case ID.Contains("Column 6")
-                            shape.Text = _PartsDataTable.Rows.Item(rowNum - 3).Item("Description")
-                    End Select
+                        'if we have exhausted the rows in the datatable but still have rows in the BOM, then DON'T do this next code fragment
+                        'that will not happen if we call createtable with the number of rows in the datatable (+2)
+                        If Not ID.Contains("Line 1") And Not ID.Contains("Line 2") Then
+                            Select Case True
+                                Case ID.Contains("Column 1")
+                                    shape.Text = _PartsDataTable.Rows(rowNum - 3).Item("Item") 'subtracting 3 from rownum to account for the first two header rows
+                                Case ID.Contains("Column 2")
+                                    shape.Text = _PartsDataTable.Rows.Item(rowNum - 3).Item("Qty")
+                                Case ID.Contains("Column 3")
+                                    shape.Text = _PartsDataTable.Rows.Item(rowNum - 3).Item("Part")
+                                Case ID.Contains("Column 4")
+                                    shape.Text = _PartsDataTable.Rows.Item(rowNum - 3).Item("AltPart")
+                                Case ID.Contains("Column 5")
+                                    shape.Text = _PartsDataTable.Rows.Item(rowNum - 3).Item("Kit")
+                                Case ID.Contains("Column 6")
+                                    shape.Text = _PartsDataTable.Rows.Item(rowNum - 3).Item("Description")
+                            End Select
+                        End If
+                    End If
                 End If
             Next
         Catch ex As Exception
-            MsgBox("error in BOM")
+            MsgBox("error in BOM " & ex.Message)
         End Try
 
         Try
