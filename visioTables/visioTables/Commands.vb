@@ -1,4 +1,5 @@
 ﻿Option Explicit On
+
 Imports System.Data
 Imports visio = Microsoft.Office.Interop.Visio
 
@@ -56,7 +57,7 @@ Public Class Commands
     End Sub
 
     Shared Function GetLineByComment(ID) As Integer
-        MsgBox("GetLineByComment")
+        'MsgBox("GetLineByComment")
         Dim line As String = String.Empty
         Dim Parts() As String
         'need some error checking!!!
@@ -80,6 +81,10 @@ Public Class Commands
         End Try
 
     End Function
+
+    Shared Sub bogus()
+        MsgBox("bogus command")
+    End Sub
 
     Shared Sub debug()
         'CreatTable(strNameTable, bytInsertType, nudColumns.Value, nudRows.Value, w, h, wT, hT, ckbDelShape.Checked, True)
@@ -228,4 +233,5 @@ Public Class Commands
         _PartsDataTable = Nothing
 
     End Sub
+
 End Class
