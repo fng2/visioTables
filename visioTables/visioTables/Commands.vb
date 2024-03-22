@@ -12,12 +12,25 @@ Public Class Commands
         Dim dlg_DataRow As DataRow
 
         Try
-            _PartsDataTable.Columns.Add("Item", Type.GetType("System.String"))
-            _PartsDataTable.Columns.Add("Qty", Type.GetType("System.String"))
-            _PartsDataTable.Columns.Add("Part", Type.GetType("System.String"))
-            _PartsDataTable.Columns.Add("AltPart", Type.GetType("System.String"))
-            _PartsDataTable.Columns.Add("Kit", Type.GetType("System.String"))
-            _PartsDataTable.Columns.Add("Description", Type.GetType("System.String"))
+            _PartsDataTable.Clear()
+            If Not _PartsDataTable.Columns.Contains("Item") Then
+                _PartsDataTable.Columns.Add("Item", Type.GetType("System.String"))
+            End If
+            If Not _PartsDataTable.Columns.Contains("Qty") Then
+                _PartsDataTable.Columns.Add("Qty", Type.GetType("System.String"))
+            End If
+            If Not _PartsDataTable.Columns.Contains("Part") Then
+                _PartsDataTable.Columns.Add("Part", Type.GetType("System.String"))
+            End If
+            If Not _PartsDataTable.Columns.Contains("AltPart") Then
+                _PartsDataTable.Columns.Add("AltPart", Type.GetType("System.String"))
+            End If
+            If Not _PartsDataTable.Columns.Contains("Kit") Then
+                _PartsDataTable.Columns.Add("Kit", Type.GetType("System.String"))
+            End If
+            If Not _PartsDataTable.Columns.Contains("Description") Then
+                _PartsDataTable.Columns.Add("Description", Type.GetType("System.String"))
+            End If
 
             dlg_DataRow = _PartsDataTable.NewRow()
             dlg_DataRow("Item") = "1"
@@ -101,9 +114,9 @@ Public Class Commands
                     If shape.CellsSRC(visio.VisSectionIndices.visSectionUser, visio.VisRowIndices.visRowUser, visio.VisCellIndices.visUserValue).ResultStr("") = "BOM" Then
 
                         'if it's the control cell, then turn off headers?
-                        'If shape.Name = "BOM" Then
-                        '    shape.CellsSRC(visio.VisSectionIndices.visSectionAction, visio.VisRowIndices.visRowAction, visio.VisCellIndices.visActionChecked).FormulaForceU = 0
-                        'End If
+                        If shape.Name = "BOM" Then
+                            shape.CellsSRC(visio.VisSectionIndices.visSectionAction, visio.VisRowIndices.visRowAction, visio.VisCellIndices.visActionChecked).FormulaForceU = 0
+                        End If
 
                         ID = shape.CellsSRC(visio.VisSectionIndices.visSectionObject, visio.VisRowIndices.visRowMisc, visio.VisCellIndices.visComment).ResultStr("")
                         'if the cell belongs to line 1 add it to a collection to be merged later
@@ -120,10 +133,9 @@ Public Class Commands
                             chars = shape.Characters
                             chars.Begin = 0
                             chars.End = 17
-                            chars.CharProps(visio.VisCellIndices.visCharacterSize) = 16
-                            'chars.CharProps(visio.VisCellIndices.visCharacterStyle) = visbold
-
-
+                            chars.CharProps(visio.VisCellIndices.visCharacterSize) = 16 'this works fine
+                            'chars.CharProps(visio.VisCellIndices.visCharacterStyle) = visbold 'visbold is not declared
+                            chars.CharProps(visio.VisCellIndices.visCharacterStyle) = 17.0# 'BOLD
                         End If
 
                         'if we are on line 2, add the column descriptions
@@ -132,16 +144,40 @@ Public Class Commands
                             Select Case True
                                 Case ID.Contains("Column 1")
                                     shape.Text = "Item" & vbLf & "Number"
+                                    chars = shape.Characters
+                                    chars.Begin = 0
+                                    chars.End = 4
+                                    chars.CharProps(visio.VisCellIndices.visCharacterStyle) = 17.0# 'BOLD
                                 Case ID.Contains("Column 2")
                                     shape.Text = "Qty"
+                                    chars = shape.Characters
+                                    chars.Begin = 0
+                                    chars.End = 3
+                                    chars.CharProps(visio.VisCellIndices.visCharacterStyle) = 17.0# 'BOLD
                                 Case ID.Contains("Column 3")
                                     shape.Text = "Part" & vbLf & "Number"
+                                    chars = shape.Characters
+                                    chars.Begin = 0
+                                    chars.End = 11
+                                    chars.CharProps(visio.VisCellIndices.visCharacterStyle) = 17.0# 'BOLD
                                 Case ID.Contains("Column 4")
                                     shape.Text = "Alt part" & vbLf & "Number"
+                                    chars = shape.Characters
+                                    chars.Begin = 0
+                                    chars.End = 14
+                                    chars.CharProps(visio.VisCellIndices.visCharacterStyle) = 17.0# 'BOLD
                                 Case ID.Contains("Column 5")
                                     shape.Text = "Kit" & vbLf & "Number"
+                                    chars = shape.Characters
+                                    chars.Begin = 0
+                                    chars.End = 9
+                                    chars.CharProps(visio.VisCellIndices.visCharacterStyle) = 17.0# 'BOLD
                                 Case ID.Contains("Column 6")
                                     shape.Text = "Description"
+                                    chars = shape.Characters
+                                    chars.Begin = 0
+                                    chars.End = 11
+                                    chars.CharProps(visio.VisCellIndices.visCharacterStyle) = 17.0# 'BOLD
                             End Select
                         End If
 
