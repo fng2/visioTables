@@ -139,12 +139,12 @@ Module SpecialTables
             dlg_DataRow("Description") = "this is a mega widget"
             _PartsDataTable.Rows.Add(dlg_DataRow)
             MsgBox("done with makeBomTablex")
-        Catch ex As Exception
-            MsgBox("error making data table")
-        End Try
+            'Catch ex As Exception
+            '    MsgBox("error making data table")
+            'End Try
 
-        Try
-            MsgBox("debug in tables")
+            'Try
+            '    MsgBox("debug in tables")
             'if there is already a BOM table bail!
 
             NewTable.CreatTable("BOM", 1, numberOfColumns, numberOfRows, 1, 0.5, 1, 1, True, True)

@@ -123,7 +123,7 @@ Public Class ClassVBA
         End Get
     End Property
 
-	' Ширина таблицы (в милиметрах)
+    ' Table width (in millimeters)
     Public ReadOnly Property TableWidth Implements IClassVBA.TableWidth
         Get
             If Not CheckCells() Then
@@ -135,7 +135,7 @@ Public Class ClassVBA
         End Get
     End Property
 
-	' Высота таблицы (в милиметрах)
+    ' Table height (in millimeters)
     Public ReadOnly Property TableHeight Implements IClassVBA.TableHeight
         Get
             If Not CheckCells() Then
@@ -147,7 +147,7 @@ Public Class ClassVBA
         End Get
     End Property
 
-	' Левая граница таблицы (в милиметрах)
+    ' Left border of the table (in millimeters)
     Public ReadOnly Property TableLeftBorder Implements IClassVBA.TableLeftBorder
         Get
             If Not CheckCells() Then
@@ -159,7 +159,7 @@ Public Class ClassVBA
         End Get
     End Property
 
-	' Верхняя граница таблицы (в милиметрах)
+    ' Upper limit of the table (in millimeters)
     Public ReadOnly Property TableTopBorder Implements IClassVBA.TableTopBorder
         Get
             If Not CheckCells() Then
@@ -171,7 +171,7 @@ Public Class ClassVBA
         End Get
     End Property
 
-	' Правая граница таблицы (в милиметрах)
+    ' Right border of the table (in millimeters)
     Public ReadOnly Property TableRightBorder Implements IClassVBA.TableRightBorder
         Get
             If Not CheckCells() Then
@@ -184,7 +184,7 @@ Public Class ClassVBA
         End Get
     End Property
 
-	' Нижняя граница таблицы (в милиметрах)
+    ' Lower limit of the table (in millimeters)
     Public ReadOnly Property TableBottomBorder Implements IClassVBA.TableBottomBorder
         Get
             If Not CheckCells() Then
@@ -196,7 +196,7 @@ Public Class ClassVBA
         End Get
     End Property
 
-	' Номер активного столбца
+    ' Active column number
     Public ReadOnly Property ColumnIndex() Implements IClassVBA.ColumnIndex
         Get
             If Not CheckCells() Then
@@ -207,7 +207,7 @@ Public Class ClassVBA
         End Get
     End Property
 
-	' Номер активной строки
+    ' Active line number
     Public ReadOnly Property RowIndex Implements IClassVBA.RowIndex
         Get
             If Not CheckCells() Then
@@ -218,7 +218,7 @@ Public Class ClassVBA
         End Get
     End Property
 
-	' Количество ячеек в активном столбце (без УЯ)
+    ' Number of cells in the active column (without DU)
     Public ReadOnly Property ColumnCellsCount Implements IClassVBA.ColumnCellsCount
         Get
             If Not CheckCells() Then
@@ -238,7 +238,7 @@ Public Class ClassVBA
         End Get
     End Property
 
-	' Количество ячеек в активной строке (без УЯ)
+    ' Number of cells in the active row (without DU)
     Public ReadOnly Property RowCellsCount Implements IClassVBA.RowCellsCount
         Get
             If Not CheckCells() Then
@@ -259,7 +259,7 @@ Public Class ClassVBA
         End Get
     End Property
 
-	' Ширина активного столбца (в милиметрах) 
+    ' Active column width (in millimeters) 
     Public ReadOnly Property ColumnWidth Implements IClassVBA.ColumnWidth
         Get
             If Not CheckCells() Then
@@ -271,7 +271,7 @@ Public Class ClassVBA
         End Get
     End Property
 
-	' Ширина активной строки (в милиметрах) 
+    ' Active line width (in millimeters) 
     Public ReadOnly Property RowHeight Implements IClassVBA.RowHeight
         Get
             If Not CheckCells() Then
@@ -283,7 +283,7 @@ Public Class ClassVBA
         End Get
     End Property
 
-	' Размерность активной ячейки по ширине
+    ' Active cell width dimension
     Public ReadOnly Property CellWidthDimension() Implements IClassVBA.CellWidthDimension
         Get
             If Not CheckCells() Then
@@ -295,7 +295,7 @@ Public Class ClassVBA
         End Get
     End Property
 
-	' Размерность активной ячейки по высоте
+    ' Active cell height dimension
     Public ReadOnly Property CellHeightDimension() Implements IClassVBA.CellHeightDimension
         Get
             If Not CheckCells() Then
@@ -307,7 +307,7 @@ Public Class ClassVBA
         End Get
     End Property
 
-	' Ширина активной ячейки (в милиметрах)
+    ' Active cell width (in millimeters)
     Public ReadOnly Property CellWidth Implements IClassVBA.CellWidth
         Get
             If Not CheckCells() Then
@@ -318,7 +318,7 @@ Public Class ClassVBA
         End Get
     End Property
 
-	' Высота активной ячейки (в милиметрах)
+    ' Active cell height (in millimeters)
     Public ReadOnly Property CellHeight Implements IClassVBA.CellHeight
         Get
             If Not CheckCells() Then
@@ -329,7 +329,7 @@ Public Class ClassVBA
         End Get
     End Property
 
-	' Количество выделенных столбцов
+    ' Number of selected columns
     Public ReadOnly Property SelectedColumnCount Implements IClassVBA.SelectedColumnCount
         Get
             If Not CheckCells() Then
@@ -339,7 +339,7 @@ Public Class ClassVBA
         End Get
     End Property
 
-	' Количество выделенных строк
+    ' Number of rows allocated
     Public ReadOnly Property SelectedRowCount Implements IClassVBA.SelectedRowCount
         Get
             If Not CheckCells() Then
@@ -349,7 +349,7 @@ Public Class ClassVBA
         End Get
     End Property
 
-	' Возможно ли объединить выделенные ячейки (true, false)
+    ' Is it possible to merge selected cells (true, false)
     Public ReadOnly Property SelectedIsPossibleMerge Implements IClassVBA.SelectedIsPossibleMerge
         Get
             If Not CheckCells() Then
@@ -384,24 +384,27 @@ Public Class ClassVBA
 
 #Region "Methods"
 
-    'Методы надстройки =========================================================================================
+    'Add-in Methods =========================================================================================
 
     Public Sub test() Implements IClassVBA.test
-        ' MsgBox("classVBA")
+        MsgBox("classVBA")
 
-        Call noBOM()
-        Call BOM()
+        'Call noBOM()
+        'Call BOM()
+        Dim NewTable As New VisioTable
+        NewTable.CreatTable("BOM", 1, 6, 4, 1, 0.5, 1, 1, True, True)
+        NewTable = Nothing
 
     End Sub
 
-    ' Создание новой таблицы на активном листе
+    ' Creating a new table on the active worksheet
     Public Sub AddTable(a As String, b As Byte, c As Integer, d As Integer, e As Single, f As Single, g As Single, h As Single, i As Boolean, j As Boolean) Implements IClassVBA.AddTable
         Dim NewTable As New VisioTable
         NewTable.CreatTable(a, b, c, d, e, f, g, h, i, j)
         NewTable = Nothing
     End Sub
 
-	' Вставка нового столбца в активную таблицу
+    ' Inserting a new column into the active table
     Public Sub AddColumn(arg As Byte) Implements IClassVBA.AddColumn
         If Not CheckCells() Then Exit Sub
         Select Case arg
@@ -409,7 +412,7 @@ Public Class ClassVBA
         End Select
     End Sub
 
-	' Вставка новой строки в активную таблицу
+    ' Inserting a new row into the active table
     Public Sub AddRow(arg As Byte) Implements IClassVBA.AddRow
         If Not CheckCells() Then Exit Sub
         Select Case arg
@@ -417,17 +420,17 @@ Public Class ClassVBA
         End Select
     End Sub
 
-	' Объединение выделенных ячеек в одну
+    ' Merge selected cells into one
     Public Sub MergeCells() Implements IClassVBA.MergeCells
         Call IntDeIntCells()
     End Sub
 
-	' Разъединение выделенной ячейки
+    ' Unlinking a selected cell
     Public Sub UnMergeCell() Implements IClassVBA.UnMergeCell
         Call IntDeIntCells()
     End Sub
 
-	' Выделение ячеек в активной таблице по номерам столбцов/строк
+    ' Selecting cells in the active table by column/row numbers
     Public Sub SelectCells(c As Integer, r As Integer, c1 As Integer, r1 As Integer, deSel As Boolean) Implements IClassVBA.SelectCells
         If Not CheckCells() Then Exit Sub
         Call InitArrShapeID(NT)
@@ -443,7 +446,7 @@ Public Class ClassVBA
         Call SelectCls(c, r, c1, r1)
     End Sub
 
-	' Выделение ячеек в активной таблице по параметрам
+    ' Selecting cells in the active table by parameters
     Public Sub SelectCellsExt(arg As String) Implements IClassVBA.SelectCellsExt
         If Not CheckCells() Then Exit Sub
 
@@ -464,40 +467,40 @@ Public Class ClassVBA
 
     End Sub
 
-	' Поиск текста в ячейках
+    ' Finding text in cells
     Public Sub FindText(Oper As String, Patt As String, Act As String) Implements IClassVBA.FindText
         If Not CheckCells() Then Exit Sub
         Call SearchText(Oper, Patt, Act)
     End Sub
 
-	' Замена текста в ячейках
+    ' Replacing text in cells
     Public Sub ReplaceText(txt As String, txt1 As String, istart As Integer, icount As Integer) Implements IClassVBA.ReplaceText
         If Not CheckCells() Then Exit Sub
         Call ReplaceTxt(txt, txt1, istart, icount)
     End Sub
 
-	' Вырезание текста из выделенных ячеек в буфер обмена
+    ' Cutting text from selected cells to the clipboard
     Public Sub GutText() Implements IClassVBA.GutText
         If Not CheckCells() Then Exit Sub
         Call InitArrShapeID(NT)
         Call GutT()
     End Sub
 
-	' Копирование текста из выделенных ячеек в буфер обмена
+    ' Copy text from selected cells to the clipboard
     Public Sub CopyText() Implements IClassVBA.CopyText
         If Not CheckCells() Then Exit Sub
         Call InitArrShapeID(NT)
         Call CopyT()
     End Sub
 
-	' Вставка содержимого буфера обмена в ячейки таблицы
+    ' Paste clipboard contents into table cells
     Public Sub PasteText() Implements IClassVBA.PasteText
         If Not CheckCells() Then Exit Sub
         Call InitArrShapeID(NT)
         Call PasteT()
     End Sub
 
-	' Заполнение однотипными или просто данными ячейки таблицы из текстового файла
+    ' Filling table cells with the same type or just data from a text file
     Public Sub PasteTxtFile(arg As String, RowCount As Integer, rep As Boolean) Implements IClassVBA.PasteTxtFile
         If Not CheckCells() Then Exit Sub
         Call InitArrShapeID(NT)
@@ -544,7 +547,7 @@ Line1:
         Call RecUndo("0")
     End Sub
 
-	' Заполнение данными ячейки таблицы из файла Excel
+    ' Filling table cells with data from an Excel file
     Public Sub PasteExcelFile(Path As String, Page As String, Address As String) Implements IClassVBA.PasteExcelFile
         If Not CheckCells() Then Exit Sub
         Call InitArrShapeID(NT)
@@ -580,7 +583,7 @@ Line1:
         oExcel.Quit()
     End Sub
 
-	' Связывание ячеек таблицы с подключенным внешним источником данных
+    ' Linking table cells to a connected external data source
     Public Sub LinkToData(a As Integer, b As Boolean, c As String, d As Boolean, e As Boolean, h As Boolean) Implements IClassVBA.LinkToData
         If Not CheckCells() Then Exit Sub
         Dim lngRowIDs() As Integer = vsoApp.ActiveDocument.DataRecordsets.Item(a).GetDataRowIDs("")
@@ -589,7 +592,7 @@ Line1:
         Call LinkToDataInShapes(a, b, c, d, e, f, g, h)
     End Sub
 
-	' Вставка пользовательских данных в выделенные ячейки таблицы
+    ' Inserting custom data into selected table cells
     Public Sub SetCellsText(arg As Object, c As Integer, r As Integer, c1 As Integer, r1 As Integer, byCorR As Byte) Implements IClassVBA.SetCellsText
         If Not CheckCells() Then Exit Sub
         Call RecUndo("Задать текст")
@@ -597,7 +600,7 @@ Line1:
         Call RecUndo("0")
     End Sub
 
-	' Изменение формулы/значения ячеек
+    ' Changing formula/cell values
     Public Sub SetCellsFormula(cell As String, c As Integer, r As Integer, c1 As Integer, r1 As Integer, txt As Object) Implements IClassVBA.SetCellsFormula
         If Not CheckCells() Then Exit Sub
 
@@ -607,25 +610,25 @@ Line1:
 
     End Sub
 
-	' Сортировка выделенных ячеек (по столбцам)
+    ' Sort selected cells (by columns)
     Public Sub SortTable(NumColumn As Byte, DigOrTxt As Boolean, SortDirection As Boolean) Implements IClassVBA.SortTable
         If Not CheckCells() Then Exit Sub
         Call SortTableData(NumColumn, DigOrTxt, SortDirection)
     End Sub
 
-	' Извлечение формулы/значения заданных ячеек из активной таблицы
+    ' Retrieving formula/values ​​of specified cells from the active table
     Public Sub GetCellsFormula(cell As String, c As Integer, r As Integer, c1 As Integer, r1 As Integer, ByRef arr As Object, res As String) Implements IClassVBA.GetCellsFormula
         If Not CheckCells() Then Exit Sub
         Call GetFormula(cell, c, r, c1, r1, arr, res)
     End Sub
 
-	' Извлечение формулы/значения  заданных ячеек из активной таблицы
+    ' Retrieving formula/values ​​of specified cells from the active table
     Public Sub GetCellsProp(ByRef arr As Object, c As Integer, r As Integer, c1 As Integer, r1 As Integer, arg As String) Implements IClassVBA.GetCellsProp
         If Not CheckCells() Then Exit Sub
         Call GetCellsProperties(arr, c, r, c1, r1, arg)
     End Sub
 
-	' Подгонка ширины/высоты столбцов/строк по размерам текста всех ячеек находящихся в столбце/строке
+    ' Adjusting the width/height of columns/rows to fit the text of all cells in the column/row
     Public Sub AutoFit(arg As String) Implements IClassVBA.AutoFit
         If Not CheckCells() Then Exit Sub
         Call InitArrShapeID(NT)
@@ -635,13 +638,13 @@ Line1:
         End Select
     End Sub
 
-	' Подгонка столбцов/строк/таблиц по размерам текста по заданными параметрам
+    ' Fitting columns/rows/tables to text sizes according to specified parameters
     Public Sub AutoFitExt(a As Boolean, b As Boolean, c As Byte, d As Byte, e As Boolean, f As Boolean) Implements IClassVBA.AutoFitExt
         If Not CheckCells() Then Exit Sub
         Call AllAlignOnText(a, b, c, d, e, f)
     End Sub
 
-	' установка новых размеров столбцов/строк или всей таблицы
+    ' setting new sizes of columns/rows or the entire table
     Public Sub ResizeCellsOrTable(a As Byte, b As Boolean, c As Single, d As Single, e As Single, f As Single, g As Boolean, h As Boolean) Implements IClassVBA.ResizeCellsOrTable
         If Not CheckCells() Then Exit Sub
 
@@ -653,7 +656,7 @@ Line1:
         Call ResizeCells(a, b, c, d, e, f, g, h)
     End Sub
 
-	' Установка одинаковыми по размеру выделенные столбцы/строки
+    ' Setting the selected columns/rows to equal sizes
     Public Sub CellsDistributeSize(arg) Implements IClassVBA.CellsDistributeSize
         If Not CheckCells() Then Exit Sub
         Select Case StrConv(arg, vbLowerCase)
@@ -663,7 +666,7 @@ Line1:
         End Select
     End Sub
 
-    ' Создание "полосатой" по столбцам или строкам таблицы 
+    ' Creating a "striped" table across columns or rows 
     Public Sub CellsBanded(arg As String) Implements IClassVBA.CellsBanded
         If Not CheckCells() Then Exit Sub
         Select Case StrConv(arg, vbLowerCase)
@@ -672,37 +675,37 @@ Line1:
         End Select
     End Sub
 
-	' Разворот текста в выделенных ячейках в соответствии с заданным углом
+    ' Rotate text in selected cells according to a specified angle
     Public Sub TextOrientation(ang As Double) Implements IClassVBA.TextOrientation
         If Not CheckCells() Then Exit Sub
         Call AllRotateText(True, ang)
     End Sub
 
-	' Преобразование активной таблицы в единую сгруппированную фигуру
+    ' Convert the active table into a single grouped shape
     Public Sub GroupTable() Implements IClassVBA.GroupTable
         If Not CheckCells() Then Exit Sub
         Call ConvertInto1Shape()
     End Sub
 
-    ' Закрепление картинки/фигуры в ячейках таблицы в соответствии c заданными параметрами
+    ' Attaching a picture/shape to table cells in accordance with the specified parameters
     Public Sub LockShape(hAL As Byte, Val As Byte, shN As Boolean, lF As Boolean, msg As Boolean) Implements IClassVBA.LockShape
         winObj = vsoApp.ActiveWindow
         Call LockPicture(hAL, Val, shN, lF, msg)
     End Sub
 
-	' Удаление выделенных столбцов из таблицы на активном листе
+    ' Removing selected columns from a table on the active worksheet
     Public Sub DeleteColumn() Implements IClassVBA.DeleteColumn
         If Not CheckCells() Then Exit Sub
         Call DelColRows(0)
     End Sub
 
-	' Удаление выделенных строк из таблицы на активном листе
+    ' Delete selected rows from a table on the active worksheet
     Public Sub DeleteRow() Implements IClassVBA.DeleteRow
         If Not CheckCells() Then Exit Sub
         Call DelColRows(1)
     End Sub
 
-	' Удаление активной таблицы на активном листе
+    ' Delete the active table on the active worksheet
     Public Sub DeleteTable(arg As Boolean) Implements IClassVBA.DeleteTable
         If Not CheckCells() Then Exit Sub
         Call DelTab(arg)
@@ -712,13 +715,13 @@ Line1:
 
 #Region "Private Sub and Function"
 
-    ' Проверка на отсутствие/некорректном выделении на листе 
+    ' Checking for missing/incorrect selection on the sheet 
     Private Function CheckCells() As Boolean
         winObj = vsoApp.ActiveWindow : shpsObj = winObj.Page.Shapes
         Return CheckSelCells()
     End Function
 
-    ' Определение координат ячеек на листе
+    ' Determining the coordinates of cells on a sheet
     Private Function PositionBorders(arg, ID) As Double
         Dim dblTop, dblBottom, dblLeft, dblRight, dbtmp As Double
 
