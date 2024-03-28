@@ -21,27 +21,6 @@ Partial Public Class ThisAddIn
     End Function
 
     ''' 
-    ''' A simple command
-    ''' 
-    'Public Sub Command1()
-    '    MessageBox.Show(
-    '        "Hello from command 1!",
-    '        "visioTables")
-    'End Sub
-
-    ''' 
-    ''' A command to demonstrate conditionally enabling/disabling.
-    ''' The command gets enabled only when a shape is selected
-    ''' 
-    'Public Sub Command2()
-    '    If Application Is Nothing OrElse Application.ActiveWindow Is Nothing OrElse Application.ActiveWindow.Selection Is Nothing Then Exit Sub
-
-    '    MessageBox.Show(
-    '        String.Format("Hello from (conditional) command 2! You have {0} shapes selected.", Application.ActiveWindow.Selection.Count),
-    '        "visioTables")
-    'End Sub
-
-    ''' 
     ''' Callback called by the UI manager when user clicks a button
     ''' Should do something meaninful wehn corresponding action is called.
     ''' 
@@ -72,7 +51,7 @@ Partial Public Class ThisAddIn
             Case "btn_newtable" : CreatingTable.Load_dlgNewTable() : Return
             Case "btn_lockpicture" : LoadDlg(5) : Return
             Case "btn_help" : CallHelp() : Return
-            Case "btn_debug" : Commands.debug() : Return
+            Case "btn_debug" : BOM() : Return
         End Select
 
         If Not CheckSelCells() Then Exit Sub

@@ -6,9 +6,9 @@ Imports Visio = Microsoft.Office.Interop.Visio
 <ComVisible(True)> _
 Public Interface IClassVBA
 
-    'Свойства надстройки =========================================================================================
+    'Add-in properties =========================================================================================
 
-    ' Свойства таблицы
+    ' Table properties
     ReadOnly Property TableName()
     ReadOnly Property TableColumnsCount()
     ReadOnly Property TableRowsCount()
@@ -19,7 +19,7 @@ Public Interface IClassVBA
     ReadOnly Property TableRightBorder()
     ReadOnly Property TableBottomBorder()
 
-    'Свойства столбца/строки
+    'Column/Row Properties
     ReadOnly Property ColumnIndex()
     ReadOnly Property RowIndex()
     ReadOnly Property ColumnCellsCount()
@@ -27,13 +27,13 @@ Public Interface IClassVBA
     ReadOnly Property ColumnWidth()
     ReadOnly Property RowHeight()
 
-    'Свойства ячейки
+    'Cell properties
     ReadOnly Property CellWidth()
     ReadOnly Property CellHeight()
     ReadOnly Property CellWidthDimension()
     ReadOnly Property CellHeightDimension()
 
-    'Свойства выделенных ячеек
+    'Properties of selected cells
     ReadOnly Property SelectedColumnCount()
     ReadOnly Property SelectedRowCount()
     ReadOnly Property SelectedIsPossibleMerge()
@@ -72,6 +72,7 @@ Public Interface IClassVBA
     Sub DeleteColumn()
     Sub DeleteRow()
     Sub DeleteTable(arg As Boolean)
+    Sub test()
 
 End Interface
 
@@ -87,9 +88,9 @@ Public Class ClassVBA
 
 #Region "Properties"
 
-    'Свойства  надстройки =========================================================================================
+    'Add-in properties =========================================================================================
 
-    ' Имя таблицы (в главной упр. ячейке)
+    ' Table name (in the main control cell)
     Public ReadOnly Property TableName Implements IClassVBA.TableName
         Get
             If Not CheckCells() Then
@@ -100,7 +101,7 @@ Public Class ClassVBA
         End Get
     End Property
 
-	' Количество столбцов в таблице (без УЯ)
+    ' Number of columns in the table (without UI)
     Public ReadOnly Property TableColumnsCount Implements IClassVBA.TableColumnsCount
         Get
             If Not CheckCells() Then
@@ -111,7 +112,7 @@ Public Class ClassVBA
         End Get
     End Property
 
-	' Количество строк в таблице (без УЯ)
+    ' Number of rows in the table (without UI)
     Public ReadOnly Property TableRowsCount Implements IClassVBA.TableRowsCount
         Get
             If Not CheckCells() Then
@@ -384,8 +385,16 @@ Public Class ClassVBA
 #Region "Methods"
 
     'Методы надстройки =========================================================================================
-	
-	' Создание новой таблицы на активном листе
+
+    Public Sub test() Implements IClassVBA.test
+        ' MsgBox("classVBA")
+
+        Call noBOM()
+        Call BOM()
+
+    End Sub
+
+    ' Создание новой таблицы на активном листе
     Public Sub AddTable(a As String, b As Byte, c As Integer, d As Integer, e As Single, f As Single, g As Single, h As Single, i As Boolean, j As Boolean) Implements IClassVBA.AddTable
         Dim NewTable As New VisioTable
         NewTable.CreatTable(a, b, c, d, e, f, g, h, i, j)

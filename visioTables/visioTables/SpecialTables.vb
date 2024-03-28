@@ -2,18 +2,17 @@
 
 Imports System.Data
 Imports visio = Microsoft.Office.Interop.Visio
-Imports System.Runtime.InteropServices
 
+Module SpecialTables
+    Private _PartsDataTable As New DataTable()
+    Private vsoSel As visio.Selection
 
-Public Class Commands
-    Shared _PartsDataTable As New DataTable()
-    Shared vsoSel As visio.Selection
+    Private Sub makeBomTable()
 
-    Shared Sub makeBomTable()
-        MsgBox("makeBomTable")
         Dim dlg_DataRow As DataRow
 
         Try
+            MsgBox("makeBomTable2")
             _PartsDataTable.Clear()
             If Not _PartsDataTable.Columns.Contains("Item") Then
                 _PartsDataTable.Columns.Add("Item", Type.GetType("System.String"))
@@ -51,13 +50,14 @@ Public Class Commands
             dlg_DataRow("Kit") = "megawidgetKit"
             dlg_DataRow("Description") = "this is a mega widget"
             _PartsDataTable.Rows.Add(dlg_DataRow)
+            MsgBox("done with makeBomTable2")
         Catch ex As Exception
             MsgBox("error making data table")
         End Try
-        MsgBox("done with makeBomTable")
+
     End Sub
 
-    Shared Function GetLineByComment(ID) As Integer
+    Private Function GetLineByComment(ID) As Integer
         'MsgBox("GetLineByComment")
         Dim line As String = String.Empty
         Dim Parts() As String
@@ -83,17 +83,13 @@ Public Class Commands
 
     End Function
 
-    Shared Sub bogus()
-        MsgBox("bogus command")
-    End Sub
-
-    Shared Sub debug()
+    Public Sub BOM()
         'CreatTable(strNameTable, bytInsertType, nudColumns.Value, nudRows.Value, w, h, wT, hT, ckbDelShape.Checked, True)
         'User.TableCol and User.TableRow are in each "working" cell and give the cell's location in the table
         'TableName is "BOM", insert type is 1 (default), 6 columns, 4 rows, width of cell, height of cell, width of table, height of table, delete shape checkbox and progress bar
 
 
-        makeBomTable()
+        'makeBomTable()
 
         Dim numberOfColumns As Integer = 6
         Dim numberOfRows As Integer = 4 'remember the top two are headers!
@@ -101,6 +97,51 @@ Public Class Commands
         Dim rowNum As Integer = 0
         Dim NewTable As New VisioTable
         Dim chars As visio.Characters
+        Dim dlg_DataRow As DataRow
+
+        Try
+            MsgBox("in makeBomTablex")
+            _PartsDataTable.Clear()
+            If Not _PartsDataTable.Columns.Contains("Item") Then
+                _PartsDataTable.Columns.Add("Item", Type.GetType("System.String"))
+            End If
+            If Not _PartsDataTable.Columns.Contains("Qty") Then
+                _PartsDataTable.Columns.Add("Qty", Type.GetType("System.String"))
+            End If
+            If Not _PartsDataTable.Columns.Contains("Part") Then
+                _PartsDataTable.Columns.Add("Part", Type.GetType("System.String"))
+            End If
+            If Not _PartsDataTable.Columns.Contains("AltPart") Then
+                _PartsDataTable.Columns.Add("AltPart", Type.GetType("System.String"))
+            End If
+            If Not _PartsDataTable.Columns.Contains("Kit") Then
+                _PartsDataTable.Columns.Add("Kit", Type.GetType("System.String"))
+            End If
+            If Not _PartsDataTable.Columns.Contains("Description") Then
+                _PartsDataTable.Columns.Add("Description", Type.GetType("System.String"))
+            End If
+
+            dlg_DataRow = _PartsDataTable.NewRow()
+            dlg_DataRow("Item") = "1"
+            dlg_DataRow("Qty") = "2"
+            dlg_DataRow("Part") = "widget"
+            dlg_DataRow("AltPart") = "hisWidget"
+            dlg_DataRow("Kit") = "widgetKit"
+            dlg_DataRow("Description") = "this is a widget"
+            _PartsDataTable.Rows.Add(dlg_DataRow)
+
+            dlg_DataRow = _PartsDataTable.NewRow()
+            dlg_DataRow("Item") = "2"
+            dlg_DataRow("Qty") = "3"
+            dlg_DataRow("Part") = "megawidget"
+            dlg_DataRow("AltPart") = "hismegaWidget"
+            dlg_DataRow("Kit") = "megawidgetKit"
+            dlg_DataRow("Description") = "this is a mega widget"
+            _PartsDataTable.Rows.Add(dlg_DataRow)
+            MsgBox("done with makeBomTablex")
+        Catch ex As Exception
+            MsgBox("error making data table")
+        End Try
 
         Try
             MsgBox("debug in tables")
@@ -235,4 +276,8 @@ Public Class Commands
 
     End Sub
 
-End Class
+    Public Sub noBOM()
+        MsgBox("this works")
+    End Sub
+
+End Module
