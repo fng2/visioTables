@@ -91,13 +91,16 @@ Module SpecialTables
 
         'makeBomTable()
 
+        Dim NewTable As VisioTable
+        NewTable = New VisioTable 'execution stops here
+
         Dim numberOfColumns As Integer = 6
         Dim numberOfRows As Integer = 4 'remember the top two are headers!
         Dim ID As String = String.Empty
         Dim rowNum As Integer = 0
-        Dim NewTable As New VisioTable
         Dim chars As visio.Characters
         Dim dlg_DataRow As DataRow
+
 
         Try
             MsgBox("in makeBomTablex")
@@ -259,9 +262,8 @@ Module SpecialTables
             'merge the cells of line 1
             If Not vsoSel Is Nothing Then
                 If vsoSel.Count > 2 Then
-                    'Dim junk1 As Integer = Globals.ThisAddIn.Application.ActiveWindow.Selection.Count
                     Globals.ThisAddIn.Application.ActiveWindow.Selection = vsoSel
-                    'junk1 = Globals.ThisAddIn.Application.ActiveWindow.Selection.Count
+                    MsgBox("cells selected = " & Globals.ThisAddIn.Application.ActiveWindow.Selection.Count)
                     IntDeIntCells()
                 End If
                 Globals.ThisAddIn.Application.ActiveWindow.DeselectAll()

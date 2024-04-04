@@ -651,17 +651,21 @@ errD:
         MessageBox.Show("DelTab" & vbNewLine & Err.Description)
     End Sub
 
-    ' Объединение/Разъединение ячеек из шейпа. Предварительная процедура
+    ' Merging/Disconnecting cells from a shape. Preliminary procedure
     Sub IntDeIntCells()
-        Call ClearControlCells(UTC) : Call ClearControlCells(UTR)
-
+        MsgBox("in merge")
+        'fails here
+        Call ClearControlCells(UTC)
+        Call ClearControlCells(UTR)
+        MsgBox("1")
         If Not CheckSelCells() Then Exit Sub
-
-        Dim shObj As Visio.Shape, vsoSel As Visio.Selection = winObj.Selection
+        MsgBox("2")
+        Dim shObj As visio.Shape, vsoSel As visio.Selection = winObj.Selection
         shpsObj = winObj.Page.Shapes
         shObj = vsoSel(1)
+        MsgBox("3")
         Call InitArrShapeID(NT)
-
+        MsgBox("4")
         If InStr(1, shObj.Cells("Width").FormulaU, "SUM", 1) <> 0 Or InStr(1, shObj.Cells("Height").FormulaU, "Sum", 1) <> 0 Then
             Call RecUndo("Disconnect cells")
             Call DeIntegrateCells(shObj)
@@ -669,8 +673,9 @@ errD:
             Call RecUndo("Merge cells")
             Call IntegrateCells()
         End If
-
+        MsgBox("5")
         Call RecUndo("0")
+        MsgBox("done merge")
     End Sub
 
     ' Заполнение массива ID шейпов активной таблицы
@@ -1524,7 +1529,7 @@ err:
     ' Снятие выделения УЯ столбцов или строк
     Public Sub ClearControlCells(arg)
         Dim shObj As visio.Shape
-
+        MsgBox("clearcontrolcells arg is " & arg.ToString)
         With winObj
             For Each shObj In .Selection
                 If shObj.Cells(arg).Result("") = 0 Then .Select(shObj, 1)

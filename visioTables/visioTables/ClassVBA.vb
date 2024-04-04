@@ -387,13 +387,18 @@ Public Class ClassVBA
     'Add-in Methods =========================================================================================
 
     Public Sub test() Implements IClassVBA.test
-        MsgBox("classVBA")
+        'when stepping into code from VE the messagebox executes
+        'MsgBox("classVBA")
 
         'Call noBOM()
-        'Call BOM()
-        Dim NewTable As New VisioTable
-        NewTable.CreatTable("BOM", 1, 6, 4, 1, 0.5, 1, 1, True, True)
-        NewTable = Nothing
+        Call BOM()
+
+        'but execution stops when declaring variable
+        'Dim NewTable As New VisioTable
+        'NewTable.CreatTable("BOM", 1, 6, 4, 1, 0.5, 1, 1, True, True)
+        'NewTable = Nothing
+        'Exception thrown 'System.NullReferenceException' in visioTables.dll
+        'Exception thrown 'System.Reflection.TargetInvocationException' in mscorlib.dll
 
     End Sub
 
