@@ -41,16 +41,16 @@ Public Class dlgLinkData
         cmb_DataID.SelectedIndex = cmbSourseData.SelectedIndex
         txtNameTable.Text = vsoApp.ActiveDocument.DataRecordsets.Item(cmbSourseData.SelectedIndex + 1).Name
         lngRowIDs = vsoApp.ActiveDocument.DataRecordsets.Item(cmbSourseData.SelectedIndex + 1).GetDataRowIDs("")
-        lblCountRow.Text = "Источник содержит " &
-        vsoApp.ActiveDocument.DataRecordsets.Item(cmbSourseData.SelectedIndex + 1).DataColumns.Count & " столбцов и " _
-        & UBound(lngRowIDs) + 1 & " строк данных"
+        lblCountRow.Text = "Source contains " &
+        vsoApp.ActiveDocument.DataRecordsets.Item(cmbSourseData.SelectedIndex + 1).DataColumns.Count & " columns " _
+        & UBound(lngRowIDs) + 1 & " rows of data"
     End Sub
 
     Private Sub ckbInsertName_CheckedChanged(sender As Object, e As EventArgs) Handles ckbInsertName.CheckedChanged
         txtNameTable.Enabled = ckbInsertName.Checked
     End Sub
 
-    Sub RefreshDataInShapes() ' Обновление источников внешних данных
+    Sub RefreshDataInShapes() ' Updating External Data Sources
 
         If vsoApp.ActiveDocument.DataRecordsets.Count = 0 Then
             Exit Sub
@@ -59,7 +59,7 @@ Public Class dlgLinkData
         Dim vsoDataRecordset As Visio.DataRecordset
         Dim i As Byte
 
-        Call RecUndo("Обновить все данные")
+        Call RecUndo("Refresh all data")
 
         On Error GoTo ErrorHandler
 
@@ -69,11 +69,11 @@ Public Class dlgLinkData
         Next
         Call RecUndo("0")
 
-        MsgBox("Обновлено источников внешних данных - " & vsoApp.ActiveDocument.DataRecordsets.Count, vbInformation, "Обновление данных")
+        MsgBox("Updated external data sources - " & vsoApp.ActiveDocument.DataRecordsets.Count, vbInformation, "Data Update")
         Exit Sub
 
 ErrorHandler:
-        MsgBox("Внешний источник:" & vbCrLf & vsoDataRecordset.Name & vbCrLf & Err.Description, vbExclamation, "Обновление данных")
+        MsgBox("External source:" & vbCrLf & vsoDataRecordset.Name & vbCrLf & Err.Description, vbExclamation, "Data Update")
     End Sub
 
 End Class

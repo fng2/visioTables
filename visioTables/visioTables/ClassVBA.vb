@@ -81,10 +81,6 @@ End Interface
 Public Class ClassVBA
     Implements IClassVBA
 
-    'Sub New()
-    '    MsgBox("classVBA loaded")
-    'End Sub
-
 
 #Region "Properties"
 
@@ -524,7 +520,7 @@ Public Class ClassVBA
             iR = RowCount - 1
         End If
 
-        Call RecUndo("Вставить из файла")
+        Call RecUndo("Paste from file")
 
         On Error Resume Next
 
@@ -565,7 +561,7 @@ Line1:
         Dim ShapeObj As Visio.Shape = winObj.Selection(1)
 
 
-        Call RecUndo("Вставить из Excel")
+        Call RecUndo("Paste from Excel")
 
         On Error Resume Next
 
@@ -600,7 +596,7 @@ Line1:
     ' Inserting custom data into selected table cells
     Public Sub SetCellsText(arg As Object, c As Integer, r As Integer, c1 As Integer, r1 As Integer, byCorR As Byte) Implements IClassVBA.SetCellsText
         If Not CheckCells() Then Exit Sub
-        Call RecUndo("Задать текст")
+        Call RecUndo("Set text")
         Call SetText(arg, c, r, c1, r1, byCorR)
         Call RecUndo("0")
     End Sub
@@ -609,7 +605,7 @@ Line1:
     Public Sub SetCellsFormula(cell As String, c As Integer, r As Integer, c1 As Integer, r1 As Integer, txt As Object) Implements IClassVBA.SetCellsFormula
         If Not CheckCells() Then Exit Sub
 
-        Call RecUndo("Задать формулу/значение")
+        Call RecUndo("Set formula/value")
         Call SetFormula(cell, c, r, c1, r1, txt)
         Call RecUndo("0")
 

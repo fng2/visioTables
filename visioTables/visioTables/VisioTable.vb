@@ -63,7 +63,7 @@ Friend Class VisioTable
     Private Const GS = "=GUARD(Sheet."
     Private Const GI = "=Guard(IF("
     Private Const sh = "Sheet."
-    Private Const GU5 = "=GUARD(10 mm)" ' Переделать на DrawUn
+    Private Const GU5 = "=GUARD(10 mm)" ' Remake on DrawUn
     Private Const P50 = "50%"
     Private Const GT = "GUARD(TRUE)"
     Private Const G1 = "Guard(1)"
@@ -108,7 +108,6 @@ Friend Class VisioTable
 
         If bytInsertType = 4 Then
             If winObj.Selection.Count = 0 Then
-                ' MsgBox("Вы должны выбрать одну фигуру")
                 MsgBox("You must choose one figure")
                 Exit Sub
             Else
@@ -127,32 +126,30 @@ Friend Class VisioTable
         CountID = -1
 
         If booVisibleProgressBar Then
-            'frm.Label1.Text = " " & vbCrLf & "Создание  новой таблицы"
             frm.Label1.Text = " " & vbCrLf & "Creating a new table"
             frm.Show() : frm.Refresh()
         End If
 
-        'Call RecUndo("Создание таблицы...")
         Call RecUndo("Creating a table...")
 
-        ' Добавление и изменение свойств слоев
+        ' Adding and changing layer properties
         vsoLayerTitles = pagObj.Layers.Add("Titles_Tables")
         vsoLayerCells = pagObj.Layers.Add("Cells_Tables")
-        If vsoLayerTitles.CellsC(4).Result("") = 0 Then vsoLayerTitles.CellsC(4).FormulaForceU = 1 ' Сделать если надо слой видимым
-        If vsoLayerTitles.CellsC(7).Result("") = 1 Then vsoLayerTitles.CellsC(7).FormulaForceU = 0 ' Разблокировать если надо слой
-        If vsoLayerCells.CellsC(4).Result("") = 0 Then vsoLayerCells.CellsC(4).FormulaForceU = 1 ' Сделать если надо слой видимым
-        If vsoLayerCells.CellsC(7).Result("") = 1 Then vsoLayerCells.CellsC(7).FormulaForceU = 0 ' Разблокировать если надо слой
-        vsoLayerTitles.CellsC(5).FormulaU = "GUARD(0)" ' Слой всегда не печатаемый
+        If vsoLayerTitles.CellsC(4).Result("") = 0 Then vsoLayerTitles.CellsC(4).FormulaForceU = 1 ' Make the layer visible if necessary
+        If vsoLayerTitles.CellsC(7).Result("") = 1 Then vsoLayerTitles.CellsC(7).FormulaForceU = 0 ' Unlock a layer if necessary
+        If vsoLayerCells.CellsC(4).Result("") = 0 Then vsoLayerCells.CellsC(4).FormulaForceU = 1 ' Make the layer visible if necessary
+        If vsoLayerCells.CellsC(7).Result("") = 1 Then vsoLayerCells.CellsC(7).FormulaForceU = 0 ' Unlock a layer if necessary
+        vsoLayerTitles.CellsC(5).FormulaU = "GUARD(0)" ' Layer is always not printed
 
         vsoApp.ShowChanges = False
 
-        TypeCell = strNameTable : VarCell = 3 'Вставка 1 ячейки
+        TypeCell = strNameTable : VarCell = 3 'Inserting 1 cell
         NewShape(TypeCell)
         shpObj = shape_TbL
         DrawOfCells(iGT, jGT)
         vsoLayerTitles.Add(shpObj, 1)
 
-        TypeCell = "ThC" : VarCell = 2 'Вставка 1 ряда таблицы
+        TypeCell = "ThC" : VarCell = 2 'Inserting 1 row of a table
         For iGT = 1 To intColumnsCount
             If iGT = 1 Then
                 NewShape(TypeCell)
@@ -164,7 +161,7 @@ Friend Class VisioTable
             vsoLayerTitles.Add(shpObj, 1)
         Next
 
-        TypeCell = "TvR" : VarCell = 1 'Вставка 1 столбца таблицы
+        TypeCell = "TvR" : VarCell = 1 'Insert 1 table column
         For jGT = 1 To intRowsCount
             If jGT = 1 Then
                 NewShape(TypeCell)
@@ -176,7 +173,7 @@ Friend Class VisioTable
             vsoLayerTitles.Add(shpObj, 1)
         Next
 
-        TypeCell = "ClW" : VarCell = 0 'Вставка рабочих ячеек
+        TypeCell = "ClW" : VarCell = 0 'Inserting work cells
         For jGT = 1 To intRowsCount
             If booVisibleProgressBar Then
                 frm.lblProgressBar.Width = (300 / intRowsCount) * jGT : frm.lblProgressBar.Refresh() : Application.DoEvents()
@@ -221,8 +218,6 @@ errD:
 
     Private Sub DrawOfCells(ByVal iGT, ByVal jGT)
         On Error GoTo errD
-
-        'MsgBox("draw cells")
         'User.TableCol and User.TableRow are in each "working" cell and give the cell's location in the table
 
         With pagObj
@@ -313,17 +308,15 @@ errD:
 
     Private Sub NewShape(TypeCell)
         On Error GoTo errD
-        ' Подпроцедура создания шейпов таблицы и настройка их
+        ' Subprocedure for creating table shapes and setting them up
         Dim vsoShape As visio.Shape
         Dim AddSectionNum As Integer, intArrNum() As Integer, arrRowData
         vsoShape = winObj.Page.DrawRectangle(0, 0, 1, 1)
 
-        'MsgBox("new shape")
-
         With vsoShape
             .Name = TypeCell
 
-            ' Добавить User секцию для всех ячеек
+            ' add User section for all cells
             AddSectionNum = 242
             'visSectionUser	242	Stores cells created and used by an external solution.
             intArrNum = {0, 1}
@@ -344,25 +337,25 @@ errD:
 
             Select Case TypeCell
                 Case strNameTable, "ThC", "TvR"
-                    ' Настройка форматов
+                    ' Setting formats
                     Call FormatLFM(vsoShape, TypeCell)
                     .Cells("LockFormat").FormulaU = G1
                     .Cells("LockFromGroupFormat").FormulaU = G1
                     .Cells("LockThemeColors").FormulaU = G1
                     .Cells("LockThemeEffects").FormulaU = G1
-                    ' Настройка Miscellaneous
+                    ' Setting up Miscellaneous
                     .Cells("NoObjHandles").FormulaForceU = GT
                     .Cells("NonPrinting").FormulaForceU = GT
             End Select
 
             Select Case TypeCell
-                Case "ClW" ' Рабочая ячейка
+                Case "ClW" ' Work cell
                     shape_ClW = vsoShape
 
-                Case "TvR" ' УЯ строки
-                    AddSectionNum = 9 ' Добавить Control секцию
+                Case "TvR" ' Work cell
+                    AddSectionNum = 9 ' Add a Control section
                     'visSectionControls	9	Stores an object's control handles.
-                    intArrNum = {0, 1, 2, 3, 6, 8} ' Сделать не меньше нуля
+                    intArrNum = {0, 1, 2, 3, 6, 8} ' Make no less than zero
                     'arrRowData = {{"ControlHeight", "GUARD(Width*0)", "Height*0", "GUARD(Controls.ControlHeight)", "GUARD(Controls.ControlHeight.Y)", "False", """Изменение высоты ячейки"""}}
                     arrRowData = {{"ControlHeight", "GUARD(Width*0)", "Height*0", "GUARD(Controls.ControlHeight)", "GUARD(Controls.ControlHeight.Y)", "False", """Changing cell height"""}}
                     AddSections(vsoShape, AddSectionNum, arrRowData, intArrNum)
@@ -372,7 +365,7 @@ errD:
                     .CellsSRC(10, 5, 1).FormulaU = "GUARD(Controls.ControlHeight.Y)"
                     shape_TvR = vsoShape
 
-                Case "ThC" ' УЯ столбца
+                Case "ThC" ' Column ID
                     AddSectionNum = 9 ' Добавить Control секцию
                     'visSectionControls	9	Stores an object's control handles.
                     intArrNum = {0, 1, 2, 3, 6, 8} ' Сделать не меньше нуля
@@ -384,8 +377,8 @@ errD:
                     .CellsSRC(10, 3, 0).FormulaU = "GUARD(Controls.ControlWidth)"
                     shape_ThC = vsoShape
 
-                Case strNameTable ' Главная УЯ
-                    AddSectionNum = 240 ' Добавить Action секцию
+                Case strNameTable ' Home UYA
+                    AddSectionNum = 240 'Add an Action section
                     'visSectionAction	240	Stores the actions that appear on the shortcut menu.
                     intArrNum = {3, 0, 15, 16, 4, 7, 8}
                     'arrRowData = {{"Titles", "SETF(GetRef(Actions.Titles.Checked),NOT(Actions.Titles.Checked))", """П&оказывать заголовки""", """""", 5, 1, "FALSE", "TRUE"},
@@ -420,7 +413,7 @@ errD:
 
     Private Sub AddSections(vsoShape, AddSectionNum, arrRowData, intArrNum, Optional DelS = False)
         On Error GoTo errD
-        ' Подпроцесс добавления заданной Section, требуемого кол-ва строк в Section и настройка этих строк
+        ' Sub-process of adding a given Section, the required number of lines in Section and setting these lines
         Dim intI As Byte, intJ As Byte
 
         With vsoShape
@@ -461,33 +454,33 @@ errD:
         On Error GoTo errD
         With Shp
 
-            For i = 0 To 9 ' Линия
+            For i = 0 To 9 ' Line
                 .CellsSRC(1, 2, i).FormulaForceU = GU & arrL(i) & ")"
             Next
 
-            For i = 0 To 14 ' Заливка
+            For i = 0 To 14 ' Fill
                 .CellsSRC(1, 3, i).FormulaForceU = GU & arrF(i) & ")"
             Next
 
-            For i = 0 To 3 ' Поля текстового блока
+            For i = 0 To 3 ' Text block margins
                 .CellsSRC(1, 11, i).FormulaForceU = GU & 0 & " pt)"
             Next
 
-            ' Настройка цвета, размера шрифта, выравнивания текста в ячейках
+            ' Setting color, font size, text alignment in cells
             .Cells("Char.Color[1]").FormulaForceU = strThGu255
             .Cells("Char.Font[1]").FormulaForceU = GU & vsoApp.ActiveDocument.Fonts("Courier New").ID & ")"
             .Cells("Char.Size[1]").FormulaForceU = GU & 10 & " pt)"
             .Cells("VerticalAlign").FormulaForceU = G1
             .Cells("Para.HorzAlign[1]").FormulaForceU = G1
 
-            Select Case TC ' Зависимости
+            Select Case TC ' Dependencies
                 Case "ThC", "TvR"
                     .Cells("FillForegnd").FormulaForceU = GI & sh & arrNewID(0) & strATC & strThGu000 & "," & strThGu255 & "))"
                     .Cells("FillForegndTrans").FormulaForceU = GI & sh & arrNewID(0) & strATC & "0%" & "," & "50%" & "))"
                     .Cells("LineColor").FormulaForceU = GI & sh & arrNewID(0) & strATC & strThGu191 & "," & strThGu255 & "))"
             End Select
 
-            If Vr = 15 Then ' Секция Theme Properties для Visio 2013
+            If Vr = 15 Then ' Theme Properties section for Visio 2013
                 For i = 0 To 7
                     .CellsSRC(1, 31, i).FormulaForceU = GU & 0 & ")"
                 Next

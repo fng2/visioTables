@@ -2,7 +2,7 @@
 Partial Class dlgLinkData
     Inherits System.Windows.Forms.Form
 
-    'Форма переопределяет dispose для очистки списка компонентов.
+    'The form overrides dispose to clear the list of components.
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
@@ -14,12 +14,12 @@ Partial Class dlgLinkData
         End Try
     End Sub
 
-    'Является обязательной для конструктора форм Windows Forms
+    'Required for Windows Forms Form Designer
     Private components As System.ComponentModel.IContainer
 
-    'Примечание: следующая процедура является обязательной для конструктора форм Windows Forms
-    'Для ее изменения используйте конструктор форм Windows Form.  
-    'Не изменяйте ее в редакторе исходного кода.
+    'Note: The following procedure is required for Windows Forms Designer
+    'To change it, use the Windows Form Designer. 
+    'Do not change it in the source code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.lblCountRow = New System.Windows.Forms.Label()
@@ -46,7 +46,7 @@ Partial Class dlgLinkData
         Me.lblCountRow.Name = "lblCountRow"
         Me.lblCountRow.Size = New System.Drawing.Size(513, 23)
         Me.lblCountRow.TabIndex = 0
-        Me.lblCountRow.Text = "Источник"
+        Me.lblCountRow.Text = "Source"
         '
         'lblSourseData
         '
@@ -55,7 +55,7 @@ Partial Class dlgLinkData
         Me.lblSourseData.Name = "lblSourseData"
         Me.lblSourseData.Size = New System.Drawing.Size(135, 13)
         Me.lblSourseData.TabIndex = 1
-        Me.lblSourseData.Text = "Выбор источника данных"
+        Me.lblSourseData.Text = "Selecting a data source"
         '
         'cmbSourseData
         '
@@ -86,7 +86,7 @@ Partial Class dlgLinkData
         Me.ckbInsertName.Name = "ckbInsertName"
         Me.ckbInsertName.Size = New System.Drawing.Size(259, 17)
         Me.ckbInsertName.TabIndex = 4
-        Me.ckbInsertName.Text = "Вставить название таблицы в первую строку "
+        Me.ckbInsertName.Text = "Insert table name in first row"
         Me.ckbInsertName.UseVisualStyleBackColor = True
         '
         'ckbTitleColumns
@@ -98,7 +98,7 @@ Partial Class dlgLinkData
         Me.ckbTitleColumns.Name = "ckbTitleColumns"
         Me.ckbTitleColumns.Size = New System.Drawing.Size(130, 17)
         Me.ckbTitleColumns.TabIndex = 5
-        Me.ckbTitleColumns.Text = "Заголовки столбцов"
+        Me.ckbTitleColumns.Text = "Column Headings"
         Me.ckbTitleColumns.UseVisualStyleBackColor = True
         '
         'ckbFontBold
@@ -108,7 +108,7 @@ Partial Class dlgLinkData
         Me.ckbFontBold.Name = "ckbFontBold"
         Me.ckbFontBold.Size = New System.Drawing.Size(227, 17)
         Me.ckbFontBold.TabIndex = 6
-        Me.ckbFontBold.Text = "Выделять заголовки жирным шрифтом"
+        Me.ckbFontBold.Text = "Make headings bold"
         Me.ckbFontBold.UseVisualStyleBackColor = True
         '
         'ckbInvisibleZero
@@ -118,7 +118,7 @@ Partial Class dlgLinkData
         Me.ckbInvisibleZero.Name = "ckbInvisibleZero"
         Me.ckbInvisibleZero.Size = New System.Drawing.Size(280, 17)
         Me.ckbInvisibleZero.TabIndex = 7
-        Me.ckbInvisibleZero.Text = "Не показывать нулевые и пустые значения ячеек"
+        Me.ckbInvisibleZero.Text = "Do not show zero and empty cell values"
         Me.ckbInvisibleZero.UseVisualStyleBackColor = True
         '
         'TableLayoutPanel1
@@ -156,7 +156,7 @@ Partial Class dlgLinkData
         Me.Cancel_Button.Name = "Cancel_Button"
         Me.Cancel_Button.Size = New System.Drawing.Size(67, 23)
         Me.Cancel_Button.TabIndex = 13
-        Me.Cancel_Button.Text = "Отмена"
+        Me.Cancel_Button.Text = "Cancel"
         '
         'cmdRefreshAll
         '
@@ -166,7 +166,7 @@ Partial Class dlgLinkData
         Me.cmdRefreshAll.Name = "cmdRefreshAll"
         Me.cmdRefreshAll.Size = New System.Drawing.Size(182, 23)
         Me.cmdRefreshAll.TabIndex = 19
-        Me.cmdRefreshAll.Text = "Обновить все источники данных"
+        Me.cmdRefreshAll.Text = "Refresh all data sources"
         Me.cmdRefreshAll.UseVisualStyleBackColor = True
         '
         'cmb_DataID
@@ -206,7 +206,7 @@ Partial Class dlgLinkData
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Связь с внешними данными"
+        Me.Text = "Communication with external data"
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()

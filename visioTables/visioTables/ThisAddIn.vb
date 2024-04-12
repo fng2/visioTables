@@ -28,23 +28,12 @@ Partial Public Class ThisAddIn
 
         'If Application Is Nothing OrElse Application.ActiveWindow Is Nothing Then Exit Sub
 
-        ' Очищать?          'new
+        ' Cleanse?          'new
         winObj = vsoApp.ActiveWindow
         docObj = vsoApp.ActiveDocument
         pagObj = vsoApp.ActivePage
         shpsObj = pagObj.Shapes
-        ' Очищать?
-
-        'Select Case commandId
-        '    Case "Command1"
-        '        'Command1()
-        '        CreatingTable.Load_dlgNewTable()
-        '        Return
-        '    Case "Command2"
-        '        'Command2()
-        '        LoadDlg(5)
-        '        Return
-        'End Select
+        ' Cleanse?
 
         'new
         Select Case commandId
@@ -158,12 +147,10 @@ Partial Public Class ThisAddIn
     End Sub
 
     Private Sub ThisAddIn_Startup() Handles Me.Startup
-        'AddHandler Application.SelectionChanged, AddressOf Application_SelectionChanged
 
     End Sub
 
     Private Sub ThisAddIn_Shutdown() Handles Me.Shutdown
-        'RemoveHandler Application.SelectionChanged, AddressOf Application_SelectionChanged
 
     End Sub
 

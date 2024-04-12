@@ -10,7 +10,7 @@ Public Class dlgIntellInput
 
     Private Sub dlgIntellInput_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Call InitArrShapeID(NT)
-        Call RecUndo("Ручной набор текста")
+        Call RecUndo("Manual typing")
     End Sub
 
     Private Sub cmbText_KeyDown(sender As Object, e As KeyEventArgs) Handles cmbText.KeyDown
@@ -106,22 +106,22 @@ err:
 
     Private Sub btnHelp_Click(sender As Object, e As EventArgs) Handles btnHelp.Click
         Dim msg As String
-        msg = "Клавиши перехода:" & vbCrLf
+        msg = "Navigation keys:" & vbCrLf
         msg = msg & vbCrLf
-        msg = msg & "F1 - вставить текст и перейти ВПРАВО по строке." & vbCrLf
-        msg = msg & "F2 - вставить текст и перейти ВНИЗ по столбцу." & vbCrLf
-        msg = msg & "F3 - перейти в СЛЕДУЮЩУЮ ячейку. (пропуск текущей ячейки)." & vbCrLf
-        msg = msg & "F4 - открыть список для выбора сохраненных значений." & vbCrLf
+        msg = msg & "F1 - insert text and move RIGHT along the line." & vbCrLf
+        msg = msg & "F2 - insert text and move DOWN the column." & vbCrLf
+        msg = msg & "F3 - move to the NEXT cell. (skip the current cell)." & vbCrLf
+        msg = msg & "F4 - open a list to select saved values." & vbCrLf
         msg = msg & vbCrLf
-        msg = msg & "F5 - перейти в начало строки." & vbCrLf
-        msg = msg & "F6 - перейти в конец строки." & vbCrLf
-        msg = msg & "F7 - перейти в начало столбца." & vbCrLf
-        msg = msg & "F8 - перейти в конец столбца." & vbCrLf
-        msg = msg & "F9 - удалить текст из ячейки." & vbCrLf
+        msg = msg & "F5 - go to the beginning of the line." & vbCrLf
+        msg = msg & "F6 - go to the end of the line." & vbCrLf
+        msg = msg & "F7 - go to the beginning of the column." & vbCrLf
+        msg = msg & "F8 - go to the end of the column." & vbCrLf
+        msg = msg & "F9 - remove text from a cell." & vbCrLf
         msg = msg & vbCrLf
-        msg = msg & "ENTER - вставить текст в выделенную ячейку и закрыть диалог." & vbCrLf
-        msg = msg & "ESC - переход назад в обратном порядке."
-        MsgBox(msg, 64, "Подсказка")
+        msg = msg & "ENTER - paste text into the selected cell and close the dialog." & vbCrLf
+        msg = msg & "ESC - go back in reverse order."
+        MsgBox(msg, 64, "Clue")
     End Sub
 
     Private Sub dlgIntellInput_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed

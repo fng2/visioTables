@@ -2,7 +2,7 @@
 Partial Class dlgSelectFromList
     Inherits System.Windows.Forms.Form
 
-    'Форма переопределяет dispose для очистки списка компонентов.
+    'The form overrides dispose to clear the list of components.
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
@@ -14,12 +14,12 @@ Partial Class dlgSelectFromList
         End Try
     End Sub
 
-    'Является обязательной для конструктора форм Windows Forms
+    'Required for Windows Forms Form Designer
     Private components As System.ComponentModel.IContainer
 
-    'Примечание: следующая процедура является обязательной для конструктора форм Windows Forms
-    'Для ее изменения используйте конструктор форм Windows Form.  
-    'Не изменяйте ее в редакторе исходного кода.
+    'Note: The following procedure is required for Windows Forms Designer
+    'To change it, use the Windows Form Designer. 
+    'Do not change it in the source code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.cmbSelectValue = New System.Windows.Forms.ComboBox()
@@ -77,7 +77,7 @@ Partial Class dlgSelectFromList
         Me.Cancel_Button.Name = "Cancel_Button"
         Me.Cancel_Button.Size = New System.Drawing.Size(67, 23)
         Me.Cancel_Button.TabIndex = 13
-        Me.Cancel_Button.Text = "Отмена"
+        Me.Cancel_Button.Text = "Cancel"
         '
         'rdbFromCol
         '
@@ -88,7 +88,7 @@ Partial Class dlgSelectFromList
         Me.rdbFromCol.Size = New System.Drawing.Size(83, 17)
         Me.rdbFromCol.TabIndex = 2
         Me.rdbFromCol.TabStop = True
-        Me.rdbFromCol.Text = "Из столбца"
+        Me.rdbFromCol.Text = "From column"
         Me.rdbFromCol.UseVisualStyleBackColor = True
         '
         'rdbFromRow
@@ -98,7 +98,7 @@ Partial Class dlgSelectFromList
         Me.rdbFromRow.Name = "rdbFromRow"
         Me.rdbFromRow.Size = New System.Drawing.Size(77, 17)
         Me.rdbFromRow.TabIndex = 3
-        Me.rdbFromRow.Text = "Из строки"
+        Me.rdbFromRow.Text = "From line"
         Me.rdbFromRow.UseVisualStyleBackColor = True
         '
         'dlgSelectFromList
@@ -118,7 +118,7 @@ Partial Class dlgSelectFromList
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Выбрать значения"
+        Me.Text = "Select values"
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()

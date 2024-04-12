@@ -2,7 +2,7 @@
 
 Public Class dlgSortTable
 
-    Const Cap = "Сортировка данных"
+    Const Cap = "Sorting data"
 
     Private Sub btn_OK_Click(sender As Object, e As EventArgs) Handles btn_OK.Click
         Dim vsoObj As Visio.Selection = winObj.Selection
@@ -15,7 +15,7 @@ Public Class dlgSortTable
         If vsoApp.ActiveWindow.Selection.Count > 1 Then
             Call SortTableData(Num_Column.Value, cb_DigitOrText.Checked, cb_SortingDirection.Checked)
         Else
-            MsgBox("Нет выделенных ячеек." & vbNewLine & "Или выделенно меньше двух ячеек.", vbExclamation, Cap)
+            MsgBox("There are no selected cells." & vbNewLine & "Or less than two cells are selected.", vbExclamation, Cap)
         End If
     End Sub
 
@@ -27,7 +27,7 @@ Public Class dlgSortTable
         Num_Column.Maximum = MaxColumn()
     End Sub
 
-    ' Функция определения количества выделенных столбцов
+    ' Function for determining the number of selected columns
     Private Function MaxColumn()
         Dim MaxC As Integer = 0
         Dim MinC As Integer = 1000

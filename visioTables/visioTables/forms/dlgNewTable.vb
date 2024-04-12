@@ -111,19 +111,6 @@ Public Class dlgNewTable
 
     Private Sub ToolTipfrm()
         With Me
-            '.ToolTip1.SetToolTip(.txtNameTable, "Имя Главной Управляющей ячейки, для идентификации ячеек таблицы")
-            '.ToolTip1.SetToolTip(.optDefault, "Новая таблица по умолчанию")
-            '.ToolTip1.SetToolTip(.optCustom, "Новая таблица по вашим размерам")
-            '.ToolTip1.SetToolTip(.optPage, "Новая таблица по размерам листа, исключая поля листа")
-            '.ToolTip1.SetToolTip(.optInside, "Новая таблица по размерам выделенной фигуры")
-            '.ToolTip1.SetToolTip(.ckbDelShape, "Удалить фигуру-контур")
-            '.ToolTip1.SetToolTip(.nudColumns, "Количество столбцов в новой таблице")
-            '.ToolTip1.SetToolTip(.nudRows, "Количество строк в новой таблице")
-            '.ToolTip1.SetToolTip(.txtCellDefWidth, "Ширина ячеек в новой таблице")
-            '.ToolTip1.SetToolTip(.txtCellDefHeight, "Высота ячеек в новой таблице")
-            '.ToolTip1.SetToolTip(.txtTableCusWidth, "Ширина новой таблицы")
-            '.ToolTip1.SetToolTip(.txtTableCusHeight, "Высота новой таблицы")
-
             .ToolTip1.SetToolTip(.txtNameTable, "Name of the Main Control Cell to identify table cells")
             .ToolTip1.SetToolTip(.optDefault, "New default table")
             .ToolTip1.SetToolTip(.optCustom, "New table according to your sizes")

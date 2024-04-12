@@ -7,9 +7,9 @@ Public Class dlgSelectFromList
     Private Sub OK_Button_Click(sender As Object, e As EventArgs) Handles OK_Button.Click
         Dim i As Integer
 
-        Call RecUndo("Вставить из списка")
+        Call RecUndo("Paste from list")
 
-        For i = 1 To sh.Count ' Вставка выбранного значения в выделенные ячейки
+        For i = 1 To sh.Count ' Paste a selected value into selected cells
             'If InStr(1, sh(i).NameU, "ClW", 1) <> 0 Then
             sh(i).Characters.Text = cmbSelectValue.Text
             'End If
@@ -52,7 +52,7 @@ Public Class dlgSelectFromList
         On Error GoTo 0
 
         cmbSelectValue.Items.Clear()
-        For i = 1 To NoDupes.Count ' Добавление коллекции в ComboBox (cmbSelectValue)
+        For i = 1 To NoDupes.Count ' Adding a Collection to a ComboBox (cmbSelectValue)
             If StrComp(NoDupes(i), Trim("")) <> 0 Then cmbSelectValue.Items.Add(NoDupes(i))
         Next
 

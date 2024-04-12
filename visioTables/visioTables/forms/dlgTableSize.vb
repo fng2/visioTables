@@ -20,7 +20,7 @@
 
         Select Case TabControl1.SelectedIndex
 
-            Case 0 ' Размеры
+            Case 0 ' Dimensions
                 'If Val(txtCellL.Text) = 0 Or Val(txtTableL.Text) = 0 Or Val(txtCellH.Text) = 0 Or Val(txtTableH.Text) = 0 Then Exit Sub
                 Dim TableW As Single, TableH As Single
                 TableW = txtTableL.Text : TableH = txtTableH.Text
@@ -35,7 +35,7 @@
                 If txtCellH.Tag <> txtCellH.Text Or txtTableH.Tag <> txtTableH.Text Or ckbToHeightPage.Checked Then m_booHeight = True
                 Call ResizeCells(m_bytCellsOrTable, ckbWithActivateCell.Checked, CellL, CellH, TableW, TableH, m_booWidth, m_booHeight)
 
-            Case 1 ' Авторазмеры
+            Case 1 ' Autodimensions
                 Dim bytNothingOrAutoOrLockColumns As Byte, bytNothingOrAutoOrLockRows As Byte
                 If ckbAllWidth.Checked + ckbAllHeight.Checked = 0 Then Exit Sub
                 bytNothingOrAutoOrLockColumns = 0 ' 0-nothing, 1-auto, 2-lock
@@ -52,7 +52,7 @@
         Exit Sub
 
 LineExit:
-        MsgBox("Возможно введены ошибочные данные.", MsgBoxStyle.Critical, "Ошибка!")
+        MsgBox("Incorrect data may have been entered.", MsgBoxStyle.Critical, "Error!")
     End Sub
 
     Private Sub Cancel_Button_Click(sender As Object, e As EventArgs) Handles Cancel_Button.Click

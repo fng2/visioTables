@@ -2,7 +2,7 @@
 Partial Class dlgFromFile
     Inherits System.Windows.Forms.Form
 
-    'Форма переопределяет dispose для очистки списка компонентов.
+    'The form overrides dispose to clear the list of components.
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
@@ -14,12 +14,12 @@ Partial Class dlgFromFile
         End Try
     End Sub
 
-    'Является обязательной для конструктора форм Windows Forms
+    'Required for Windows Forms Form Designer
     Private components As System.ComponentModel.IContainer
 
-    'Примечание: следующая процедура является обязательной для конструктора форм Windows Forms
-    'Для ее изменения используйте конструктор форм Windows Form.  
-    'Не изменяйте ее в редакторе исходного кода.
+    'Note: The following procedure is required for Windows Forms Designer
+    'To change it, use the Windows Form Designer. 
+    'Do not change it in the source code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()

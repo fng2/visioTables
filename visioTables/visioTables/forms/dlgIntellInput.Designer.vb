@@ -2,7 +2,7 @@
 Partial Class dlgIntellInput
     Inherits System.Windows.Forms.Form
 
-    'Форма переопределяет dispose для очистки списка компонентов.
+    'The form overrides dispose to clear the list of components.
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
@@ -14,12 +14,12 @@ Partial Class dlgIntellInput
         End Try
     End Sub
 
-    'Является обязательной для конструктора форм Windows Forms
+    'Required for Windows Forms Form Designer
     Private components As System.ComponentModel.IContainer
 
-    'Примечание: следующая процедура является обязательной для конструктора форм Windows Forms
-    'Для ее изменения используйте конструктор форм Windows Form.  
-    'Не изменяйте ее в редакторе исходного кода.
+    'Note: The following procedure is required for Windows Forms Designer
+    'To change it, use the Windows Form Designer. 
+    'Do not change it in the source code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.cmbText = New System.Windows.Forms.ComboBox()
@@ -62,7 +62,7 @@ Partial Class dlgIntellInput
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Ввод текста с переходом по ячейкам"
+        Me.Text = "Entering text by moving through cells"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

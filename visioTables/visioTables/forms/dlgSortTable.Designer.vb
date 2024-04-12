@@ -2,7 +2,7 @@
 Partial Class dlgSortTable
     Inherits System.Windows.Forms.Form
 
-    'Форма переопределяет dispose для очистки списка компонентов.
+    'The form overrides dispose to clear the list of components.
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
@@ -14,12 +14,12 @@ Partial Class dlgSortTable
         End Try
     End Sub
 
-    'Является обязательной для конструктора форм Windows Forms
+    'Required for Windows Forms Form Designer
     Private components As System.ComponentModel.IContainer
 
-    'Примечание: следующая процедура является обязательной для конструктора форм Windows Forms
-    'Для ее изменения используйте конструктор форм Windows Form.  
-    'Не изменяйте ее в редакторе исходного кода.
+    'Note: The following procedure is required for Windows Forms Designer
+    'To change it, use the Windows Form Designer. 
+    'Do not change it in the source code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -38,7 +38,7 @@ Partial Class dlgSortTable
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(181, 13)
         Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Целевой столбец для сортировки:"
+        Me.Label1.Text = "Target column for sorting:"
         '
         'cb_SortingDirection
         '
@@ -47,7 +47,7 @@ Partial Class dlgSortTable
         Me.cb_SortingDirection.Name = "cb_SortingDirection"
         Me.cb_SortingDirection.Size = New System.Drawing.Size(160, 17)
         Me.cb_SortingDirection.TabIndex = 1
-        Me.cb_SortingDirection.Text = "Сортировать по убыванию"
+        Me.cb_SortingDirection.Text = "Sort descending"
         Me.cb_SortingDirection.UseVisualStyleBackColor = True
         '
         'cb_DigitOrText
@@ -57,7 +57,7 @@ Partial Class dlgSortTable
         Me.cb_DigitOrText.Name = "cb_DigitOrText"
         Me.cb_DigitOrText.Size = New System.Drawing.Size(205, 17)
         Me.cb_DigitOrText.TabIndex = 2
-        Me.cb_DigitOrText.Text = "Сортировать как числовые данные"
+        Me.cb_DigitOrText.Text = "Sort as numeric data"
         Me.cb_DigitOrText.UseVisualStyleBackColor = True
         '
         'Num_Column
@@ -86,7 +86,7 @@ Partial Class dlgSortTable
         Me.btn_Cancel.Name = "btn_Cancel"
         Me.btn_Cancel.Size = New System.Drawing.Size(75, 23)
         Me.btn_Cancel.TabIndex = 5
-        Me.btn_Cancel.Text = "Закрыть"
+        Me.btn_Cancel.Text = "Cancel"
         Me.btn_Cancel.UseVisualStyleBackColor = True
         '
         'dlgSortTable
@@ -106,7 +106,7 @@ Partial Class dlgSortTable
         Me.MinimizeBox = False
         Me.Name = "dlgSortTable"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Сортировка данных"
+        Me.Text = "Sorting data"
         CType(Me.Num_Column, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()

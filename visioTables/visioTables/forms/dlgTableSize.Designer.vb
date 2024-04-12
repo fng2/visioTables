@@ -2,7 +2,7 @@
 Partial Class dlgTableSize
     Inherits System.Windows.Forms.Form
 
-    'Форма переопределяет dispose для очистки списка компонентов.
+    'The form overrides dispose to clear the list of components.
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
@@ -14,12 +14,12 @@ Partial Class dlgTableSize
         End Try
     End Sub
 
-    'Является обязательной для конструктора форм Windows Forms
+    'Required for Windows Forms Form Designer
     Private components As System.ComponentModel.IContainer
 
-    'Примечание: следующая процедура является обязательной для конструктора форм Windows Forms
-    'Для ее изменения используйте конструктор форм Windows Form.  
-    'Не изменяйте ее в редакторе исходного кода.
+    'Note: The following procedure is required for Windows Forms Designer
+    'To change it, use the Windows Form Designer.  
+    'Do not change it in the source code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
@@ -96,7 +96,7 @@ Partial Class dlgTableSize
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
         Me.TabPage1.Size = New System.Drawing.Size(305, 229)
         Me.TabPage1.TabIndex = 0
-        Me.TabPage1.Text = "Размеры"
+        Me.TabPage1.Text = "Dimensions"
         '
         'ckbToHeightPage
         '
@@ -105,7 +105,7 @@ Partial Class dlgTableSize
         Me.ckbToHeightPage.Name = "ckbToHeightPage"
         Me.ckbToHeightPage.Size = New System.Drawing.Size(156, 17)
         Me.ckbToHeightPage.TabIndex = 16
-        Me.ckbToHeightPage.Text = "Таблица по высоте листа"
+        Me.ckbToHeightPage.Text = "Sheet height table"
         Me.ckbToHeightPage.UseVisualStyleBackColor = True
         '
         'lblTableHDim
@@ -131,7 +131,7 @@ Partial Class dlgTableSize
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(91, 13)
         Me.Label6.TabIndex = 13
-        Me.Label6.Text = "Высота таблицы"
+        Me.Label6.Text = "Table height"
         '
         'ckbToWidthPage
         '
@@ -140,7 +140,7 @@ Partial Class dlgTableSize
         Me.ckbToWidthPage.Name = "ckbToWidthPage"
         Me.ckbToWidthPage.Size = New System.Drawing.Size(157, 17)
         Me.ckbToWidthPage.TabIndex = 12
-        Me.ckbToWidthPage.Text = "Таблица по ширине листа"
+        Me.ckbToWidthPage.Text = "Sheet width table"
         Me.ckbToWidthPage.UseVisualStyleBackColor = True
         '
         'lblTableLDim
@@ -166,7 +166,7 @@ Partial Class dlgTableSize
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(92, 13)
         Me.Label8.TabIndex = 8
-        Me.Label8.Text = "Ширина таблицы"
+        Me.Label8.Text = "Table width"
         '
         'lblCellHDim
         '
@@ -191,7 +191,7 @@ Partial Class dlgTableSize
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(83, 13)
         Me.Label4.TabIndex = 5
-        Me.Label4.Text = "Высота строки"
+        Me.Label4.Text = "Line height"
         '
         'ckbWithActivateCell
         '
@@ -202,7 +202,7 @@ Partial Class dlgTableSize
         Me.ckbWithActivateCell.Name = "ckbWithActivateCell"
         Me.ckbWithActivateCell.Size = New System.Drawing.Size(216, 17)
         Me.ckbWithActivateCell.TabIndex = 4
-        Me.ckbWithActivateCell.Text = "Только выделенные строки/столбцы"
+        Me.ckbWithActivateCell.Text = "Selected rows/columns only"
         Me.ckbWithActivateCell.UseVisualStyleBackColor = True
         '
         'lblCellLDim
@@ -228,7 +228,7 @@ Partial Class dlgTableSize
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(90, 13)
         Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Ширина столбца"
+        Me.Label1.Text = "Column width"
         '
         'TabPage2
         '
@@ -240,7 +240,7 @@ Partial Class dlgTableSize
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
         Me.TabPage2.Size = New System.Drawing.Size(305, 229)
         Me.TabPage2.TabIndex = 1
-        Me.TabPage2.Text = "Авторазмеры"
+        Me.TabPage2.Text = "Autodimensions"
         '
         'GroupBox2
         '
@@ -253,7 +253,7 @@ Partial Class dlgTableSize
         Me.GroupBox2.Size = New System.Drawing.Size(293, 100)
         Me.GroupBox2.TabIndex = 4
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = " Высота "
+        Me.GroupBox2.Text = "Height"
         '
         'optAllHeightLock
         '
@@ -263,7 +263,7 @@ Partial Class dlgTableSize
         Me.optAllHeightLock.Size = New System.Drawing.Size(103, 17)
         Me.optAllHeightLock.TabIndex = 3
         Me.optAllHeightLock.TabStop = True
-        Me.optAllHeightLock.Text = "Заблокировать"
+        Me.optAllHeightLock.Text = "Block"
         Me.optAllHeightLock.UseVisualStyleBackColor = True
         '
         'optAllHeightAuto
@@ -274,7 +274,7 @@ Partial Class dlgTableSize
         Me.optAllHeightAuto.Size = New System.Drawing.Size(49, 17)
         Me.optAllHeightAuto.TabIndex = 2
         Me.optAllHeightAuto.TabStop = True
-        Me.optAllHeightAuto.Text = "Авто"
+        Me.optAllHeightAuto.Text = "Auto"
         Me.optAllHeightAuto.UseVisualStyleBackColor = True
         '
         'ckbOnlySelectH
@@ -284,7 +284,7 @@ Partial Class dlgTableSize
         Me.ckbOnlySelectH.Name = "ckbOnlySelectH"
         Me.ckbOnlySelectH.Size = New System.Drawing.Size(130, 17)
         Me.ckbOnlySelectH.TabIndex = 1
-        Me.ckbOnlySelectH.Text = "Только выделенные"
+        Me.ckbOnlySelectH.Text = "Selected only"
         Me.ckbOnlySelectH.UseVisualStyleBackColor = True
         '
         'ckbAllHeight
@@ -296,7 +296,7 @@ Partial Class dlgTableSize
         Me.ckbAllHeight.Name = "ckbAllHeight"
         Me.ckbAllHeight.Size = New System.Drawing.Size(175, 17)
         Me.ckbAllHeight.TabIndex = 0
-        Me.ckbAllHeight.Text = "Все строки по высоте текста"
+        Me.ckbAllHeight.Text = "All lines at text height"
         Me.ckbAllHeight.UseVisualStyleBackColor = True
         '
         'GroupBox1
@@ -311,7 +311,7 @@ Partial Class dlgTableSize
         Me.GroupBox1.Size = New System.Drawing.Size(293, 100)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = " Ширина "
+        Me.GroupBox1.Text = "Width"
         '
         'optAllWidthLock
         '
@@ -321,7 +321,7 @@ Partial Class dlgTableSize
         Me.optAllWidthLock.Size = New System.Drawing.Size(103, 17)
         Me.optAllWidthLock.TabIndex = 3
         Me.optAllWidthLock.TabStop = True
-        Me.optAllWidthLock.Text = "Заблокировать"
+        Me.optAllWidthLock.Text = "Block"
         Me.optAllWidthLock.UseVisualStyleBackColor = True
         '
         'optAllWidthAuto
@@ -332,7 +332,7 @@ Partial Class dlgTableSize
         Me.optAllWidthAuto.Size = New System.Drawing.Size(49, 17)
         Me.optAllWidthAuto.TabIndex = 2
         Me.optAllWidthAuto.TabStop = True
-        Me.optAllWidthAuto.Text = "Авто"
+        Me.optAllWidthAuto.Text = "Auto"
         Me.optAllWidthAuto.UseVisualStyleBackColor = True
         '
         'ckbOnlySelectW
@@ -342,7 +342,7 @@ Partial Class dlgTableSize
         Me.ckbOnlySelectW.Name = "ckbOnlySelectW"
         Me.ckbOnlySelectW.Size = New System.Drawing.Size(130, 17)
         Me.ckbOnlySelectW.TabIndex = 1
-        Me.ckbOnlySelectW.Text = "Только выделенные"
+        Me.ckbOnlySelectW.Text = "Selected only"
         Me.ckbOnlySelectW.UseVisualStyleBackColor = True
         '
         'ckbAllWidth
@@ -354,7 +354,7 @@ Partial Class dlgTableSize
         Me.ckbAllWidth.Name = "ckbAllWidth"
         Me.ckbAllWidth.Size = New System.Drawing.Size(184, 17)
         Me.ckbAllWidth.TabIndex = 0
-        Me.ckbAllWidth.Text = "Все столбцы по ширине текста"
+        Me.ckbAllWidth.Text = "All columns are text-width"
         Me.ckbAllWidth.UseVisualStyleBackColor = True
         '
         'TableLayoutPanel1
@@ -392,7 +392,7 @@ Partial Class dlgTableSize
         Me.Cancel_Button.Name = "Cancel_Button"
         Me.Cancel_Button.Size = New System.Drawing.Size(67, 23)
         Me.Cancel_Button.TabIndex = 13
-        Me.Cancel_Button.Text = "Отмена"
+        Me.Cancel_Button.Text = "Cancel"
         '
         'dlgTableSize
         '
@@ -409,7 +409,7 @@ Partial Class dlgTableSize
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Настройка размеров"
+        Me.Text = "Sizing settings"
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
