@@ -12,7 +12,7 @@ Module SpecialTables
         Dim dlg_DataRow As DataRow
 
         Try
-            MsgBox("makeBomTable2")
+            'MsgBox("makeBomTable2")
             _PartsDataTable.Clear()
             If Not _PartsDataTable.Columns.Contains("Item") Then
                 _PartsDataTable.Columns.Add("Item", Type.GetType("System.String"))
@@ -50,7 +50,7 @@ Module SpecialTables
             dlg_DataRow("Kit") = "megawidgetKit"
             dlg_DataRow("Description") = "this is a mega widget"
             _PartsDataTable.Rows.Add(dlg_DataRow)
-            MsgBox("done with makeBomTable2")
+            'MsgBox("done with makeBomTable2")
         Catch ex As Exception
             MsgBox("error making data table")
         End Try
@@ -103,7 +103,7 @@ Module SpecialTables
 
 
         Try
-            MsgBox("in makeBomTablex")
+            'MsgBox("in makeBomTablex")
             _PartsDataTable.Clear()
             If Not _PartsDataTable.Columns.Contains("Item") Then
                 _PartsDataTable.Columns.Add("Item", Type.GetType("System.String"))
@@ -141,7 +141,7 @@ Module SpecialTables
             dlg_DataRow("Kit") = "megawidgetKit"
             dlg_DataRow("Description") = "this is a mega widget"
             _PartsDataTable.Rows.Add(dlg_DataRow)
-            MsgBox("done with makeBomTablex")
+            'MsgBox("done with makeBomTablex")
             'Catch ex As Exception
             '    MsgBox("error making data table")
             'End Try
@@ -263,7 +263,7 @@ Module SpecialTables
             If Not vsoSel Is Nothing Then
                 If vsoSel.Count > 2 Then
                     Globals.ThisAddIn.Application.ActiveWindow.Selection = vsoSel
-                    MsgBox("cells selected = " & Globals.ThisAddIn.Application.ActiveWindow.Selection.Count)
+                    'MsgBox("cells selected = " & Globals.ThisAddIn.Application.ActiveWindow.Selection.Count)
                     IntDeIntCells()
                 End If
                 Globals.ThisAddIn.Application.ActiveWindow.DeselectAll()
@@ -276,10 +276,6 @@ Module SpecialTables
         NewTable = Nothing
         _PartsDataTable = Nothing
 
-    End Sub
-
-    Public Sub noBOM()
-        MsgBox("this works")
     End Sub
 
 End Module

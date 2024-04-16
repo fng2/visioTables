@@ -37,8 +37,8 @@ Partial Public Class ThisAddIn
 
         'new
         Select Case commandId
-            Case "btn_newtable" : CreatingTable.Load_dlgNewTable() : Return
-            Case "btn_lockpicture" : LoadDlg(5) : Return
+            Case "btn_newtable" : CreatingTable.Load_dlgNewTable() : Return 'label="New table"
+            Case "btn_lockpicture" : LoadDlg(5) : Return 'New dlgPictures, label="Lock shapes"
             Case "btn_help" : CallHelp() : Return
             Case "btn_debug" : BOM() : Return
         End Select
@@ -46,32 +46,32 @@ Partial Public Class ThisAddIn
         If Not CheckSelCells() Then Exit Sub
 
         Select Case commandId
-            Case "btn_newcolumnbefore", "btn_newcolumnafter" : AddColumns(commandTag)
-            Case "btn_newrowbefore", "btn_newrowafter" : AddRows(commandTag)
-            Case "btn_onwidth" : AllAlignOnText(True, False, 0, 0, True, True)
-            Case "btn_onheight" : AllAlignOnText(False, True, 0, 0, True, True)
-            Case "btn_onwidthheight" : AllAlignOnText(True, True, 0, 0, False, False)
-            Case "btn_seltable", "btn_selrange", "btn_selcolumn", "btn_selrow" : SelCell(commandTag)
-            Case "btn_seltxt", "btn_selnum", "btn_selnotnum", "btn_seldate", "btn_selempty", "btn_selnotempty", "btn_selinvert" : SelInContent(commandTag)
-            Case "btn_text", "btn_date", "btn_time", "btn_comment", "btn_numcol", "btn_numrow" : InsertText(commandTag)
-            Case "btn_intdeint" : IntDeIntCells()
-            Case "btn_gut" : GutT()
-            Case "btn_copy" : CopyT()
-            Case "btn_paste" : PasteT()
-            Case "btn_delcolumn" : DelColRows(0)
-            Case "btn_delrow" : DelColRows(1)
-            Case "btn_deltable" : DelTab(True)
-            Case "btn_intellinput" : LoadDlg(4)
-            Case "btn_sizeonwidth", "btn_sizeonheight" : AlignOnSize(commandTag) 'which one? edit table or creating table?
-            Case "btn_size" : LoadDlg(0)
-            Case "btn_autosize" : LoadDlg(1)
-            Case "btn_sorttabledata" : LoadDlg(7)
-            Case "btn_fromfile" : LoadDlg(2)
-            Case "btn_dropdownlist" : LoadDlg(6)
-            Case "btn_altlinesrow", "btn_altlinescol" : AlternatLines(commandTag)
-            Case "btn_extdata" : LoadDlg(3)
-            Case "btn_rotatetext" : AllRotateText()
-            Case "btn_convert1Shape" : ConvertInto1Shape()
+            Case "btn_newcolumnbefore", "btn_newcolumnafter" : AddColumns(commandTag) 'label="Column left, label="Column right
+            Case "btn_newrowbefore", "btn_newrowafter" : AddRows(commandTag) 'label="Row above, label="Row below
+            Case "btn_onwidth" : AllAlignOnText(True, False, 0, 0, True, True) 'label="By text width
+            Case "btn_onheight" : AllAlignOnText(False, True, 0, 0, True, True) 'label="By text height
+            Case "btn_onwidthheight" : AllAlignOnText(True, True, 0, 0, False, False) 'label="Automatic selection by text
+            Case "btn_seltable", "btn_selrange", "btn_selcolumn", "btn_selrow" : SelCell(commandTag) 'label="Range
+            Case "btn_seltxt", "btn_selnum", "btn_selnotnum", "btn_seldate", "btn_selempty", "btn_selnotempty", "btn_selinvert" : SelInContent(commandTag) 'label="Select values, label="Select Not values, label="Select dates, label="Select empty, label="Select Not empty
+            Case "btn_text", "btn_date", "btn_time", "btn_comment", "btn_numcol", "btn_numrow" : InsertText(commandTag) 'label="Date", label="Time", label="A comment", label="Column number", label="Line number"
+            Case "btn_intdeint" : IntDeIntCells() 'label="Merge/Disconnect"
+            Case "btn_gut" : GutT() 'label="Cut"
+            Case "btn_copy" : CopyT() 'label="Copy"
+            Case "btn_paste" : PasteT() 'label="Insert"
+            Case "btn_delcolumn" : DelColRows(0) 'label="Column"
+            Case "btn_delrow" : DelColRows(1) 'label="Line"
+            Case "btn_deltable" : DelTab(True) 'label="Delete table"
+            Case "btn_intellinput" : LoadDlg(4) 'New dlgIntellInput, label="Intelligence set"
+            Case "btn_sizeonwidth", "btn_sizeonheight" : AlignOnSize(commandTag) 'label="Align column widths"
+            Case "btn_size" : LoadDlg(0) 'New dlgTableSize, label="Dimensions"
+            Case "btn_autosize" : LoadDlg(1) 'New dlgTableSize, label="Autodimensions" 
+            Case "btn_sorttabledata" : LoadDlg(7) 'New dlgSortTable, label="Sort data"
+            Case "btn_fromfile" : LoadDlg(2) 'New dlgFromFile, label="Insert from file"
+            Case "btn_dropdownlist" : LoadDlg(6) 'New dlgSelectFromList, label="Insert from the list"
+            Case "btn_altlinesrow", "btn_altlinescol" : AlternatLines(commandTag) 'label="Alternate lines"
+            Case "btn_extdata" : LoadDlg(3) ' New dlgLinkData, label="External data"
+            Case "btn_rotatetext" : AllRotateText() 'label="Rotate text"
+            Case "btn_convert1Shape" : ConvertInto1Shape() 'label="Convert to 1 shape"
         End Select
     End Sub
 
