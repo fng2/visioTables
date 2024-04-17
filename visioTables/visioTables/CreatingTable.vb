@@ -4,6 +4,11 @@ Imports System.Windows.Forms
 Imports visio = Microsoft.Office.Interop.Visio
 
 
+Imports System.Data
+Imports System.Data.OleDb
+
+
+
 Module CreatingTable
 
 #Region "LIST OF VARIABLES AND CONSTANTS"
@@ -55,24 +60,31 @@ Module CreatingTable
     Sub LoadDlg(arg)
         Dim dlgNew As System.Windows.Forms.Form = Nothing
 
-        Select Case arg
-            Case 0, 1 : FlagPage = arg : dlgNew = New dlgTableSize
-            Case 2 : dlgNew = New dlgFromFile
-            Case 3
-                If vsoApp.ActiveDocument.DataRecordsets.Count = 0 Then
-                    MsgBox("There are no external data connections available in the active document.", vbCritical, "Error")
-                    GoTo err
-                End If
-                dlgNew = New dlgLinkData
-            Case 4 : dlgNew = New dlgIntellInput
-            Case 5 : dlgNew = New dlgPictures
-            Case 6 : dlgNew = New dlgSelectFromList
-			case 7 : dlgNew = New dlgSortTable
-        End Select
+        Try
+            Select Case arg
+                Case 0, 1 : FlagPage = arg : dlgNew = New dlgTableSize
+                Case 2 : dlgNew = New dlgFromFile
+                Case 3
+                    If vsoApp.ActiveDocument.DataRecordsets.Count = 0 Then '<-bombs here "This operation Is Not supported in Microsoft Visio Standard 2010."
+                        MsgBox("There are no external data connections available in the active document.", vbCritical, "Error")
+                        'GoTo err
+                    End If
+                    dlgNew = New dlgLinkData
+                Case 4 : dlgNew = New dlgIntellInput
+                Case 5 : dlgNew = New dlgPictures
+                Case 6 : dlgNew = New dlgSelectFromList
+                Case 7 : dlgNew = New dlgSortTable
+            End Select
 
-        dlgNew.ShowDialog()
-err:
-        dlgNew = Nothing
+            dlgNew.ShowDialog()
+            dlgNew = Nothing
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
+
+        'err:
+        'dlgNew = Nothing
     End Sub
 
 #End Region
@@ -346,7 +358,7 @@ err:
 
     Sub AlignOnSize(arg As Byte)
 
-        MsgBox("alignOnSize in create table")
+        ' MsgBox("alignOnSize in create table")
 
         Call InitArrShapeID(NT)
 
