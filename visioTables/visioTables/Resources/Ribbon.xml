@@ -189,7 +189,6 @@
           <separator  id="separator2"/>
           <button id="btn_help" size="large" label="Reference" imageMso="Help" onAction="OnRibbonButtonClick" screentip="Reference" supertip ="Open help file"/>
           <separator  id="separator3"/>
-          <button id="btn_debug" size="large" label="Debug" imageMso="Help" onAction="OnRibbonButtonClick" screentip="Debug" supertip ="Debug"/>
         </group>
       </tab>
     </tabs>

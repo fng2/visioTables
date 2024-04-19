@@ -40,7 +40,6 @@ Partial Public Class ThisAddIn
             Case "btn_newtable" : CreatingTable.Load_dlgNewTable() : Return 'label="New table"
             Case "btn_lockpicture" : LoadDlg(5) : Return 'New dlgPictures, label="Lock shapes"
             Case "btn_help" : CallHelp() : Return
-            Case "btn_debug" : BOM() : Return
         End Select
 
         If Not CheckSelCells() Then Exit Sub

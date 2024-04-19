@@ -74,10 +74,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>visioTables_1_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>visioTables_2_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>DC37E318D0FCBC2B77B0DF283BC75CDBDC8D0911</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>80D30CF0ED96AE290CB19D551A5F17270B338FD1</ManifestCertificateThumbprint>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -160,7 +160,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
-    <Compile Include="SpecialTables.vb" />
     <Compile Include="ThisAddIn.vb">
       <SubType>Code</SubType>
     </Compile>
@@ -175,6 +174,7 @@
       <DependentUpon>Application.myapp</DependentUpon>
     </Compile>
     <None Include="visioTables_1_TemporaryKey.pfx" />
+    <None Include="visioTables_2_TemporaryKey.pfx" />
     <None Include="visioTables_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

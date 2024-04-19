@@ -72,7 +72,6 @@ Public Interface IClassVBA
     Sub DeleteColumn()
     Sub DeleteRow()
     Sub DeleteTable(arg As Boolean)
-    Sub test()
 
 End Interface
 
@@ -380,23 +379,7 @@ Public Class ClassVBA
 
 #Region "Methods"
 
-    'Add-in Methods =========================================================================================
-
-    Public Sub test() Implements IClassVBA.test
-        'when stepping into code from VE the messagebox executes
-        'MsgBox("classVBA")
-
-        'Call noBOM()
-        Call BOM()
-
-        'but execution stops when declaring variable
-        'Dim NewTable As New VisioTable
-        'NewTable.CreatTable("BOM", 1, 6, 4, 1, 0.5, 1, 1, True, True)
-        'NewTable = Nothing
-        'Exception thrown 'System.NullReferenceException' in visioTables.dll
-        'Exception thrown 'System.Reflection.TargetInvocationException' in mscorlib.dll
-
-    End Sub
+    'Add-in Methods ========================================================================================
 
     ' Creating a new table on the active worksheet
     Public Sub AddTable(a As String, b As Byte, c As Integer, d As Integer, e As Single, f As Single, g As Single, h As Single, i As Boolean, j As Boolean) Implements IClassVBA.AddTable
