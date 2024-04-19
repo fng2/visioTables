@@ -174,8 +174,6 @@
       <DependentUpon>Application.myapp</DependentUpon>
     </Compile>
     <None Include="visioTables_1_TemporaryKey.pfx" />
-    <None Include="visioTables_2_TemporaryKey.pfx" />
-    <None Include="visioTables_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ThisAddIn.Designer.xml">
