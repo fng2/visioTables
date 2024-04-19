@@ -2,14 +2,11 @@
 <customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui" onLoad="OnRibbonLoad">
   <ribbon startFromScratch="false">
     <tabs>
-      <!--<tab idMso="TabInsert">
-        <group id="group_table" label="Tables">
-
-        </group>
-      </tab>-->
       <tab id="table1" label="Tables" getVisible="IsRibbonCommandEnabled">
         <group id="group_add" label="Insert" imageMso="TableInsert">
-          <gallery id="gal1" label="Table 1 click"  size="large" imageMso="TableInsert" showItemLabel="false" itemWidth="16" itemHeight="16" onAction="OnRibbonGalleryClick" screentip="Quick table" supertip ="Select the table dimension and circle the desired area">
+          <!--
+           -->
+          <gallery id="gal1" label="Table 1 click"  size="large" imageMso="TableInsert" showItemLabel="false" itemWidth="16" itemHeight="16" onAction="OnRibbonGalleryClick" screentip="Quick table" supertip ="Select the table dimension  and circle the desired area">
                 <item id="i1x1" imageMso="AppointmentColor0" label="1x1"/>
                 <item id="i2x1" imageMso="AppointmentColor0" label="2x1"/>
                 <item id="i3x1" imageMso="AppointmentColor0" label="3x1"/>
@@ -110,8 +107,8 @@
                 <item id="i8x10" imageMso="AppointmentColor0" label="8x10"/>
                 <item id="i9x10" imageMso="AppointmentColor0" label="9x10"/>
                 <item id="i10x10" imageMso="AppointmentColor0" label="10x10"/>
-            <button id="btn_dick" label="New table" onAction="OnRibbonButtonClick"/>
               </gallery>
+         
           <button id="btn_newtable" label="New table" size="normal" imageMso="TableInsert" onAction="OnRibbonButtonClick" screentip="Creating a table" supertip ="Calling the dialog box to create a new table"/>
           <splitButton id="split_newcol" size="normal">
             <button id="btn_newcolumnbefore" label="Column left" imageMso="TableColumnsInsertLeft" onAction="OnRibbonButtonClick" tag="0" screentip="Adding a Column" supertip ="Adding a new column to the active table"/>

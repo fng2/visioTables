@@ -50,6 +50,12 @@ Public Partial Class AddinUI
         Return Globals.ThisAddIn.GetCommandBitmap(control.Id)
     End Function
 
+    Public Sub OnRibbonGalleryClick(control As Microsoft.Office.Core.IRibbonControl, id As String, index As Integer)
+        AddHandler Globals.ThisAddIn.Application.ShapeAdded, AddressOf Globals.ThisAddIn.Application_ShapeAdded
+        Matrica = Strings.Right(id, Strings.Len(id) - 1)
+        Globals.ThisAddIn.Application.DoCmd(1223)
+    End Sub
+
 #End Region
 
     Public Sub UpdateRibbon()
